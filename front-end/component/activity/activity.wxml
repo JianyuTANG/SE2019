@@ -1,0 +1,18 @@
+<view class="activity-container">
+    <view class = "activity">
+        <view>
+        <text>{{type}}</text>
+        </view>
+        <view>
+            <view><text >{{title}}</text></view>
+            <view><text>{{author}}</text></view>
+            <view><text>{{date}}</text></view>
+            <view><text>当前人数{{curPeople}}人:目标人数{{tarPeople}}人</text></view>
+            <view><switch bindchange="toggleExtra"></switch></view>
+            <view wx:if="{{collapsed}}">
+                <text> test</text>
+                <button catchtap="readmore"> read more</button>
+            </view>
+        </view>
+    </view>
+</view>

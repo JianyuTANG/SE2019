@@ -1,0 +1,19 @@
+<view>
+<view class="container">
+    <view class="content-container">
+        <view class="icon-container">
+            <image class="icon" src="{{iconSrc}}" />
+        </view>
+        <view class="title-container">
+            <text>{{title}}</text>
+        </view>
+    </view>
+    <view class="debug">
+        <button class="button" hover-class="button-hover" bindtap="readmore">
+            <view style="background-color:rgba(0,0,0,0)">
+            <text> ></text>
+            </view>
+        </button>
+    </view>
+</view>
+</view>
