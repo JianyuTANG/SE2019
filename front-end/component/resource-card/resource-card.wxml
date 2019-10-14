@@ -1,0 +1,22 @@
+<view class='background'>
+<view class="container">
+    <text class="title-line"> {{title}} </text>
+    
+    <text >{{content}}</text>
+    
+    <view class="icon-line">
+    <image src="{{contactIcon}}" />
+    <text>联系人:{{contact}} </text>
+    </view>
+
+    <view class="icon-line">
+    <image src="{{telephoneIcon}}" />
+    <text>电话:{{telephone}} </text>
+    </view>
+
+    <view class="icon-line">
+    <image src="{{emailIcon}}" />
+    <text>邮箱:{{email}} </text>
+    </view>
+</view>
+</view>

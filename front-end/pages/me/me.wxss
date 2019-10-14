@@ -8,7 +8,7 @@
 }
 
 .debug-bg{
-    background-color: rgba(204, 121, 207, 0.726);
+    background-color: #eef1f9;
 }
 
 .debug-bg view{
