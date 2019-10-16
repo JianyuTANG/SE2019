@@ -2,6 +2,8 @@
 <view class="resource-background">
 <view wx:for="{{resourceList}}"  class = "resource-card">
 <resource-card 
+            data-id="{{item.id}}"
+            bind:readmore="readmore"
             imageSrc="{{item.imageSrc}}"
             qualification="{{item.qualification}}"
             title="{{item.title}}" 

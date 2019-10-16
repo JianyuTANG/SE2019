@@ -2,7 +2,8 @@
   "pages": [
     "pages/resource/resource",
     "pages/me/me",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/resource/detail"
   ],
   "window": {
     "backgroundTextStyle": "light",
