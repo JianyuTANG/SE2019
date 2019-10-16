@@ -1,10 +1,15 @@
 <mp-tabbar ext-class="tabbar-item" style="" list="{{list}}" bindchange="tabChange"></mp-tabbar>
 <view class="resource-background">
 <view wx:for="{{resourceList}}"  class = "resource-card">
-<resource-card title="{{item.title}}" 
+<resource-card 
+            imageSrc="{{item.imageSrc}}"
+            qualification="{{item.qualification}}"
+            title="{{item.title}}" 
             content="{{item.content}}"
             contact="{{item.contact}}"
             telephone="{{item.telephone}}"
-            email="{{item.email}}"></resource-card>
+            email="{{item.email}}"
+            startDate="{{item.startDate}}"
+            endDate="{{item.endDate}}"></resource-card>
 </view>
 </view>
