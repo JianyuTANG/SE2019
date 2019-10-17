@@ -1,4 +1,9 @@
 <mp-tabbar ext-class="tabbar-item" style="" list="{{list}}" bindchange="tabChange"></mp-tabbar>
+<button class="add-button" catchtap="addResource">
+    <view style="display:flex; align-items: center; justify-content: center; height:100%">
+    <text>+</text>
+    </view>
+</button>
 <view class="resource-background">
 <view wx:for="{{resourceList}}"  class = "resource-card">
 <resource-card 

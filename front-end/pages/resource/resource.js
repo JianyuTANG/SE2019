@@ -146,6 +146,12 @@ Page({
     })
   },
 
+  addResource: function (e) {
+    wx.navigateTo({
+      url: '/pages/resource/add'
+    })
+  },
+
   tabChange: function (e) {
     let index = e.detail.index
     switch (index) {

@@ -19,6 +19,24 @@
 
 }
 
+.add-button{
+    position: fixed;
+    bottom: 50rpx;
+    right: 50rpx;
+    height: 100rpx;
+    width: 100rpx;
+    padding: 0;
+
+    background-color: green!important;
+    border-radius: 50%;
+
+    font-size: 60rpx;
+    color: white;
+    text-align: center;
+
+}
+
+
 page{
     background: #eef1f9;
 }

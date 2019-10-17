@@ -1,9 +1,12 @@
 {
   "pages": [
+
     "pages/resource/resource",
     "pages/me/me",
     "pages/index/index",
-    "pages/resource/detail"
+    "pages/resource/detail",
+    "pages/resource/add"
+
   ],
   "window": {
     "backgroundTextStyle": "light",

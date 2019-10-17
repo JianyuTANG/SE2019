@@ -14,7 +14,7 @@
 <text >发起人:{{contact}}</text>
 <text >联系方式:{{telephone}}</text>
 <text >邮箱:{{email}}</text>
-<text >活动限定人员:{{qualification}}</text>
+<text >限定人员:{{qualification}}</text>
 <text >发起日期:{{startDate}}</text>
 <text >截止日期:{{endDate}}</text>
 <image src="{{imageSrc}}" />
