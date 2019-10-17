@@ -48,7 +48,7 @@ Component({
 
   methods: {
     readmore: function () {
-      console.log('readmore')
+      // console.log('readmore')
       // console.log(this.data.imageSrc)
       this.triggerEvent('readmore')
     }

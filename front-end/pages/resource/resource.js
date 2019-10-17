@@ -45,7 +45,7 @@ Page({
       qualification: 'qua',
       startDate: '10/1',
       endDate: '10/23',
-      imageSrc: "/assets/activity.png"
+      imageSrc: '/assets/activity.png'
     }, {
       id: '4',
       title: '国内清华校友总会生命科学...',
@@ -56,7 +56,7 @@ Page({
       qualification: 'qua',
       startDate: '10/1',
       endDate: '10/23',
-      imageSrc: "/assets/activity.png"
+      imageSrc: '/assets/activity.png'
     }],
     overseasList: [{
       id: '5',
@@ -68,7 +68,7 @@ Page({
       qualification: 'qua',
       startDate: '10/1',
       endDate: '10/23',
-      imageSrc: "/assets/activity.png"
+      imageSrc: '/assets/activity.png'
     }, {
       id: '6',
       title: '海外清华校友总会生命科学...',
@@ -79,7 +79,7 @@ Page({
       qualification: 'qua',
       startDate: '10/1',
       endDate: '10/23',
-      imageSrc: "/assets/activity.png"
+      imageSrc: '/assets/activity.png'
     }],
     interestList: [{
       id: '7',
@@ -128,10 +128,18 @@ Page({
     this.setData({
       resourceList: this.data.facultyList
     })
+    // 以下用本地存储模拟从服务器获取信息
+    let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
+
+    for (let list of lists) {
+      for (let item of list) {
+        let resourceId = 'resource' + item.id
+        wx.setStorageSync(resourceId, item)
+      }
+    }
   },
 
-  readmore: function(e){
-    console.log(e)
+  readmore: function (e) {
     let detailId = e.currentTarget.dataset.id
     wx.navigateTo({
       url: '/pages/resource/detail?detailId=' + detailId
@@ -139,7 +147,6 @@ Page({
   },
 
   tabChange: function (e) {
-    console.log(e)
     let index = e.detail.index
     switch (index) {
       case 0:
