@@ -1,51 +1,53 @@
 {
-  "pages": [
+    "pages": [
 
-    "pages/resource/resource",
-    "pages/me/me",
-    "pages/index/index",
-    "pages/resource/detail",
-    "pages/resource/add"
+        "pages/resource/resource",
+        "pages/me/me",
+        "pages/index/index",
+        "pages/resource/detail",
+        "pages/resource/add",
+        "pages/groups/groups",
+        "pages/group_info/group_info",
+        "pages/group_member_info/group_member_info"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "WeChat",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "color": "#9B9B9B",
+        "selectedColor": "#7ED321",
+        "backgroundColor": "#F8F8F8",
+        "borderStyle": "black",
+        "list": [{
+                "pagePath": "pages/groups/groups",
+                "text": "广场",
 
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
-  },
-  "tabBar": {
-    "color": "#9B9B9B",
-    "selectedColor": "#7ED321",
-    "backgroundColor": "#F8F8F8",
-    "borderStyle": "black",
-    "list": [
-      {
-        "pagePath": "pages/index/index",
-        "text": "广场",
-        "iconPath": "assets/square.png",
-        "selectedIconPath": "assets/square-active.png"
-      },
-      {
-        "pagePath": "pages/index/index",
-        "text": "活动",
-        "iconPath": "assets/activity.png",
-        "selectedIconPath": "assets/activity-active.png"
-      },
-      {
-        "pagePath": "pages/resource/resource",
-        "text": "资源",
-        "iconPath": "assets/resource.png",
-        "selectedIconPath": "assets/resource-active.png"
-      },
-      {
-        "pagePath": "pages/me/me",
-        "text": "我的",
-        "iconPath": "assets/me.png",
-        "selectedIconPath": "assets/me-active.png"
-      }
-    ]
-  },
+                "iconPath": "assets/square.png",
+                "selectedIconPath": "assets/square-active.png"
+            },
+            {
+                "pagePath": "pages/index/index",
+                "text": "活动",
+                "iconPath": "assets/activity.png",
+                "selectedIconPath": "assets/activity-active.png"
+            },
+            {
+                "pagePath": "pages/resource/resource",
+                "text": "资源",
+                "iconPath": "assets/resource.png",
+                "selectedIconPath": "assets/resource-active.png"
+            },
+            {
+                "pagePath": "pages/me/me",
+                "text": "我的",
+                "iconPath": "assets/me.png",
+                "selectedIconPath": "assets/me-active.png"
+            }
+        ]
+    },
 
-  "sitemapLocation": "sitemap7.json"
+    "sitemapLocation": "sitemap7.json"
 }

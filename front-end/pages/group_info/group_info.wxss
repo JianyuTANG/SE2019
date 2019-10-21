@@ -19,24 +19,6 @@
 
 }
 
-.add-button{
-    position: fixed;
-    bottom: 50rpx;
-    right: 50rpx;
-    height: 100rpx;
-    width: 100rpx;
-    padding: 0;
-
-    background-color: green!important;
-    border-radius: 50%;
-
-    font-size: 60rpx;
-    color: white;
-    text-align: center;
-
-}
-
-
 page{
     background: #eef1f9;
 }
@@ -48,9 +30,19 @@ page{
 
 .resource-card{
     margin-top:30rpx;
-    border-radius:2em;
-
 }
+
+.searchbar-result{
+    margin-top: 0;
+    font-size: 14px;
+}
+.searchbar-result:before{
+    display: none;
+}
+.weui-cell{
+    padding: 12px 15px 12px 35px;
+}
+
 /* body{
     top:80rpx;
 } */
