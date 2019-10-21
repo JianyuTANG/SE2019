@@ -1,6 +1,10 @@
 Component({
 
   properties: {
+    imageSrc: {
+      type: String,
+      value: ''
+    },
     title: {
       type: String,
       value: ''
@@ -13,11 +17,23 @@ Component({
       type: String,
       value: ''
     },
+    qualification: {
+      type: String,
+      value: ''
+    },
     telephone: {
       type: String,
       value: ''
     },
     email: {
+      type: String,
+      value: ''
+    },
+    startDate: {
+      type: String,
+      value: ''
+    },
+    endDate: {
       type: String,
       value: ''
     }
@@ -32,7 +48,8 @@ Component({
 
   methods: {
     readmore: function () {
-      console.log('readmore')
+      // console.log('readmore')
+      // console.log(this.data.imageSrc)
       this.triggerEvent('readmore')
     }
   }

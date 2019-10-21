@@ -30,6 +30,8 @@ page{
 
 .resource-card{
     margin-top:30rpx;
+    border-radius:2em;
+
 }
 /* body{
     top:80rpx;

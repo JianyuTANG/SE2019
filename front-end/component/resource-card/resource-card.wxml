@@ -1,22 +1,30 @@
 <view class='background'>
+<view class='image-container'>
+<image  src="{{imageSrc}}"> </image>
+</view>
 <view class="container">
     <text class="title-line"> {{title}} </text>
     
-    <text >{{content}}</text>
+    <!-- <text >{{content}}</text> -->
     
-    <view class="icon-line">
-    <image src="{{contactIcon}}" />
-    <text>联系人:{{contact}} </text>
+    <view class="info-line">
+    <!-- <image src="{{contactIcon}}" /> -->
+    <text>发起人:{{contact}} </text>
     </view>
 
-    <view class="icon-line">
-    <image src="{{telephoneIcon}}" />
-    <text>电话:{{telephone}} </text>
+    <view class="info-line">
+    <text>身份限定:{{qualification}} </text>
     </view>
 
-    <view class="icon-line">
-    <image src="{{emailIcon}}" />
-    <text>邮箱:{{email}} </text>
+    <view class="info-line">
+    <!-- <image src="{{telephoneIcon}}" /> -->
+    <text>发起时间:{{startDate}} </text>
     </view>
+
+    <view class="info-line">
+    <text>有效期至:{{endDate}} </text>
+    </view>
+
+    <text class="stress-line" bindtap="readmore"> 更多详情 </text>
 </view>
 </view>
