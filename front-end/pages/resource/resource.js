@@ -37,7 +37,7 @@ Page({
     }],
     domesticList: [{
       id: '3',
-      title: '国内清华校友总会生命科学...',
+      title: '国内校友总会生命科学...',
       content: '也急需两人过柱子...',
       contact: 'test',
       telephone: '110',
@@ -48,7 +48,7 @@ Page({
       imageSrc: '/assets/activity.png'
     }, {
       id: '4',
-      title: '国内清华校友总会生命科学...',
+      title: '国内校友总会生命科学...',
       content: '也急需两人过柱子...',
       contact: 'test',
       telephone: '110',
@@ -60,7 +60,7 @@ Page({
     }],
     overseasList: [{
       id: '5',
-      title: '海外清华校友总会生命科学...',
+      title: '海外校友总会生命科学...',
       content: '也急需两人过柱子...',
       contact: 'test',
       telephone: '110',
@@ -71,7 +71,7 @@ Page({
       imageSrc: '/assets/activity.png'
     }, {
       id: '6',
-      title: '海外清华校友总会生命科学...',
+      title: '海外校友总会生命科学...',
       content: '也急需两人过柱子...',
       contact: 'test',
       telephone: '110',
@@ -83,44 +83,48 @@ Page({
     }],
     interestList: [{
       id: '7',
-      title: '兴趣清华校友总会生命科学...',
+      title: '兴趣校友总会生命科学...',
       content: '也急需两人过柱子...',
       contact: 'test',
       telephone: '110',
       email: 'nonexist@nonexist.com',
       qualification: 'qua',
       startDate: '10/1',
-      endDate: '10/23'
+      endDate: '10/23',
+      imageSrc: '/assets/activity.png'
     }, {
       id: '8',
-      title: '兴趣清华校友总会生命科学...',
+      title: '兴趣校友总会生命科学...',
       content: '也急需两人过柱子...',
       contact: 'test',
       telephone: '110',
       email: 'nonexist@nonexist.com',
       qualification: 'qua',
       startDate: '10/1',
-      endDate: '10/23'
+      endDate: '10/23',
+      imageSrc: '/assets/activity.png'
     }, {
       id: '9',
-      title: '兴趣清华校友总会生命科学...',
+      title: '兴趣校友总会生命科学...',
       content: '也急需两人过柱子...',
       contact: 'test',
       telephone: '110',
       email: 'nonexist@nonexist.com',
       qualification: 'qua',
       startDate: '10/1',
-      endDate: '10/23'
+      endDate: '10/23',
+      imageSrc: '/assets/activity.png'
     }, {
       id: '10',
-      title: '兴趣清华校友总会生命科学...',
+      title: '兴趣校友总会生命科学...',
       content: '也急需两人过柱子...',
       contact: 'test',
       telephone: '110',
       email: 'nonexist@nonexist.com',
       qualification: 'qua',
       startDate: '10/1',
-      endDate: '10/23'
+      endDate: '10/23',
+      imageSrc: '/assets/activity.png'
     }]
   },
 
