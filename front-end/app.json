@@ -29,12 +29,6 @@
                 "selectedIconPath": "assets/square-active.png"
             },
             {
-                "pagePath": "pages/index/index",
-                "text": "活动",
-                "iconPath": "assets/activity.png",
-                "selectedIconPath": "assets/activity-active.png"
-            },
-            {
                 "pagePath": "pages/resource/resource",
                 "text": "资源",
                 "iconPath": "assets/resource.png",
