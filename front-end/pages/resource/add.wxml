@@ -31,6 +31,23 @@
                     <image slot="footer" class="weui-vcode-img" src="../images/vcode.jpg" style="width: 108px"></image>
                 </mp-cell>
             </mp-cells> -->
+            <mp-dialog 
+            wx:if = "{{tapButtonDate}}"
+            title="设置日期" 
+            show="{{tapButtonDate}}" 
+            bindbuttontap="tapButtonDate" 
+            buttons="{{[{text: '确定'}]}}">
+                <van-datetime-picker
+                confirm-button-text=""
+                cancel-button-text=""
+                show-toolbar="{{false}}"
+                v-model="{{date.currentDate}}"
+                type="date"
+                :min-date="{{date.minDate}}"
+                bind:input="changeEndDate"
+                />
+            </mp-dialog>
+
             <mp-cells >
                 <mp-cell show-error prop="idcard" title="标题" ext-class="">
                     <input bindinput="formInputChange" data-field="idcard" class="weui-input" placeholder="请输入标题"/>
@@ -47,13 +64,13 @@
                <mp-cell show-error prop="idcard" title="限定人员" ext-class="">
                     <input bindinput="formInputChange" data-field="idcard" class="weui-input" placeholder="请规定活动限定人员"/>
                 </mp-cell>
-               <mp-cell show-error prop="idcard" title="截止日期" ext-class="">
-                <van-datetime-picker
-                v-model="{{date.currentDate}}"
-                type="date"
-                :min-date="{{date.minDate}}"
-                />
-                    <input bindinput="formInputChange" data-field="idcard" class="weui-input" placeholder="请输入截止日期"/>
+               <mp-cell show-error prop="idcard" title="截止日期" ext-class=""> 
+
+                    <input bindinput="formInputChange" data-field="idcard" 
+                    class="weui-input" placeholder=""
+                    value = "{{date.endDay}}"
+                     disabled="{{true}}"/>
+                    <button bind:tap="setDate">点击设置</button>
                 </mp-cell>
                 <mp-cell>
                     <mp-uploader bindfail="uploadError" bindsuccess="uploadSuccess" select="{{selectFile}}" upload="{{uplaodFile}}" files="{{files}}" max-count="5" title="图片上传" tips="图片上传提示"></mp-uploader>

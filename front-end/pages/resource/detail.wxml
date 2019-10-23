@@ -37,7 +37,7 @@ buttons="{{[{text: '确定'}]}}">
                 <image src="{{avatarSrc}}"></image>
             </view>
             <view class="answerer-info flex-item">
-                <text class="answerer-name">{{contact}}</text>
+                <text class="answerer-name">联系人:{{contact}}</text>
                 <text class="answerer-des">联系电话:{{telephone}} 邮箱:{{telephone}}</text>
                 <text class="begin-date">发起日期:{{startDate}}</text>
             </view>

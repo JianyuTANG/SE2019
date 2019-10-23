@@ -6,7 +6,8 @@ Page({
       maxHour: 20,
       minDate: new Date().getTime(),
       maxDate: new Date(2019, 10, 1).getTime(),
-      currentDate: new Date().getTime()
+      currentDate: new Date().getTime(),
+      endDay: new Date().toDateString()
     },
     radioItems: [
       { name: 'cell standard', value: '0', checked: true },
@@ -48,7 +49,8 @@ Page({
       loading: true
     }, {
       error: true
-    }]
+    }],
+    tapButtonDate: false
   },
   onLoad () {
     this.setData({
@@ -157,5 +159,23 @@ Page({
       return `${value}月`
     }
     return value
+  },
+  tapButtonDate: function (e) {
+    this.setData({
+      'tapButtonDate': false
+    })
+  },
+  setDate: function (e) {
+    this.setData({
+      'tapButtonDate': true
+    })
+  },
+  changeEndDate: function (e) {
+    console.log(e)
+    let timeStamp = e.detail
+    let date = new Date(timeStamp).toDateString()
+    this.setData({
+      'date.endDay': date
+    })
   }
 })

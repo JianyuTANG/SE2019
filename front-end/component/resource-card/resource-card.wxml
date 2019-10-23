@@ -22,7 +22,7 @@
     </view>
 
     <view class="info-line">
-    <text>有效期至:{{endDate}} </text>
+    <text>截止日期:{{endDate}} </text>
     </view>
 
     <text class="stress-line" bindtap="readmore"> 更多详情 </text>
