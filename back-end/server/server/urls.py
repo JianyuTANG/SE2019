@@ -21,4 +21,6 @@ import UserSystem.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login', UserSystem.views.login),
+    path('register', UserSystem.views.register),
+    path('invite', UserSystem.views.invite),
 ]

@@ -4,6 +4,7 @@ from .models import User
 from .utils import *
 import json
 
+
 def login(request):
     post_body = request.body
     json_request = json.loads(post_body)
@@ -32,6 +33,41 @@ def login(request):
            'identity': logon_status}
     return HttpResponse(json.dumps(res), content_type="application/json")
 
-def verify(request):
-    pass
+def register(request):
+    post_body = request.body
+    json_request = json.loads(post_body)
+    openid, hashed_session = status_dehash(json_request.session_code)
+    user = User.objects.get(openid=openid)
+    if user is None:
+        res = {'connection_status': 'rejected',
+               'result': 'fail'}
+        return HttpResponse(json.dumps(res), content_type="application/json")
+    name = json_request.name
+    num = json_request.num
+    classmate = json_request.classmate
+    advisor = json_request.advisor
+    res = {'connection_status': 'acknowledged',
+           'result': 'fail'}
+    if verify_identity(name, num, classmate, advisor) != 0:
+        res.result = 'success'
+        user.real_name = name
+        user.number_of_entry = num
+        user.save()
+    return HttpResponse(json.dumps(res), content_type="application/json")
 
+
+def invite(request):
+    post_body = request.body
+    json_request = json.loads(post_body)
+    openid, hashed_session = status_dehash(json_request.session_code)
+    user = User.objects.get(openid=openid)
+    if user is None:
+        res = {'connection_status': 'rejected',
+               'result': 'fail'}
+        return HttpResponse(json.dumps(res), content_type="application/json")
+    res = {'connection_status': 'acknowledged',
+           'result': 'fail'}
+    invitation_code = json_request.invitation_code
+    if verify_invitation(invitation_code) != 0:
+        res.result = 'success'
+    return HttpResponse(json.dumps(res), content_type="application/json")

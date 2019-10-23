@@ -63,3 +63,11 @@ def status_dehash(hashcode):
     openid = decoded[:-32]
     hashed_session = decoded[-32:]
     return openid, hashed_session
+
+
+def verify_identity(name, num, classmate, advisor):
+    pass
+
+
+def verify_invitation(invitation_code):
+    pass
