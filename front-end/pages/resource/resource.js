@@ -16,24 +16,25 @@ Page({
     facultyList: [],
     domesticList: [],
     overseasList: [],
-    interestList: []
+    interestList: [],
+    listIndex: 0
   },
 
   onShow: function () {
     // 以下用本地存储模拟从服务器获取信息
-
-    let l1 = wx.getStorageSync('facultyList')
-    let l2 = wx.getStorageSync('domesticList')
-    let l3 = wx.getStorageSync('overseasList')
-    let l4 = wx.getStorageSync('interestList')
+    let l = [0, 0, 0, 0]
+    l[0] = wx.getStorageSync('facultyList')
+    l[1] = wx.getStorageSync('domesticList')
+    l[2] = wx.getStorageSync('overseasList')
+    l[3] = wx.getStorageSync('interestList')
     this.setData({
-      resourceList: l1,
-      facultyList: l1,
-      domesticList: l2,
-      overseasList: l3,
-      interestList: l4,
-      showResouceList: l1
+      resourceList: l[this.data.listIndex],
+      facultyList: l[0],
+      domesticList: l[1],
+      overseasList: l[2],
+      interestList: l[3]
     })
+    this.loadResouceList()
 
     // let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
   },
@@ -48,6 +49,12 @@ Page({
   addResource: function (e) {
     wx.navigateTo({
       url: '/pages/resource/add'
+    })
+  },
+
+  loadResouceList: function () {
+    this.setData({
+      showResouceList: this.data.resourceList
     })
   },
 
@@ -75,6 +82,10 @@ Page({
         })
         break
     }
+    this.setData({
+      listIndex: index
+    })
+    this.loadResouceList()
   },
   searchItem: function (item, value) {
     if (item.title.indexOf(value) !== -1) { return true }
