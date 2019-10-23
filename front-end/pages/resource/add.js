@@ -7,7 +7,8 @@ Page({
       minDate: new Date().getTime(),
       maxDate: new Date(2019, 10, 1).getTime(),
       currentDate: new Date().getTime(),
-      endDay: new Date().toDateString()
+      endDay: new Date().toDateString(),
+      endTimeStamp: new Date()
     },
     radioItems: [
       { name: 'cell standard', value: '0', checked: true },
@@ -175,7 +176,8 @@ Page({
     let timeStamp = e.detail
     let date = new Date(timeStamp).toDateString()
     this.setData({
-      'date.endDay': date
+      'date.endDay': date,
+      'date.endTimeStamp': timeStamp
     })
   }
 })
