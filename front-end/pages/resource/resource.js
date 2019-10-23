@@ -12,135 +12,28 @@ Page({
       text: '行业兴趣'
     }],
     resourceList: [],
-    facultyList: [{
-      id: '1',
-      title: '清华校友总会生命科学...',
-      content: '急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }, {
-      id: '2',
-      title: '清华校友总会生命科学...',
-      content: '急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }],
-    domesticList: [{
-      id: '3',
-      title: '国内校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }, {
-      id: '4',
-      title: '国内校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }],
-    overseasList: [{
-      id: '5',
-      title: '海外校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }, {
-      id: '6',
-      title: '海外校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }],
-    interestList: [{
-      id: '7',
-      title: '兴趣校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }, {
-      id: '8',
-      title: '兴趣校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }, {
-      id: '9',
-      title: '兴趣校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }, {
-      id: '10',
-      title: '兴趣校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }]
+    facultyList: [],
+    domesticList: [],
+    overseasList: [],
+    interestList: []
   },
 
   onShow: function () {
-    this.setData({
-      resourceList: this.data.facultyList
-    })
     // 以下用本地存储模拟从服务器获取信息
-    let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
 
-    for (let list of lists) {
-      for (let item of list) {
-        let resourceId = 'resource' + item.id
-        wx.setStorageSync(resourceId, item)
-      }
-    }
+    let l1 = wx.getStorageSync('facultyList')
+    let l2 = wx.getStorageSync('domesticList')
+    let l3 = wx.getStorageSync('overseasList')
+    let l4 = wx.getStorageSync('interestList')
+    this.setData({
+      resourceList: l1,
+      facultyList: l1,
+      domesticList: l2,
+      overseasList: l3,
+      interestList: l4
+    })
+
+    // let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
   },
 
   readmore: function (e) {

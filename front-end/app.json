@@ -1,8 +1,8 @@
 {
     "pages": [
-
-        "pages/resource/resource",
         "pages/me/me",
+        "pages/resource/resource",
+
         "pages/index/index",
         "pages/resource/detail",
         "pages/resource/add",
