@@ -4,8 +4,11 @@
     <text>+</text>
     </view>
 </button>
-<view class="resource-background">
-<view wx:for="{{resourceList}}"  class = "resource-card">
+<view>
+<mp-searchbar placeholder="请输入关键字搜索" 
+    bindselectresult="selectResult" 
+    bindinput="search"></mp-searchbar>
+<view wx:for="{{showResouceList}}"  class = "resource-card">
 <resource-card 
             data-id="{{item.id}}"
             bind:readmore="readmore"

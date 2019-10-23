@@ -12,6 +12,7 @@ Page({
       text: '行业兴趣'
     }],
     resourceList: [],
+    showResouceList: [],
     facultyList: [],
     domesticList: [],
     overseasList: [],
@@ -30,7 +31,8 @@ Page({
       facultyList: l1,
       domesticList: l2,
       overseasList: l3,
-      interestList: l4
+      interestList: l4,
+      showResouceList: l1
     })
 
     // let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
@@ -73,5 +75,31 @@ Page({
         })
         break
     }
+  },
+  searchItem: function (item, value) {
+    if (item.title.indexOf(value) !== -1) { return true }
+    if (item.content.indexOf(value) !== -1) { return true }
+    if (item.contact.indexOf(value) !== -1) { return true }
+    if (item.startDate.indexOf(value) !== -1) { return true }
+    if (item.endDate.indexOf(value) !== -1) { return true }
+    if (item.email.indexOf(value) !== -1) { return true }
+    if (item.qualification.indexOf(value) !== -1) { return true }
+    if (item.telephone.indexOf(value) !== -1) { return true }
+    return false
+  },
+  search: function (e) {
+    console.log(e)
+    let value = e.detail.value
+
+    let items = []
+    for (let item of this.data.resourceList) {
+      if (this.searchItem(item, value)) {
+        items.push(item)
+      }
+    }
+
+    this.setData({
+      showResouceList: items
+    })
   }
 })

@@ -1,6 +1,7 @@
 {
     "usingComponents": {
       "resource-card": "/component/resource-card/resource-card",
-      "mp-tabbar": "../../miniprogram_npm/weui-miniprogram/tabbar/tabbar"
+      "mp-tabbar": "../../miniprogram_npm/weui-miniprogram/tabbar/tabbar",
+      "mp-searchbar": "../../miniprogram_npm/weui-miniprogram/searchbar/searchbar"
     }
   }
