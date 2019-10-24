@@ -113,7 +113,7 @@ Page({
         let resourceId = 'resource' + String(id)
         let src = '/assets/activity.png'
         let info = {
-          id: resourceId,
+          id: id,
           title: this.data.formData.title,
           content: this.data.formData.content,
           contact: this.data.formData.contact,
