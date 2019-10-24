@@ -43,13 +43,13 @@
 
         <mp-tabbar ext-class="tabbar-item" style="" list="{{list}}" bindchange="tabChange"></mp-tabbar>
         <view wx:for="{{groupList}}"  class = "group-card">
-          <navigator url="../../pages/group_info/group_info" open-type = "redirect">
-          <group-card title="{{item.title}}" 
+          <group-card catchtap="groupDetail"
+            title="{{item.title}}" 
             intro="{{item.intro}}"
             master="{{item.master}}"
             num="{{item.num}}">
           </group-card>
-          </navigator>
+          
         </view>
             
     </view>

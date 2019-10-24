@@ -39,8 +39,8 @@
             master="高一凡 耿宇昊"
             num="37">
           </group-card>
-            <navigator url="../../pages/group_member_info/group_member_info" open-type = "redirect">
-            <view class="weui-cell">
+            
+            <view class="weui-cell" catchtap="memberDetail">
                 <view class="weui-cell__hd" style="position: relative;margin-right:10px;">
                     <image src="/assets/member.jpg" style="width: 50px; height: 50px;display: block"/>
                 </view>
@@ -49,7 +49,7 @@
                     <view style="font-size: 13px;color: #888888;">17期 软件学院</view>
                 </view>
             </view>
-            </navigator>
+            
             
             <view class="weui-cell">
                 <view class="weui-cell__hd" style="position: relative;margin-right:10px;">

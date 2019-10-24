@@ -23,7 +23,7 @@
         "borderStyle": "black",
         "list": [{
                 "pagePath": "pages/groups/groups",
-                "text": "广场",
+                "text": "归属",
 
                 "iconPath": "assets/square.png",
                 "selectedIconPath": "assets/square-active.png"
