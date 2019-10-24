@@ -127,7 +127,7 @@ Page({
         let fList = wx.getStorageSync('facultyList')
         fList.push(info)
         wx.setStorageSync('facultyList', fList)
-        wx.setStorageSync(resourceId)
+        wx.setStorageSync(resourceId, info)
         wx.navigateBack()
       }
     })
