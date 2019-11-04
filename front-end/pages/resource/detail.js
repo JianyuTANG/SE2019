@@ -13,7 +13,11 @@ Page({
     qualification: 'x',
     startDate: 'x',
     endDate: 'x',
-    imageSrc: ''
+    imageSrc: '',
+    avatarSrc: '/assets/member.jpg',
+    enrollment: 0,
+
+    tapEnrollment: false
   },
 
   /**
@@ -86,5 +90,18 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  enroll: function (e) {
+    this.setData({
+      tapEnrollment: true,
+      enrollment: this.data.enrollment + 1
+    })
+  },
+
+  tapDialogButton: function (e) {
+    this.setData({
+      tapEnrollment: false
+    })
   }
 })

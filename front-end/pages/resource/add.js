@@ -6,7 +6,9 @@ Page({
       maxHour: 20,
       minDate: new Date().getTime(),
       maxDate: new Date(2019, 10, 1).getTime(),
-      currentDate: new Date().getTime()
+      currentDate: new Date().getTime(),
+      endDay: new Date().toDateString(),
+      endTimeStamp: new Date()
     },
     radioItems: [
       { name: 'cell standard', value: '0', checked: true },
@@ -21,34 +23,32 @@ Page({
       contact: '',
       telephone: '',
       email: '',
-      qualification: ''
+      qualification: '',
+      content: ''
     },
     rules: [{
-      name: 'radio',
+      name: 'title',
       rules: { required: true, message: '单选列表是必选项' }
     }, {
-      name: 'checkbox',
+      name: 'contact',
       rules: { required: true, message: '多选列表是必选项' }
     }, {
-      name: 'qq',
+      name: 'telephone',
       rules: { required: true, message: 'qq必填' }
-    }, { // 多个规则
-      name: 'mobile',
-      rules: [{ required: true, message: 'mobile必填' }, { mobile: true, message: 'mobile格式不对' }]
     }, {
-      name: 'vcode',
+      name: 'email',
       rules: { required: true, message: '验证码必填' }
     }, {
-      name: 'idcard',
+      name: 'qualification',
+      rules: { required: true, message: 'idcard必填' }
+    }, {
+      name: 'content',
       rules: { required: true, message: 'idcard必填' }
     }],
     files: [{
       url: 'http://mmbiz.qpic.cn/mmbiz_png/VUIF3v9blLsicfV8ysC76e9fZzWgy8YJ2bQO58p43Lib8ncGXmuyibLY7O3hia8sWv25KCibQb7MbJW3Q7xibNzfRN7A/0'
-    }, {
-      loading: true
-    }, {
-      error: true
-    }]
+    }],
+    tapButtonDate: false
   },
   onLoad () {
     this.setData({
@@ -109,8 +109,31 @@ Page({
         wx.showToast({
           title: '校验通过'
         })
+        let id = 100
+        let resourceId = 'resource' + String(id)
+        let src = '/assets/activity.png'
+        let info = {
+          id: id,
+          title: this.data.formData.title,
+          content: this.data.formData.content,
+          contact: this.data.formData.contact,
+          telephone: this.data.formData.telephone,
+          email: this.data.formData.email,
+          qualification: this.data.formData.qualification,
+          startDate: this.data.date.currentDate,
+          endDate: this.data.date.endDate,
+          imageSrc: src
+        }
+        let fList = wx.getStorageSync('facultyList')
+        fList.push(info)
+        wx.setStorageSync('facultyList', fList)
+        wx.setStorageSync(resourceId, info)
+        wx.navigateBack()
       }
     })
+  },
+  submitCancel: function () {
+    wx.navigateBack()
   },
   chooseImage: function (e) {
     var that = this
@@ -140,7 +163,8 @@ Page({
     // 文件上传的函数，返回一个promise
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        reject('some error')
+        // reject('some error')
+        resolve({ urls: ['127.0.0.1'] })
       }, 1000)
     })
   },
@@ -157,5 +181,37 @@ Page({
       return `${value}月`
     }
     return value
+  },
+  tapButtonDate: function (e) {
+    this.setData({
+      'tapButtonDate': false
+    })
+  },
+  setDate: function (e) {
+    this.setData({
+      'tapButtonDate': true
+    })
+  },
+  changeEndDate: function (e) {
+    console.log(e)
+    let timeStamp = e.detail
+    let date = new Date(timeStamp).toDateString()
+    this.setData({
+      'date.endDay': date,
+      'date.endTimeStamp': timeStamp
+    })
+  },
+  onStatusChange: function (e) {
+    console.log(e)
+    const texts = e.detail.text
+    this.setData({
+      'formData.content': texts })
+  },
+  onEditorReady: function () {
+    const that = this
+    wx.createSelectorQuery().select('#editor').context(function (res) {
+      that.editorCtx = res.context
+    }).exec()
   }
+
 })

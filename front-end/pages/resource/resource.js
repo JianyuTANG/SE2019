@@ -12,131 +12,31 @@ Page({
       text: '行业兴趣'
     }],
     resourceList: [],
-    facultyList: [{
-      id: '1',
-      title: '清华校友总会生命科学...',
-      content: '急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }, {
-      id: '2',
-      title: '清华校友总会生命科学...',
-      content: '急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }],
-    domesticList: [{
-      id: '3',
-      title: '国内清华校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }, {
-      id: '4',
-      title: '国内清华校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }],
-    overseasList: [{
-      id: '5',
-      title: '海外清华校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }, {
-      id: '6',
-      title: '海外清华校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23',
-      imageSrc: '/assets/activity.png'
-    }],
-    interestList: [{
-      id: '7',
-      title: '兴趣清华校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23'
-    }, {
-      id: '8',
-      title: '兴趣清华校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23'
-    }, {
-      id: '9',
-      title: '兴趣清华校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23'
-    }, {
-      id: '10',
-      title: '兴趣清华校友总会生命科学...',
-      content: '也急需两人过柱子...',
-      contact: 'test',
-      telephone: '110',
-      email: 'nonexist@nonexist.com',
-      qualification: 'qua',
-      startDate: '10/1',
-      endDate: '10/23'
-    }]
+    showResouceList: [],
+    facultyList: [],
+    domesticList: [],
+    overseasList: [],
+    interestList: [],
+    listIndex: 0
   },
 
   onShow: function () {
-    this.setData({
-      resourceList: this.data.facultyList
-    })
     // 以下用本地存储模拟从服务器获取信息
-    let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
+    let lists = [0, 0, 0, 0]
+    lists[0] = wx.getStorageSync('facultyList')
+    lists[1] = wx.getStorageSync('domesticList')
+    lists[2] = wx.getStorageSync('overseasList')
+    lists[3] = wx.getStorageSync('interestList')
+    this.setData({
+      resourceList: lists[this.data.listIndex],
+      facultyList: lists[0],
+      domesticList: lists[1],
+      overseasList: lists[2],
+      interestList: lists[3]
+    })
+    this.loadResouceList()
 
-    for (let list of lists) {
-      for (let item of list) {
-        let resourceId = 'resource' + item.id
-        wx.setStorageSync(resourceId, item)
-      }
-    }
+    // let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
   },
 
   readmore: function (e) {
@@ -149,6 +49,12 @@ Page({
   addResource: function (e) {
     wx.navigateTo({
       url: '/pages/resource/add'
+    })
+  },
+
+  loadResouceList: function () {
+    this.setData({
+      showResouceList: this.data.resourceList
     })
   },
 
@@ -176,5 +82,35 @@ Page({
         })
         break
     }
+    this.setData({
+      listIndex: index
+    })
+    this.loadResouceList()
+  },
+  searchItem: function (item, value) {
+    if (item.title.indexOf(value) !== -1) { return true }
+    if (item.content.indexOf(value) !== -1) { return true }
+    if (item.contact.indexOf(value) !== -1) { return true }
+    if (item.startDate.indexOf(value) !== -1) { return true }
+    if (item.endDate.indexOf(value) !== -1) { return true }
+    if (item.email.indexOf(value) !== -1) { return true }
+    if (item.qualification.indexOf(value) !== -1) { return true }
+    if (item.telephone.indexOf(value) !== -1) { return true }
+    return false
+  },
+  search: function (e) {
+    console.log(e)
+    let value = e.detail.value
+
+    let items = []
+    for (let item of this.data.resourceList) {
+      if (this.searchItem(item, value)) {
+        items.push(item)
+      }
+    }
+
+    this.setData({
+      showResouceList: items
+    })
   }
 })

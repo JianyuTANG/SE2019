@@ -9,9 +9,16 @@
                 </view>
                 <view class="weui-cell__bd">
                     <view>陈语凝</view>
-                    <view style="font-size: 13px;color: #888888;">17期 软件学院</view>
+                    <view style="font-size: 13px;color: #888888;">  17期 软件学院</view>
                 </view>
             </view>
+            <view class="weui-cell__bd">
+                    <view style="font-size: 15px;color: #888888;">  联系电话：18500720300</view>
+                    <view style="font-size: 15px;color: #888888;">  电子邮箱：cyn10221017@163.com</view>
+                    <view style="font-size: 15px;color: #888888;">  微信账号：cyn10221017</view>
+                    <view style="font-size: 15px;color: #888888;">  所在行业：暂无</view>
+                    <view style="font-size: 15px;color: #888888;">  所在单位：暂无</view>
+                </view>
             
             
             <view class="weui-cell weui-cell_access">
@@ -23,10 +30,11 @@
                 <view class="weui-cell__ft weui-cell__ft_in-access">8</view>
                 
             </view>
+            
           </view>
 
            <!-- 下面是loading -->
-          <view class="weui-loadmore">
+          <!-- <view class="weui-loadmore">
                 <view class="weui-loading"></view>
                 <view class="weui-loadmore__tips">正在加载</view>
               </view>
@@ -35,7 +43,7 @@
               </view>
               <view class="weui-loadmore weui-loadmore_line weui-loadmore_dot">
                 <view class="weui-loadmore__tips weui-loadmore__tips_in-line weui-loadmore__tips_in-dot"></view>
-              </view>
+              </view> -->
 
         </view>   
 </view>

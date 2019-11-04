@@ -27,7 +27,7 @@
     width: 100rpx;
     padding: 0;
 
-    background-color: green!important;
+    background-color: rgb(19, 34, 122)!important;
     border-radius: 50%;
 
     font-size: 60rpx;

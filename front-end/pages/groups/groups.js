@@ -69,6 +69,12 @@ Page({
   },
 
 
+  groupDetail: function (e) {
+    wx.navigateTo({
+      url: '/pages/group_info/group_info'
+    })
+  },
+
   showInput: function () {
     this.setData({
       inputShowed: true
