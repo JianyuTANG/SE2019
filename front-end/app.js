@@ -114,7 +114,10 @@ App({
       startDate: '10/1',
       endDate: '10/23',
       imageSrc: '/assets/activity.png'
-    }]
+    }],
+    globalData: {
+      baseUrl: 'http://127.0.0.1:8000/'
+    }
   },
   onLaunch: function () {
     // 展示本地存储能力
