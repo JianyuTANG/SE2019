@@ -2,6 +2,19 @@ import requests
 import base64
 import hashlib
 from .config import app_config
+from .models import User
+
+
+def get_user(session_code):
+    '''
+
+    :param session_code:
+    :return: 如果session_code正确，返回数据库user对象；否则返回None
+    '''
+
+    openid, hashed_session = status_dehash(session_code)
+    user = User.objects.get(openid=openid)
+    return user
 
 
 def authenticator(tempcode):
@@ -65,7 +78,11 @@ def status_dehash(hashcode):
     return openid, hashed_session
 
 
-def verify_identity(name, num, classmate, advisor):
+def verify_student_identity(name, num, classmate, advisor):
+    pass
+
+
+def verify_teacher_identity(name, num, classmate, advisor):
     pass
 
 

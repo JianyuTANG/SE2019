@@ -21,6 +21,11 @@ import UserSystem.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login', UserSystem.views.login),
-    path('register', UserSystem.views.register),
+    path('verify', UserSystem.views.verify),
     path('invite', UserSystem.views.invite),
+    path('basic_user_info', UserSystem.views.register),
+    path('modify_user_info', UserSystem.views.modify_user),
+    path('view_user', UserSystem.views.query_user),
+    path('upload_user_avatar', UserSystem.views.upload_user_avatar),
+    path('get_user_avatar', UserSystem.views.get_user_avartar)
 ]
