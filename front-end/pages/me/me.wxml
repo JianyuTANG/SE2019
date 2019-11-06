@@ -5,7 +5,14 @@
 
 <view class="container debug-bg">
   <view class="card padding flex">
-    <image class="avatar" src="{{ avatar }}" />
+    <view class="avatar-box">
+      <view wx:if="{{showLoading}}" class="load-wrapper">
+        <view class = "weui-loadmore">
+        <view class = "weui-loading"></view>
+        </view>
+      </view>
+      <image class="avatar" bindtap="chooseImage" src="{{ avatar }}" />
+    </view>
     <view class="name-container" >
       <text class="name">{{ name }}</text>
       <view class="check"><text>未认证</text></view>

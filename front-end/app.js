@@ -1,5 +1,11 @@
 // app.js
+const app = getApp()
 App({
+  // 全局变量请在这里定义
+  globalData: {
+    baseUrl: 'http://127.0.0.1:8000/',
+    userInfo: null
+  },
   data: {
     facultyList: [{
       id: '1',
@@ -114,10 +120,7 @@ App({
       startDate: '10/1',
       endDate: '10/23',
       imageSrc: '/assets/activity.png'
-    }],
-    globalData: {
-      baseUrl: 'http://127.0.0.1:8000/'
-    }
+    }]
   },
   onLaunch: function () {
     // 展示本地存储能力
@@ -192,8 +195,5 @@ App({
         }
       })
     }
-  },
-  globalData: {
-    userInfo: null
   }
 })
