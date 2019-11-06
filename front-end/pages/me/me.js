@@ -84,6 +84,19 @@ Page({
       showPlaceholder: false,
       showLoading: false
     })
+  },
+
+  navToDetailPage: function (e) {
+    let name = e.currentTarget.dataset.field
+    switch (name) {
+      case 'personal': // 代表是用户个人信息
+        wx.navigateTo({
+          url: '/pages/me/personal'
+        })
+        break
+      default:
+        console.log(name)
+    }
   }
 
 })

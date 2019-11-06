@@ -34,7 +34,7 @@
       <image class="icon" src= "/assets/activity.png"/>
       </view>
     </mp-cell>
-    <mp-cell  link="{{true}}" value="个人信息">
+    <mp-cell  bindtap="navToDetailPage" link="{{true}}" value="个人信息" data-field="personal">
       <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>
       </view>
