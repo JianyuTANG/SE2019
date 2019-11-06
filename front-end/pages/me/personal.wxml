@@ -22,35 +22,24 @@
         <mp-form id="form" rules="{{rules}}" models="{{formData}}">
 
             <mp-cells >
-                <mp-cell show-error prop="title" title="标题" ext-class="">
-                    <input bindinput="formInputChange" data-field="title" class="weui-input" placeholder="请输入标题"/>
-                </mp-cell>
-                <mp-cell show-error prop="contact" title="联系人" ext-class="">
-                    <input bindinput="formInputChange" data-field="contact" class="weui-input" placeholder="请输入联系人"/>
-                </mp-cell>
                <mp-cell show-error prop="telephone" title="电话" ext-class="">
                     <input bindinput="formInputChange" data-field="telephone" class="weui-input" placeholder="请输入联系电话"/>
                 </mp-cell>
                <mp-cell show-error prop="email" title="邮箱" ext-class="">
                     <input bindinput="formInputChange" data-field="email" class="weui-input" placeholder="请输入联系邮箱"/>
                </mp-cell>
-               <mp-cell show-error prop="qualification" title="限定人员" ext-class="">
-                    <input bindinput="formInputChange" data-field="qualification" class="weui-input" placeholder="请规定活动限定人员"/>
-                </mp-cell>
-               <mp-cell show-error prop="idcard" title="截止日期" ext-class=""> 
+
+               <!-- <mp-cell show-error prop="idcard" title="出生日期" ext-class=""> 
 
                     <input bindinput="formInputChange" data-field="idcard" 
                     class="weui-input" placeholder=""
                     value = "{{date.endDay}}"
                      disabled="{{true}}"/>
                     <button bind:tap="setDate">点击设置</button>
-                </mp-cell>
-                <mp-cell>
-                    <mp-uploader bindfail="uploadError" bindsuccess="uploadSuccess" select="{{selectFile}}" upload="{{uplaodFile}}" files="{{files}}" max-count="1" title="图片上传" tips="图片上传提示"></mp-uploader>
-                </mp-cell>
-                <mp-cell prop="content" title="输入详情" ext-class="">
+                </mp-cell> -->
+                <mp-cell prop="content" title="个人介绍" ext-class="weui-cell_label-block">
 
-                <editor id="editor"  style="height:120px;width:100%;" class="ql-container weui-input" placeholder="请输入详情" bindinput="onStatusChange" bindready="onEditorReady"></editor>
+                <textarea id="editor"  style="height:120px;width:100%;" class="ql-container weui-input" placeholder="请输入个人介绍(最多140字)"/>
                 </mp-cell>
             </mp-cells>
         </mp-form>

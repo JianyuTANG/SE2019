@@ -89,12 +89,6 @@ Page({
       [`formData.checkbox`]: e.detail.value
     })
   },
-  formInputChange: function (e) {
-    const { field } = e.currentTarget.dataset
-    this.setData({
-      [`formData.${field}`]: e.detail.value
-    })
-  },
   submitForm: function (e) {
     this.selectComponent('#form').validate((valid, errors) => {
       console.log('valid', valid, errors)
@@ -213,5 +207,4 @@ Page({
       that.editorCtx = res.context
     }).exec()
   }
-
 })
