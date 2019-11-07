@@ -26,6 +26,7 @@ def login(request):
     if user is None:
         user = User.objects.create()
         user.openid = openid
+        user.session_key = session_key
         user.logon_status = -1
         user.save()
     logon_status = user.logon_status
@@ -39,8 +40,7 @@ def login(request):
 def verify(request):
     post_body = request.body
     json_request = json.loads(post_body)
-    openid, hashed_session = status_dehash(json_request.sessionCode)
-    user = User.objects.get(openid=openid)
+    user = get_user(json_request.sessionCode)
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
         res = {'result': -1}
@@ -58,12 +58,14 @@ def verify(request):
         res.result = 0
         user.real_name = name
         user.number_of_entry = num
+        user.avatar_url = '/media/user_avatar/default/default.jpg'
         user.save()
     elif student_type == 1 and verify_teacher_identity(name, num, classmate, advisor) != 0:
         # 辅导员类型注册
         res.result = 0
         user.real_name = name
         user.number_of_entry = num
+        user.avatar_url = '/media/user_avatar/default/default.jpg'
         user.save()
     response = HttpResponse(json.dumps(res), content_type="application/json")
     response.status_code = 200
@@ -73,8 +75,7 @@ def verify(request):
 def invite(request):
     post_body = request.body
     json_request = json.loads(post_body)
-    openid, hashed_session = status_dehash(json_request.sessionCode)
-    user = User.objects.get(openid=openid)
+    user = get_user(json_request.sessionCode)
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
         res = {'result': -1}

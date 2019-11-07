@@ -14,7 +14,11 @@ def get_user(session_code):
 
     openid, hashed_session = status_dehash(session_code)
     user = User.objects.get(openid=openid)
-    return user
+    if user is not None:
+        if session_check(user.session_key, hashed_session):
+            return user
+
+    return None
 
 
 def authenticator(tempcode):
@@ -23,6 +27,7 @@ def authenticator(tempcode):
     :param tempcode: wx.login()得到的临时验证code，用于向微信api请求验证
     :return: 唯一的openid
     '''
+
     url = 'https://api.weixin.qq.com/sns/jscode2session'
     body = {'appid': app_config['appid'],
             'secret': app_config['secret'],
@@ -79,12 +84,12 @@ def status_dehash(hashcode):
 
 
 def verify_student_identity(name, num, classmate, advisor):
-    pass
+    return True
 
 
 def verify_teacher_identity(name, num, classmate, advisor):
-    pass
+    return True
 
 
 def verify_invitation(invitation_code):
-    pass
+    return True

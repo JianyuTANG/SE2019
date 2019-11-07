@@ -6,6 +6,7 @@ from django.utils import timezone
 class User(models.Model):
     username = models.CharField(max_length=32, unique=True)          # 用户名（或者叫昵称？）此为可选项，留待讨论
     openid = models.CharField(max_length=32, unique=True)            # 用户的唯一标识，微信官方提供
+    session_key = models.CharField(max_length=32, unique=True)       # 本次登录的session_key
     logon_status = models.IntegerField()                             # 用户身份的验证状态，0学生 1辅导员 <0游客
     real_name = models.CharField(max_length=32)                      # 真名
     number_of_entry = models.IntegerField()                          # 期数
