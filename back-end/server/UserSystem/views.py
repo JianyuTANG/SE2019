@@ -37,6 +37,7 @@ def login(request):
     response.status_code = 200
     return response
 
+
 def verify(request):
     post_body = request.body
     json_request = json.loads(post_body)
@@ -182,27 +183,30 @@ def upload_user_avatar(request):
         response.status_code = 404
         return response
     if request.method == 'POST':
-        img_obj = request.FILES.get('img')
-        # 获取存放路径
-        src = './media/user_avatar'
-        openid = user.openid
-        img_name = openid
-        src = os.path.join(src, img_name)
-        # 写入服务器
-        try:
-            f = open(src, 'wb+')
-            f.write(img_obj.read())
-        except:
-            # 写入失败
-            response.status_code = 404
+        files = request.FILES
+        for key, values in files.items():
+            img_obj = values
+            # img_obj = request.FILES.get('img')
+            # 获取存放路径
+            src = './media/user_avatar/'
+            openid = user.openid
+            img_name = openid
+            src = os.path.join(src, img_name)
+            # 写入服务器
+            try:
+                f = open(src, 'wb+')
+                f.write(img_obj.read())
+            except:
+                # 写入失败
+                response.status_code = 404
+                return response
+            src = os.path.join('/media/user_avatar/', img_name)
+            user.avatar_url = src
+            user.save()
+            res = {'url': src}
+            response = HttpResponse(json.dumps(res), content_type="application/json")
+            response.status_code = 200
             return response
-        src = os.path.join('/media/user_avatar', img_name)
-        user.avatar_url = src
-        user.save()
-        res = {'url': src}
-        response = HttpResponse(json.dumps(res), content_type="application/json")
-        response.status_code = 200
-        return response
 
     response.status_code = 404
     return response
