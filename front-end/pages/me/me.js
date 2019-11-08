@@ -14,7 +14,7 @@ const app = getApp()
 Page({
 
   data: {
-    uploadUrl: app.globalData.baseUrl + 'upload/',
+    uploadUrl: app.globalData.baseUrl + 'upload_user_avatar',
     showPlaceholder: true, // 用于头像
     showLoading: false, // 用于头像是否显示加载样式
     avatar: '',
@@ -69,11 +69,31 @@ Page({
         success: function (res) {
           console.log(res)
           // 坑
-          let resData = JSON.parse(res.data)
-          that.loadImageSrc(filePath)
+          // let resData = JSON.parse(res.data)
+          if (res.statusCode === 200) {
+            that.loadImageSrc(filePath)
+          } else {
+            that.uploadError()
+          }
+        },
+        fail: function (res) {
+          that.uploadError()
         }
       })
     }
+  },
+
+  uploadError: function () {
+    let that = this
+    that.loadImageSrc(that.data.loadImageSrc)
+    wx.showToast({
+      // 提示内容
+      title: '上传失败',
+      // 提示图标样式：success/loading
+      icon: 'loading',
+      // 提示显示时间
+      duration: 2000
+    })
   },
 
   // 用于重新根据url加载头像
