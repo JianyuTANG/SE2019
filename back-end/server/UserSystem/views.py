@@ -131,12 +131,16 @@ def modify_user(request):
     tel = json_request.tel
     email = json_request.email
     self_discription = json_request.selfDiscription
+    hobby = json_request.hobby
+    company = json_request.company
     user.city = city
     user.field = field
     user.department = department
     user.wechatid = wechat_id
     user.tel = tel
     user.email = email
+    user.hobby = hobby
+    user.company = company
     user.self_discription = self_discription
     user.save()
     response = HttpResponse()
@@ -164,6 +168,8 @@ def query_user(request):
         'tel': user.tel,
         'email': user.email,
         'selfDiscription': user.self_discription,
+        'company': user.company,
+        'hobby': user.hobby,
     }
     response = HttpResponse(json.dumps(res), content_type="application/json")
     response.status_code = 200

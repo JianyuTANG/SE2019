@@ -11,17 +11,19 @@ class User(models.Model):
     real_name = models.CharField(max_length=32, default='')                        # 真名
     number_of_entry = models.IntegerField(default=-1)                              # 期数
 
-    # student_id = models.CharField(max_length=32)                                      # 学号
-    # password = models.CharField(max_length=32)                       # 后期扩展用。若只限于微信小程序，则无需密码
+    # student_id = models.CharField(max_length=32)                                  # 学号
+    # password = models.CharField(max_length=32)                                    # 后期扩展用。若只限于微信小程序，则无需密码
     # create_time = models.DateTimeField(default=timezone.now())
 
     city = models.IntegerField(default=-1)                                          # 城市 （邮编码）
-    field = models.IntegerField(default=-1)                                         # 领域 （数字编码）
+    field = models.CharField(max_length=64, default='')                             # 领域 （数字编码）
     department = models.IntegerField(default=-1)                                    # 院系 （学校官方数字编码）
     wechatid = models.CharField(max_length=64, default='')                          # 微信号（手机号）
     tel = models.CharField(max_length=20, default='')                               # 电话
     email = models.CharField(max_length=64, default='')                             # 邮箱
     self_discription = models.CharField(max_length=600, default='')                 # 自我介绍
+    company = models.CharField(max_length=100, default='')                          # 公司
+    hobby = models.CharField(max_length=100, default='')                            # 爱好
     avatar_url = models.CharField(max_length=100,
                                   default='/media/user_avatar/default/default.jpg')  # 头像
 
