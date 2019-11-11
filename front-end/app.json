@@ -1,9 +1,9 @@
 {
     "pages": [
+        "pages/index/index",
+        "pages/login/login",
         "pages/me/me",
         "pages/resource/resource",
-
-        "pages/index/index",
         "pages/resource/detail",
         "pages/resource/add",
         "pages/groups/groups",
@@ -29,7 +29,7 @@
                 "selectedIconPath": "assets/square-active.png"
             },
             {
-                "pagePath": "pages/index/index",
+                "pagePath": "pages/login/login",
                 "text": "活动",
                 "iconPath": "assets/activity.png",
                 "selectedIconPath": "assets/activity-active.png"
