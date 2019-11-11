@@ -8,59 +8,43 @@
     <image class="avatar" src="{{ avatar }}" />
     <view class="name-container" >
       <text class="name">{{ name }}</text>
-      <view class="check"><text>未认证</text></view>
+      <view class="check"><text>13期 学员</text></view>
+      <view class="check"><text>17期 辅导员</text></view>
     </view>
   </view>
 
   <view class="card padding">
-    <mp-cell  link="{{true}}" value="校友卡">
-      <view slot="icon">
-      <image class="icon" src= "/assets/activity.png"/>
-      </view>
-    </mp-cell>
-  </view>
-  
-  <view class="card padding">
     <mp-cells>
-    <mp-cell  link="{{true}}" value="学籍信息">
+    
+    <!-- 姓名、期数【链接】、modify【电话、邮箱、行业、工作单位】 -->
+    <mp-cell  link="{{true}}" value="个人卡片">
       <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>
       </view>
     </mp-cell>
-    <mp-cell  link="{{true}}" value="个人信息">
+    
+    <!-- 包括我发布的、我收藏的 -->
+    <mp-cell  link="{{true}}" value="相关资源">
       <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>
       </view>
     </mp-cell>
-    </mp-cells>
-  </view>
 
-  <view class="card padding">
-    <mp-cells>
-    <mp-cell  link="{{true}}" value="校友联络">
+    <mp-cell  link="{{true}}" value="使用指南">
       <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>
       </view>
     </mp-cell>
-    <mp-cell  link="{{true}}" value="帮助">
-      <view slot="icon">
-      <image class="icon" src= "/assets/activity.png"/>
-      </view>
-    </mp-cell>
+
     </mp-cells>
   </view>
 
   <!-- <view class="card padding">
-    <mp-cell  link="{{true}}" value="校友联络">
-      <view slot="icon">
-      <image class="icon" src= "/assets/activity.png"/>
-      </view>
-    </mp-cell>
-    <view class="div-line"></view>
-    <mp-cell  link="{{true}}" value="帮助">
+    <mp-cell  link="{{true}}" value="思源校友卡">
       <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>
       </view>
     </mp-cell>
   </view> -->
+
 </view>

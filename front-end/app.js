@@ -190,7 +190,4 @@ App({
       })
     }
   },
-  globalData: {
-    userInfo: null
-  }
 })

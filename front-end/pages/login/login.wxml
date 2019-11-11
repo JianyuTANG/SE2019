@@ -1,6 +1,6 @@
 <view class="page-body">
   <view class="page-section">
-    <view class="weui-cells__title">你的姓名：</view>
+    <view class="weui-cells__title">您的姓名：</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
         <input class="weui-input" auto-focus placeholder=""/>
@@ -8,7 +8,7 @@
     </view>
   </view>
   <view class="page-section">
-    <view class="weui-cells__title">你的期数：</view>
+    <view class="weui-cells__title">您的期数：</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
         <input class="weui-input" maxlength="2"auto-focus placeholder="仅输入数字，如“17”"/>
@@ -30,6 +30,8 @@
         <input class="weui-input" placeholder-style="color:#F76260" auto-focus placeholder="请注意姓名输入无误"/>
       </view>
     </view>
+    <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}"
+        disabled="{{disabled}}" bindtap="primary"> 验证身份 </button>
   </view>
   <!-- <view class="page-section">
     <view class="weui-cells__title">控制最大输入长度的input</view>
