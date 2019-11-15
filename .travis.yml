@@ -1,0 +1,17 @@
+language: python
+sudo: enabled
+services:
+    - mysql
+python:
+    - "3.6"
+env:
+    global:
+     - TRAVIS=true
+before_install:
+    - cd back-end/server
+# command to install dependencies
+install:
+    - pip install -r requirements.txt
+    
+script:
+    python manage.py runserver
