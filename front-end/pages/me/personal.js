@@ -15,6 +15,12 @@ Page({
       { name: 'standard is dealt for u.', value: '0', checked: true },
       { name: 'standard is dealicient for u.', value: '1' }
     ],
+    basicData: {
+      name: '',
+      num: '',
+      identity: '',
+      department: ''
+    },
     formData: {
       title: '',
       contact: '',

@@ -1,37 +1,19 @@
 <!--WXML示例代码-->
-            <mp-dialog 
-            wx:if = "{{tapButtonDate}}"
-            title="设置日期" 
-            show="{{tapButtonDate}}" 
-            bindbuttontap="tapButtonDate" 
-            buttons="{{[{text: '确定'}]}}">
-                <van-datetime-picker
-                confirm-button-text=""
-                cancel-button-text=""
-                show-toolbar="{{false}}"
-                v-model="{{date.currentDate}}"
-                type="date"
-                :min-date="{{date.minDate}}"
-                bind:input="changeEndDate"
-                />
-            </mp-dialog>
-
-
 <view class="page">
     <view class="page__bd">
         <mp-form id="form" rules="{{rules}}" models="{{formData}}">
             <mp-cells title = "基本资料">
-               <mp-cell show-error prop="telephone" title="姓名" ext-class="">
-                    <input bindinput="formInputChange" data-field="telephone" class="weui-input" placeholder="请输入联系电话"/>
+               <mp-cell title="姓名" ext-class="">
+                    <text >{{basicData.name}}</text>
                 </mp-cell>
-               <mp-cell show-error prop="email" title="期数" ext-class="">
-                    <input bindinput="formInputChange" data-field="email" class="weui-input" placeholder="请输入联系邮箱"/>
+               <mp-cell title="期数" ext-class="">
+                    <text >{{basicData.num}}</text>
                </mp-cell>
-                <mp-cell show-error prop="email" title="身份" ext-class="">
-                    <input bindinput="formInputChange" data-field="email" class="weui-input" placeholder="请输入联系邮箱"/>
+                <mp-cell title="身份" ext-class="">
+                    <text >{{basicData.identity==0?'学生':'辅导员'}}</text>
                </mp-cell>
-                <mp-cell show-error prop="email" title="院系" ext-class="">
-                    <input bindinput="formInputChange" data-field="email" class="weui-input" placeholder="请输入联系邮箱"/>
+                <mp-cell title="院系" ext-class="">
+                    <text >{{basicData.department}}</text>
                </mp-cell>
             </mp-cells>
 
@@ -55,6 +37,7 @@
                 </mp-cell>
             </mp-cells>
         </mp-form>
+
         <view class="weui-btn-area">
             <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
             <button class="weui-btn" type='default' bindtap="submitCancel">取消</button>
