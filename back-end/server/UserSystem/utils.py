@@ -13,10 +13,12 @@ def get_user(session_code):
     '''
 
     openid, hashed_session = status_dehash(session_code)
-    user = User.objects.get(openid=openid)
-    if user is not None:
+    try:
+        user = User.objects.get(openid=openid)
         if session_check(user.session_key, hashed_session):
             return user
+    except:
+        return None
 
     return None
 
@@ -47,10 +49,10 @@ def status_hash(openid, session_key):
     '''
     status = openid
     x = hashlib.md5()
-    x.update(session_key)
+    x.update(session_key.encode())
     hashed = x.hexdigest()
     status = status + hashed
-    ans = base64.b64encode(status)
+    ans = base64.b64encode(status).decode()
     return ans
 
 
@@ -61,7 +63,7 @@ def session_check(session_key, request_code):
     :param request_code: 客户端传来的session_code，用于校验客户端身份
     :return: True / False
     '''
-    standard = hashlib.md5().update(session_key).hexdigest()
+    standard = hashlib.md5().update(session_key.encode()).hexdigest()
     if standard == request_code[-32:]:
         return True
     else:
@@ -94,7 +96,10 @@ def verify_student_identity(name, num, classmate, advisor):
         num_of_entry = userinfo.number_of_entry
         if num != num_of_entry:
             continue
-        classmates = UserInfo.objects.filter(real_name=classmate)
+        try:
+            classmates = UserInfo.objects.filter(real_name=classmate)
+        except:
+            return None
         if len(classmates) == 0 or classmate == name:
             continue
         return userinfo

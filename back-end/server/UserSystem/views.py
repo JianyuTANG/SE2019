@@ -24,9 +24,10 @@ def login(request):
         response.status_code = 404
         return response
 
-    user = User.objects.get(openid=openid)
-    if user is None:
-        user = User.objects.create()
+    try:
+        user = User.objects.get(openid=openid)
+    except:
+        user = User.objects.create(openid=openid)
         user.openid = openid
         user.session_key = session_key
         user.logon_status = -1
