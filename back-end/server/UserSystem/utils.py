@@ -2,7 +2,7 @@ import requests
 import base64
 import hashlib
 from .config import app_config
-from .models import User
+from .models import User, UserInfo
 
 
 def get_user(session_code):
@@ -84,7 +84,21 @@ def status_dehash(hashcode):
 
 
 def verify_student_identity(name, num, classmate, advisor):
-    return True
+    userinfos = None
+    try:
+        name = str(name)
+        userinfos = UserInfo.objects.filter(real_name=name)
+    except:
+        return None
+    for userinfo in userinfos:
+        num_of_entry = userinfo.number_of_entry
+        if num != num_of_entry:
+            continue
+        classmates = UserInfo.objects.filter(real_name=classmate)
+        if len(classmates) == 0 or classmate == name:
+            continue
+        return userinfo
+    return None
 
 
 def verify_teacher_identity(name, num, classmate, advisor):

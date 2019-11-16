@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import User
+from .models import User, UserInfo
 from .utils import *
 import json
 from .forms import *
 import os
+from .config import administration_config
 
 
 def login(request):
@@ -54,20 +55,17 @@ def verify(request):
     advisor = json_request.advisor
     student_type = json_request.identity
     res = {'result': -1}
-    if student_type == 0 and verify_student_identity(name, num, classmate, advisor) != 0:
+    userinfo = verify_student_identity(name, num, classmate, advisor)
+    if student_type == 0 and userinfo is not None:
         # 学生类型注册
         res.result = 0
-        user.real_name = name
-        user.number_of_entry = num
-        user.avatar_url = '/media/user_avatar/default/default.jpg'
+        userinfo.avatar_url = '/media/user_avatar/default/default.jpg'
+        user.info = userinfo
+        userinfo.save()
         user.save()
-    elif student_type == 1 and verify_teacher_identity(name, num, classmate, advisor) != 0:
+    elif student_type == 1:
         # 辅导员类型注册
-        res.result = 0
-        user.real_name = name
-        user.number_of_entry = num
-        user.avatar_url = '/media/user_avatar/default/default.jpg'
-        user.save()
+        pass
     response = HttpResponse(json.dumps(res), content_type="application/json")
     response.status_code = 200
     return response
@@ -93,6 +91,14 @@ def invite(request):
 
 
 def register(request):
+    '''
+
+    :param request:
+    :return: if succeed, return HTTP status code 200
+             else return HTTP status code 404
+
+    已修改为将User和UserInfo拆开的版本
+    '''
     post_body = request.body
     json_request = json.loads(post_body)
     user = get_user(json_request.sessionCode)
@@ -101,14 +107,21 @@ def register(request):
         response = HttpResponse()
         response.status_code = 404
         return response
+    if user.info is None:
+        # 用户信息不存在 直接404
+        response = HttpResponse()
+        response.status_code = 404
+        return response
     city = json_request.city
     field = json_request.field
     department = json_request.department
     wechat_id = json_request.wechatId
-    user.city = city
-    user.field = field
-    user.department = department
-    user.wechatid = wechat_id
+    userinfo = user.info
+    userinfo.city = city
+    userinfo.field = field
+    userinfo.department = department
+    userinfo.wechatid = wechat_id
+    userinfo.save()
     user.save()
     response = HttpResponse()
     response.status_code = 200
@@ -124,6 +137,11 @@ def modify_user(request):
         response = HttpResponse()
         response.status_code = 404
         return response
+    if user.info is None:
+        # 用户信息不存在 直接404
+        response = HttpResponse()
+        response.status_code = 404
+        return response
     city = json_request.city
     field = json_request.field
     department = json_request.department
@@ -133,15 +151,17 @@ def modify_user(request):
     self_discription = json_request.selfDiscription
     hobby = json_request.hobby
     company = json_request.company
-    user.city = city
-    user.field = field
-    user.department = department
-    user.wechatid = wechat_id
-    user.tel = tel
-    user.email = email
-    user.hobby = hobby
-    user.company = company
-    user.self_discription = self_discription
+    userinfo = user.info
+    userinfo.city = city
+    userinfo.field = field
+    userinfo.department = department
+    userinfo.wechatid = wechat_id
+    userinfo.tel = tel
+    userinfo.email = email
+    userinfo.hobby = hobby
+    userinfo.company = company
+    userinfo.self_discription = self_discription
+    userinfo.save()
     user.save()
     response = HttpResponse()
     response.status_code = 200
@@ -157,6 +177,12 @@ def query_user(request):
         response = HttpResponse()
         response.status_code = 404
         return response
+    if user.info is None:
+        # 用户不存在 （sessionCode有误） 直接404
+        response = HttpResponse()
+        response.status_code = 404
+        return response
+    user = user.info
     res = {
         'name': user.real_name,
         'num': user.number_of_entry,
@@ -188,6 +214,11 @@ def upload_user_avatar(request):
         # 用户不存在 （sessionCode有误） 直接404
         response.status_code = 404
         return response
+    if user.info is None:
+        # 用户信息不存在 直接404
+        response = HttpResponse()
+        response.status_code = 404
+        return response
     if request.method == 'POST':
         files = request.FILES
         for key, values in files.items():
@@ -207,7 +238,9 @@ def upload_user_avatar(request):
                 response.status_code = 404
                 return response
             src = os.path.join('/media/user_avatar/', img_name)
-            user.avatar_url = src
+            userinfo = user.info
+            userinfo.avatar_url = src
+            userinfo.save()
             user.save()
             res = {'url': src}
             response = HttpResponse(json.dumps(res), content_type="application/json")
@@ -227,7 +260,12 @@ def get_user_avartar(request):
         response = HttpResponse()
         response.status_code = 404
         return response
-    src = user.avatar_url
+    if user.info is None:
+        # 用户信息不存在 直接404
+        response = HttpResponse()
+        response.status_code = 404
+        return response
+    src = user.info.avatar_url
     if os.path.isfile('.' + src):
         res = {'url': src}
         response = HttpResponse(json.dumps(res), content_type="application/json")
@@ -236,3 +274,36 @@ def get_user_avartar(request):
     response = HttpResponse()
     response.status_code = 404
     return response
+
+
+def create_userinfo(request):
+    '''
+    用于管理员在用户信息表中预制用户信息（用来验证等）
+
+    :param request:
+    :return:
+    '''
+    post_body = request.body
+    json_request = json.loads(post_body)
+    session_code = json_request['sessionCode']
+    if session_code is None:
+        res = HttpResponse()
+        res.status_code = 404
+        return res
+    if session_code != administration_config['session_code']:
+        res = HttpResponse()
+        res.status_code = 404
+        return res
+    name = json_request.name
+    num = json_request.num
+    department = json_request.department
+    city = json_request.city
+    userinfo = UserInfo.objects.create()
+    userinfo.real_name = name
+    userinfo.department = department
+    userinfo.number_of_entry = num
+    userinfo.city = city
+    userinfo.save()
+    res = HttpResponse()
+    res.status_code = 200
+    return res
