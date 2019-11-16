@@ -1,0 +1,71 @@
+<!--WXML示例代码-->
+<mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
+
+<mp-halfScreenDialog 
+    show="{{showLoading}}"
+    bind:close = "closeLoading">
+
+    <view slot="desc">
+    <text >正在等待上传中</text>
+    <mp-loading
+        show="{{true}}"
+        type="circle"
+        />
+    </view>
+</mp-halfScreenDialog>
+
+<view class="page">
+    <view class="page__bd">
+        <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+            <mp-cells title = "基本资料">
+               <mp-cell title="姓名" ext-class="">
+                    <text >{{basicData.name}}</text>
+                </mp-cell>
+               <mp-cell title="期数" ext-class="">
+                    <text >{{basicData.num}}</text>
+               </mp-cell>
+                <mp-cell title="身份" ext-class="">
+                    <text >{{basicData.identity==0?'学生':'辅导员'}}</text>
+               </mp-cell>
+                <mp-cell title="院系" ext-class="">
+                    <text >{{basicData.department}}</text>
+               </mp-cell>
+            </mp-cells>
+
+            <mp-cells title = "可填项">
+               <mp-cell show-error prop="telephone" title="电话" ext-class="">
+                    <input bindinput="formInputChange" data-field="telephone" class="weui-input" placeholder="请输入联系电话"/>
+                </mp-cell>
+               <mp-cell show-error prop="email" title="邮箱" ext-class="">
+                    <input bindinput="formInputChange" data-field="email" class="weui-input" placeholder="请输入联系邮箱"/>
+               </mp-cell>
+               <mp-cell show-error prop="cityCode" title="城市" ext-class="van-area">
+                    <van-area area-list="{{ areaList }}" columns-placeholder="{{ areaPlaceholder }}"
+                    confirm-button-text = "" cancel-button-text="" item-height="{{25}}"
+                    data-field="cityCode"
+                    bind:change = "formAreaChange"/>
+                </mp-cell>
+               <mp-cell show-error prop="fieldCode" title="行业领域" ext-class="van-area">
+                    <van-area area-list="{{ fieldList }}" columns-placeholder="{{ areaPlaceholder }}"
+                    confirm-button-text = "" cancel-button-text="" item-height="{{25}}"
+                    data-field="fieldCode"
+                    bind:change = "formAreaChange"/>
+                </mp-cell>
+                <mp-cell prop="content" title="个人介绍" ext-class="weui-cell_label-block">
+                    <textarea id="editor"  
+                    style="height:120px;width:100%;" 
+                    class="ql-container weui-input" 
+                    bindblur = "formTextareaBlur"
+                    placeholder="请输入个人介绍(最多140字)"/>
+                </mp-cell>
+            </mp-cells>
+        </mp-form>
+
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
+            <button class="weui-btn" type='default' bindtap="submitCancel">取消</button>
+        </view>
+    </view>
+                 
+
+</view>

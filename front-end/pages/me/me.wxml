@@ -5,7 +5,14 @@
 
 <view class="container debug-bg">
   <view class="card padding flex">
-    <image class="avatar" src="{{ avatar }}" />
+    <view class="avatar-box">
+      <view wx:if="{{showLoading}}" class="load-wrapper">
+        <view class = "weui-loadmore">
+        <view class = "weui-loading"></view>
+        </view>
+      </view>
+      <image class="avatar" bindtap="chooseImage" src="{{ avatar }}" />
+    </view>
     <view class="name-container" >
       <text class="name">{{ name }}</text>
       <view class="check"><text>未认证</text></view>
@@ -27,7 +34,7 @@
       <image class="icon" src= "/assets/activity.png"/>
       </view>
     </mp-cell>
-    <mp-cell  link="{{true}}" value="个人信息">
+    <mp-cell  bindtap="navToDetailPage" link="{{true}}" value="个人信息" data-field="personal">
       <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>
       </view>

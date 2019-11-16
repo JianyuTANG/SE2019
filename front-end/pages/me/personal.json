@@ -1,0 +1,16 @@
+{
+  "usingComponents": {
+    "mp-cell": "../../miniprogram_npm/weui-miniprogram/cell/cell",
+    "mp-cells": "../../miniprogram_npm/weui-miniprogram/cells/cells",
+    "mp-checkbox-group": "../../miniprogram_npm/weui-miniprogram/checkbox-group/checkbox-group",
+    "mp-checkbox": "../../miniprogram_npm/weui-miniprogram/checkbox/checkbox",
+    "mp-form": "../../miniprogram_npm/weui-miniprogram/form/form",
+    "mp-uploader": "../../miniprogram_npm/weui-miniprogram/uploader/uploader",
+    "mp-dialog": "../../miniprogram_npm/weui-miniprogram/dialog/dialog",
+    "van-datetime-picker": "../../miniprogram_npm/vant-weapp/datetime-picker/index",
+    "mp-toptips": "../../miniprogram_npm/weui-miniprogram/toptips/toptips",
+    "van-area": "../../miniprogram_npm/vant-weapp/area/index",
+    "mp-halfScreenDialog": "../../miniprogram_npm/weui-miniprogram/half-screen-dialog/half-screen-dialog",
+    "mp-loading":"../../miniprogram_npm/weui-miniprogram/loading/loading"
+  }
+}

@@ -1,6 +1,8 @@
 {
     "pages": [
+
         "pages/me/me",
+              "pages/me/personal",
         "pages/resource/resource",
 
         "pages/index/index",
