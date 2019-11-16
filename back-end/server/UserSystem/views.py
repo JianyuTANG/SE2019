@@ -15,14 +15,15 @@ def login(request):
     login_status = authenticator(code)
     openid = login_status['openid']
     session_key = login_status['session_key']
-    if login_status['errcode'] == 0:
-        pass
-    else:
-        res = {'sessionCode': '0',
-               'identity': -1}
+    if 'errcode' in login_status.keys():
+        res = {
+            'sessionCode': '0',
+            'identity': -1
+        }
         response = HttpResponse(json.dumps(res), content_type="application/json")
         response.status_code = 404
         return response
+
     user = User.objects.get(openid=openid)
     if user is None:
         user = User.objects.create()
