@@ -5,6 +5,7 @@ const app = getApp()
 const sessionCode = '123456' // 假如我们有一个sessionCode
 Page({
   data: {
+    showLoading: false,
     baseUrl: app.globalData.baseUrl,
     getInfoUrl: app.globalData.baseUrl + 'view_user',
     changeInfoUrl: app.globalData.baseUrl + 'modify_user_info',
@@ -102,6 +103,9 @@ Page({
       },
       fail (res) {
         that.failSubmit()
+      },
+      complete (res) {
+        that.setData({ showLoading: false })
       }
     })
   },
@@ -143,6 +147,7 @@ Page({
         }
       } else {
         this.changeInfo()
+        this.setData({ showLoading: true })
       }
     })
   },
@@ -160,6 +165,11 @@ Page({
       duration: 1000
     })
   },
+  // closeLoading: function () {
+  //   this.setData({
+  //     showLoading: true
+  //   })
+  // },
   submitCancel: function () {
     wx.navigateBack()
   }
