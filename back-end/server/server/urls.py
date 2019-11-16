@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import UserSystem.views
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -27,5 +29,7 @@ urlpatterns = [
     path('modify_user_info', UserSystem.views.modify_user),
     path('view_user', UserSystem.views.query_user),
     path('upload_user_avatar', UserSystem.views.upload_user_avatar),
-    path('get_user_avatar', UserSystem.views.get_user_avartar)
-]
+    path('get_user_avatar', UserSystem.views.get_user_avartar),
+    path('add_userinfo', UserSystem.views.create_userinfo),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
