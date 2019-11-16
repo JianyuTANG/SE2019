@@ -294,10 +294,10 @@ def create_userinfo(request):
         res = HttpResponse()
         res.status_code = 404
         return res
-    name = json_request['name']
-    num = json_request['num']
-    department = json_request['department']
-    city = json_request['city']
+    name = json_request.name
+    num = json_request.num
+    department = json_request.department
+    city = json_request.city
     userinfo = UserInfo.objects.create()
     userinfo.real_name = name
     userinfo.department = department
