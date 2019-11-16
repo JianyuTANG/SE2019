@@ -42,23 +42,23 @@ def login(request):
 def verify(request):
     post_body = request.body
     json_request = json.loads(post_body)
-    user = get_user(json_request.sessionCode)
+    user = get_user(json_request['sessionCode'])
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
         res = {'result': -1}
         response = HttpResponse(json.dumps(res), content_type="application/json")
         response.status_code = 404
         return response
-    name = json_request.name
-    num = json_request.num
-    classmate = json_request.classmate
-    advisor = json_request.advisor
-    student_type = json_request.identity
+    name = json_request['name']
+    num = json_request['num']
+    classmate = json_request['classmate']
+    advisor = json_request['advisor']
+    student_type = json_request['identity']
     res = {'result': -1}
     userinfo = verify_student_identity(name, num, classmate, advisor)
     if student_type == 0 and userinfo is not None:
         # 学生类型注册
-        res.result = 0
+        res['result'] = 0
         userinfo.avatar_url = '/media/user_avatar/default/default.jpg'
         user.info = userinfo
         userinfo.save()
@@ -74,7 +74,7 @@ def verify(request):
 def invite(request):
     post_body = request.body
     json_request = json.loads(post_body)
-    user = get_user(json_request.sessionCode)
+    user = get_user(json_request['sessionCode'])
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
         res = {'result': -1}
@@ -82,9 +82,9 @@ def invite(request):
         response.status_code = 404
         return response
     res = {'result': -1}
-    invitation_code = json_request.invitation_code
+    invitation_code = json_request['invitation_code']
     if verify_invitation(invitation_code) != 0:
-        res.result = 0
+        res['result'] = 0
     response = HttpResponse(json.dumps(res), content_type="application/json")
     response.status_code = 200
     return response
@@ -101,7 +101,7 @@ def register(request):
     '''
     post_body = request.body
     json_request = json.loads(post_body)
-    user = get_user(json_request.sessionCode)
+    user = get_user(json_request['sessionCode'])
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
         response = HttpResponse()
@@ -112,10 +112,10 @@ def register(request):
         response = HttpResponse()
         response.status_code = 404
         return response
-    city = json_request.city
-    field = json_request.field
-    department = json_request.department
-    wechat_id = json_request.wechatId
+    city = json_request['city']
+    field = json_request['field']
+    department = json_request['department']
+    wechat_id = json_request['wechatId']
     userinfo = user.info
     userinfo.city = city
     userinfo.field = field
@@ -131,7 +131,7 @@ def register(request):
 def modify_user(request):
     post_body = request.body
     json_request = json.loads(post_body)
-    user = get_user(json_request.sessionCode)
+    user = get_user(json_request['sessionCode'])
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
         response = HttpResponse()
@@ -142,15 +142,15 @@ def modify_user(request):
         response = HttpResponse()
         response.status_code = 404
         return response
-    city = json_request.city
-    field = json_request.field
-    department = json_request.department
-    wechat_id = json_request.wechatId
-    tel = json_request.tel
-    email = json_request.email
-    self_discription = json_request.selfDiscription
-    hobby = json_request.hobby
-    company = json_request.company
+    city = json_request['city']
+    field = json_request['field']
+    department = json_request['department']
+    wechat_id = json_request['wechatId']
+    tel = json_request['tel']
+    email = json_request['email']
+    self_discription = json_request['selfDiscription']
+    hobby = json_request['hobby']
+    company = json_request['company']
     userinfo = user.info
     userinfo.city = city
     userinfo.field = field
@@ -171,7 +171,7 @@ def modify_user(request):
 def query_user(request):
     post_body = request.body
     json_request = json.loads(post_body)
-    user = get_user(json_request.sessionCode)
+    user = get_user(json_request['sessionCode'])
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
         response = HttpResponse()
@@ -254,7 +254,7 @@ def upload_user_avatar(request):
 def get_user_avartar(request):
     post_body = request.body
     json_request = json.loads(post_body)
-    user = get_user(json_request.sessionCode)
+    user = get_user(json_request['sessionCode'])
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
         response = HttpResponse()
