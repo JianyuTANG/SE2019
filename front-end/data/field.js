@@ -1,14 +1,15 @@
-const areaList = {
+const fieldList = {
   province_list: {
-    100000: '高新科技',
-    110000: '信息传媒'
+    120000: '高新科技',
+    100000: '其他'
 
   },
   city_list: {
-
+    120100: '互联网',
+    120200: '电子商务'
   }
 }
 
 export {
-  areaList
+  fieldList
 }

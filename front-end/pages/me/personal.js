@@ -1,19 +1,12 @@
 // eslint-disable-next-line camelcase
 import { areaList } from '../../data/area.js'
+import { fieldList } from '../../data/field.js'
 Page({
   data: {
     showTopTips: false,
     areaList: areaList,
-    date: {
-      minHour: 10,
-      maxHour: 20,
-      minDate: new Date().getTime(),
-      maxDate: new Date(2019, 10, 1).getTime(),
-      currentDate: new Date().getTime(),
-      endDay: new Date().toDateString(),
-      endTimeStamp: new Date()
-
-    },
+    areaPlaceholder: ['请选择', '请选择', '请选择'],
+    fieldList: fieldList,
     radioItems: [
       { name: 'cell standard', value: '0', checked: true },
       { name: 'cell standard', value: '1' }
