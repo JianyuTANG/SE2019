@@ -1,6 +1,9 @@
+// eslint-disable-next-line camelcase
+import { areaList } from '../../data/area.js'
 Page({
   data: {
     showTopTips: false,
+    areaList: areaList,
     date: {
       minHour: 10,
       maxHour: 20,
@@ -9,6 +12,7 @@ Page({
       currentDate: new Date().getTime(),
       endDay: new Date().toDateString(),
       endTimeStamp: new Date()
+
     },
     radioItems: [
       { name: 'cell standard', value: '0', checked: true },
@@ -55,6 +59,7 @@ Page({
       selectFile: this.selectFile.bind(this),
       uplaodFile: this.uplaodFile.bind(this)
     })
+    console.log(this.data.areaList)
   },
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value)

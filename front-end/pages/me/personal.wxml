@@ -37,6 +37,8 @@
                      disabled="{{true}}"/>
                     <button bind:tap="setDate">点击设置</button>
                 </mp-cell> -->
+                
+                <van-area area-list="{{ areaList }}" />
                 <mp-cell prop="content" title="个人介绍" ext-class="weui-cell_label-block">
 
                 <textarea id="editor"  style="height:120px;width:100%;" class="ql-container weui-input" placeholder="请输入个人介绍(最多140字)"/>
