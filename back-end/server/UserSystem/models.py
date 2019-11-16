@@ -4,7 +4,7 @@ from django.utils import timezone
 
 class UserInfo(models.Model):
     real_name = models.CharField(max_length=32, default='')  # 真名
-    number_of_entry = models.IntegerField(default=-1)  # 期数
+    number_of_entry = models.CharField(max_length=32, default='')  # 期数
 
     # student_id = models.CharField(max_length=32)                                  # 学号
     # password = models.CharField(max_length=32)                                    # 后期扩展用。若只限于微信小程序，则无需密码
