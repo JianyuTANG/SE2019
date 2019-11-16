@@ -1,4 +1,11 @@
 <view class="page-body">
+
+  <view class="page-section">
+    <view class="notice">注意：仅身份验证通过后才能使用小程序其他功能！
+    </view>
+    
+  </view>
+
   <view class="page-section">
     <view class="weui-cells__title">您的姓名：</view>
     <view class="weui-cells weui-cells_after-title">
@@ -30,8 +37,10 @@
         <input class="weui-input" placeholder-style="color:#F76260" auto-focus placeholder="请注意姓名输入无误"/>
       </view>
     </view>
-    <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}"
-        disabled="{{disabled}}" bindtap="primary"> 验证身份 </button>
+    
+    <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" 
+        disabled="{{disabled}}" catchtap="verifySuccess"> 验证身份 </button>
+    
   </view>
   <!-- <view class="page-section">
     <view class="weui-cells__title">控制最大输入长度的input</view>

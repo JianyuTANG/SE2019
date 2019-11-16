@@ -7,6 +7,17 @@
     align-items: center;
 }
 
+.notice{
+    background-color: #ff7b7b;
+    display: flex;
+    flex-direction: column;
+    padding: 20rpx;
+    border-radius: 20rpx;
+    align-items: center;
+    /* up left bottom right */
+    margin: 40rpx 50rpx 40rpx 50rpx;
+}
+
 .debug-bg{
     background-color: #eef1f9;
 }
@@ -79,12 +90,14 @@
 .weui-cells__title{
   width: 600rpx;
   border-radius: 10rpx;
+
 }
 
 .weui-cell weui-cell_input{
   width: 600rpx;
   border-radius: 10rpx;
   margin: 20px;
+  
 }
 button {
   margin: 20px;
