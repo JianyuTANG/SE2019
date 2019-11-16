@@ -3,11 +3,13 @@ Page({
     focus: false,
     inputValue: ''
   },
+
   bindKeyInput: function (e) {
     this.setData({
       inputValue: e.detail.value
     })
   },
+
   bindReplaceInput: function (e) {
     var value = e.detail.value
     var pos = e.detail.cursor
@@ -28,10 +30,18 @@ Page({
     // 或者直接返回字符串,光标在最后边
     // return value.replace(/11/g,'2'),
   },
+
   bindHideKeyboard: function (e) {
     if (e.detail.value === '123') {
       // 收起键盘
       wx.hideKeyboard()
     }
+  },
+
+  verifySuccess: function (e) {
+    console.log('尝试中');
+    wx.switchTab({
+      url: '/pages/me/me'
+    })
   }
 })

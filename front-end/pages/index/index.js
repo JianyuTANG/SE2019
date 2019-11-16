@@ -8,12 +8,12 @@ Page({
     // 查看是否授权
     wx.getSetting({
       success: function (res) {
+        
         if (res.authSetting['scope.userInfo']) {
           wx.getUserInfo({
             success: function (res) {
               //从数据库获取用户信息
-              //这里我使用queryUsreInfo函授获取信息，你要换成你的，或者不用
-              //that.queryUsreInfo();
+              console.log('获取用户unionId', res);
               //用户已经授权过
               wx.switchTab({
                 url: '/pages/login/login'
@@ -24,6 +24,7 @@ Page({
       }
     })
   },
+  
   bindGetUserInfo: function (e) {
     if (e.detail.userInfo) {
       //用户按了允许授权按钮

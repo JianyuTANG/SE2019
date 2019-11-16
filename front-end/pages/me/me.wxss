@@ -9,6 +9,7 @@
 
 .debug-bg{
     background-color: #eef1f9;
+    background-size:100% 100%; 
 }
 
 .debug-bg view{

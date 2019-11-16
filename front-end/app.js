@@ -126,7 +126,29 @@ App({
     // 登录
     wx.login({
       success: res => {
+        console.log("login success res", res)
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+
+        wx.request({
+          url: 'http://127.0.0.1:8000/admin/',
+          
+          data: { code: res.code },
+          method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+          header: {
+            'content-type': 'application/x-www-form-urlencoded'
+          },// 设置请求的 header
+          success: function (res) {
+            console.log('获取用户unionId', res);
+          },
+          fail: function () {
+            console.log("index.js wx.request CheckCallUser fail");
+          },
+          complete: function () {
+
+            // complete
+          }
+        })
+
       }
     })
     // 获取用户信息

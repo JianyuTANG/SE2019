@@ -62,8 +62,6 @@ buttons="{{[{text: '确定'}]}}">
         <view class="follow flex-item" catch:tap="enroll">
                 <text>十 我要报名</text>
         </view>
-
-
     </view>
 </view>
 
