@@ -43,6 +43,8 @@
                     <van-area area-list="{{ areaList }}" columns-placeholder="{{ areaPlaceholder }}"
                     confirm-button-text = "" cancel-button-text="" item-height="{{25}}"
                     data-field="cityCode"
+                    id="city"
+                    value="{{ formData.cityCode }}"
                     bind:change = "formAreaChange"/>
                 </mp-cell>
                <mp-cell show-error prop="fieldCode" title="行业领域" ext-class="van-area">

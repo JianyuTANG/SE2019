@@ -48,6 +48,15 @@ Page({
     console.log(this.data.areaList)
     this.getInfo()
   },
+  setInfo () {
+    let formData = this.data.formData
+    formData.cityCode = '210300'
+    let city = this.selectComponent('#city')
+    this.setData({
+      'formData.cityCode': formData.cityCode
+    })
+    city.reset(formData.cityCode)
+  },
   // ---------------------------------------以下是和后端联系的函数--------------------------
   getInfo () {
     // 获取用户的个人信息,填写表格
@@ -75,6 +84,7 @@ Page({
         })
       }
     })
+    that.setInfo()
   },
   changeInfo () {
     // 根据用户填些信息,更新用户个人信息
