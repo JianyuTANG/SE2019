@@ -30,7 +30,7 @@ Page({
       //用户按了允许授权按钮
       var that = this;
       //授权成功后，跳转进入小程序首页
-      wx.switchTab({
+      wx.navigateTo({
         url: '/pages/login/login'
       })
     } else {

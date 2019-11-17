@@ -1,4 +1,6 @@
 {
+  "navigationBarTitleText": "我的",
+  "navigationBarTitleSize": "30px",
   "usingComponents": {
     "info-card":"/component/info-card/info-card",
     "mp-dialog": "../../miniprogram_npm/weui-miniprogram/dialog/dialog",

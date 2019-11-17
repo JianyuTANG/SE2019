@@ -130,15 +130,29 @@ App({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
 
         wx.request({
-          url: 'http://127.0.0.1:8000/admin/',
-          
+          url: 'http://127.0.0.1:8000/login',
           data: { code: res.code },
           method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
           header: {
-            'content-type': 'application/x-www-form-urlencoded'
+            'content-type': 'application/json'
           },// 设置请求的 header
           success: function (res) {
             console.log('获取用户unionId', res);
+            // 存储sessionCode：
+            wx.setStorage({
+              key: 'sessionCode',
+              data: res.data.sessionCode,
+            })
+            if(res.data.identity == -1){
+              that.getUserOut();
+            }
+
+            wx.getStorage({
+              key: 'identity',  // 和存储的key值一致；
+              success: function (res) {
+                console.log(res.data)  // 在这里打印出存储的值；
+              }
+            })
           },
           fail: function () {
             console.log("index.js wx.request CheckCallUser fail");
@@ -212,4 +226,11 @@ App({
       })
     }
   },
+  //链接到未验证提醒与要求验证界面
+  getUserOut: function (){
+    console.log('用户未验证，需要验证');
+    wx.switchTab({
+      url: '/pages/groups/groups'
+    })
+  }
 })

@@ -9,22 +9,22 @@
 	"simulatorType": "wechat",
 	"compileType": "miniprogram",
 	"setting": {
-		"coverView": true,
+		"urlCheck": false,
+		"es6": true,
 		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"checkInvalidKey": true,
 		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
 		"babelSetting": {
 			"outputPath": "",
 			"disablePlugins": [],
 			"ignore": []
-		},
-		"nodeModules": true,
-		"autoAudits": false,
-		"es6": true,
-		"uploadWithSourceMap": true,
-		"newFeature": true,
-		"minified": true,
-		"urlCheck": true,
-		"checkInvalidKey": true
+		}
 	},
 	"simulatorPluginLibVersion": {},
 	"packOptions": {
