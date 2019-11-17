@@ -26,6 +26,11 @@ Page({
       fieldCode: '',
       content: ''
     },
+    // 根据formData生成的文字
+    formText: {
+      city: '请选择', // 默认显示文本
+      field: '请选择'
+    },
     // 规则中暂时只有手机号码,email, 城市, 和 行业领域必填
     rules: [
       {
@@ -48,14 +53,24 @@ Page({
     console.log(this.data.areaList)
     this.getInfo()
   },
+  // ----------------------------------设置显示文本的函数
   setInfo () {
     let formData = this.data.formData
-    formData.cityCode = '210300'
     let city = this.selectComponent('#city')
-    this.setData({
-      'formData.cityCode': formData.cityCode
-    })
     city.reset(formData.cityCode)
+    let field = this.selectComponent('#field')
+    field.reset(formData.fieldCode)
+    this.setFormText()
+  },
+  // 设置表单中显示的文字
+  setFormText () {
+    let formData = this.data.formData
+    let city = areaList['city_list'][formData.cityCode] || '请选择'
+    let field = fieldList['city_list'][formData.fieldCode] || '请选择'
+    this.setData({
+      'formText.city': city,
+      'formText.field': field
+    })
   },
   // ---------------------------------------以下是和后端联系的函数--------------------------
   getInfo () {
@@ -82,9 +97,9 @@ Page({
           'formData.telephone': res.data.tel,
           'formData.email': res.data.email
         })
+        that.setInfo()
       }
     })
-    that.setInfo()
   },
   changeInfo () {
     // 根据用户填些信息,更新用户个人信息
@@ -132,6 +147,7 @@ Page({
     this.setData({
       [`formData.${field}`]: value
     })
+    this.setFormText()
   },
   formInputChange (e) {
     const { field } = e.currentTarget.dataset
@@ -143,7 +159,6 @@ Page({
     this.setData({
       'formData.content': e.detail.value
     })
-    console.log(this.data.formData.content)
   },
   submitForm: function (e) {
     this.selectComponent('#form').validate((valid, errors) => {

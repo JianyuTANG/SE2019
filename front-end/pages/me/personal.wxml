@@ -34,23 +34,29 @@
 
             <mp-cells title = "可填项">
                <mp-cell show-error prop="telephone" title="电话" ext-class="">
-                    <input bindinput="formInputChange" data-field="telephone" class="weui-input" placeholder="请输入联系电话"/>
+                    <input bindinput="formInputChange" data-field="telephone" class="weui-input" placeholder="请输入联系电话" value="{{ formData.telephone }}"/>
                 </mp-cell>
                <mp-cell show-error prop="email" title="邮箱" ext-class="">
-                    <input bindinput="formInputChange" data-field="email" class="weui-input" placeholder="请输入联系邮箱"/>
+                    <input bindinput="formInputChange" data-field="email" class="weui-input" placeholder="请输入联系邮箱" value="{{ formData.email }}"/>
                </mp-cell>
                <mp-cell show-error prop="cityCode" title="城市" ext-class="van-area">
+                    <view>
+                    <text >{{formText.city}}</text>
+                    <van-divider />
                     <van-area area-list="{{ areaList }}" columns-placeholder="{{ areaPlaceholder }}"
                     confirm-button-text = "" cancel-button-text="" item-height="{{25}}"
                     data-field="cityCode"
                     id="city"
-                    value="{{ formData.cityCode }}"
                     bind:change = "formAreaChange"/>
+                    </view>
                 </mp-cell>
                <mp-cell show-error prop="fieldCode" title="行业领域" ext-class="van-area">
+                    <text >{{formText.field}}</text>
+                    <van-divider />
                     <van-area area-list="{{ fieldList }}" columns-placeholder="{{ areaPlaceholder }}"
                     confirm-button-text = "" cancel-button-text="" item-height="{{25}}"
                     data-field="fieldCode"
+                    id="field"
                     bind:change = "formAreaChange"/>
                 </mp-cell>
                 <mp-cell prop="content" title="个人介绍" ext-class="weui-cell_label-block">
@@ -58,7 +64,8 @@
                     style="height:120px;width:100%;" 
                     class="ql-container weui-input" 
                     bindblur = "formTextareaBlur"
-                    placeholder="请输入个人介绍(最多140字)"/>
+                    placeholder="请输入个人介绍(最多140字)"
+                    value="{{ formData.content }}"/>
                 </mp-cell>
             </mp-cells>
         </mp-form>
