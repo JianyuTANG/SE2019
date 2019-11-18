@@ -1,7 +1,6 @@
 front-end/node_modules/
 front-end/miniprogram_npm/
 
-back-end/server/.idea
-back-end/server/.vscode
-
+*.vscode
+*.idea
 *.pyc
