@@ -52,7 +52,7 @@ def status_hash(openid, session_key):
     x.update(session_key.encode())
     hashed = x.hexdigest()
     status = status + hashed
-    ans = base64.b64encode(status).decode()
+    ans = base64.b64encode(status.encode()).decode()
     return ans
 
 
@@ -93,8 +93,8 @@ def verify_student_identity(name, num, classmate, advisor):
     except:
         return None
     for userinfo in userinfos:
-        num_of_entry = userinfo.number_of_entry
-        if num != num_of_entry:
+        num_of_entry = userinfo.number_of_entry.split(',')
+        if num != num_of_entry[0]:
             continue
         try:
             classmates = UserInfo.objects.filter(real_name=classmate)
