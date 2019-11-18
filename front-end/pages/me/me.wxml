@@ -24,7 +24,8 @@
     <mp-cells>
     
     <!-- 姓名、期数【链接】、modify【电话、邮箱、行业、工作单位】 -->
-    <mp-cell  link="{{true}}" value="个人卡片">
+    <mp-cell  bindtap="navToDetailPage" link="{{true}}" value="个人卡片" data-field="personal">
+
       <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>
       </view>
@@ -32,9 +33,6 @@
     
     <!-- 包括我发布的、我收藏的 -->
     <mp-cell  link="{{true}}" value="相关资源">
-
-    <mp-cell  bindtap="navToDetailPage" link="{{true}}" value="个人信息" data-field="personal">
-
       <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>
       </view>
