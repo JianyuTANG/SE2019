@@ -11,6 +11,7 @@
     "mp-toptips": "../../miniprogram_npm/weui-miniprogram/toptips/toptips",
     "van-area": "../../miniprogram_npm/vant-weapp/area/index",
     "mp-halfScreenDialog": "../../miniprogram_npm/weui-miniprogram/half-screen-dialog/half-screen-dialog",
-    "mp-loading":"../../miniprogram_npm/weui-miniprogram/loading/loading"
+    "mp-loading":"../../miniprogram_npm/weui-miniprogram/loading/loading",
+    "van-divider": "../../miniprogram_npm/vant-weapp/divider/index"
   }
 }
