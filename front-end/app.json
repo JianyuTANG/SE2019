@@ -10,6 +10,7 @@
         "pages/index/index",
         "pages/login/login",
         "pages/me/me",
+         "pages/me/personal",
         "pages/resource/resource",
         "pages/resource/detail",
         "pages/resource/add",
