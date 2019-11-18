@@ -1,0 +1,51 @@
+<!--pages/me/me.wxml-->
+<!-- <mp-dialog title="test" show="{{true}}" bindbuttontap="tapDialogButton" buttons="{{[{text: '取消'}, {text: '确认'}]}}">
+    <view>test content</view>
+</mp-dialog> -->
+
+<view class="container debug-bg">
+  <view class="card padding flex">
+    <image class="avatar" src="{{ avatar }}" />
+    <view class="name-container" >
+      <text class="name">{{ name }}</text>
+      <view class="check"><text>未认证</text></view>
+    </view>
+  </view>
+
+  <view class="card padding">
+    <mp-cell  link="{{true}}" value="个人信息">
+      <view slot="icon">
+      <image class="icon" src= "/assets/activity.png"/>
+      </view>
+    </mp-cell>
+  </view>
+  
+  <view class="card padding">
+    <mp-cells>
+    <mp-cell  link="{{true}}" value="学籍信息">
+      <view slot="icon">
+      <image class="icon" src= "/assets/activity.png"/>
+      </view>
+    </mp-cell>
+    <mp-cell  link="{{true}}" value="个人信息">
+      <view slot="icon">
+      <image class="icon" src= "/assets/activity.png"/>
+      </view>
+    </mp-cell>
+    </mp-cells>
+  </view>
+
+  <view class="card padding">
+    <mp-cell  link="{{true}}" value="校友联络">
+      <view slot="icon">
+      <image class="icon" src= "/assets/activity.png"/>
+      </view>
+    </mp-cell>
+    <view class="div-line"></view>
+    <mp-cell  link="{{true}}" value="帮助">
+      <view slot="icon">
+      <image class="icon" src= "/assets/activity.png"/>
+      </view>
+    </mp-cell>
+  </view>
+</view>
