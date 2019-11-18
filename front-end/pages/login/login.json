@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "我的",
+  "navigationBarTitleText": "身份验证",
   "navigationBarTitleSize": "30px",
   "usingComponents": {
     "info-card":"/component/info-card/info-card",
