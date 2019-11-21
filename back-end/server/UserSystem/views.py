@@ -190,11 +190,13 @@ def query_user(request):
     user = get_user(json_request['sessionCode'])
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
+        print('sessioncode校验失败')
         response = HttpResponse()
         response.status_code = 404
         return response
     if user.info is None:
-        # 用户不存在 （sessionCode有误） 直接404
+        # 未绑定到userinfo 返回404
+        print('该微信用户尚未注册')
         response = HttpResponse()
         response.status_code = 404
         return response
