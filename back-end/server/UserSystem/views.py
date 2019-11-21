@@ -13,9 +13,9 @@ def login(request):
     json_request = json.loads(post_body)
     code = json_request['code']
     login_status = authenticator(code)
-    openid = login_status['openid']
-    session_key = login_status['session_key']
+
     if 'errcode' in login_status.keys():
+        print('微信验证失败，发生错误')
         res = {
             'sessionCode': '0',
             'identity': -1
@@ -23,6 +23,8 @@ def login(request):
         response = HttpResponse(json.dumps(res), content_type="application/json")
         response.status_code = 404
         return response
+    openid = login_status['openid']
+    session_key = login_status['session_key']
 
     try:
         user = User.objects.get(openid=openid)
