@@ -1,7 +1,7 @@
 <view class="page-body">
 
   <view class="page-section">
-    <view class="notice">注意：仅身份验证通过后才能使用小程序其他功能！
+    <view class="notice" >注意：仅身份验证通过后才能使用小程序其他功能！
     </view>
     
   </view>
@@ -10,7 +10,7 @@
     <view class="weui-cells__title">您的姓名：</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" auto-focus placeholder=""/>
+        <input class="weui-input" auto-focus placeholder="" value="{{ formData.name }}"/>
       </view>
     </view>
   </view>
@@ -18,7 +18,7 @@
     <view class="weui-cells__title">您的期数：</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" maxlength="2"auto-focus placeholder="仅输入数字，如“17”"/>
+        <input class="weui-input" value="{{ formData.num }}" maxlength="2"auto-focus placeholder="仅输入数字，如“17”"/>
       </view>
     </view>
   </view>
@@ -26,7 +26,7 @@
     <view class="weui-cells__title">您的一位同期学员姓名：</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder-style="color:#F76260" auto-focus placeholder="请注意姓名输入无误"/>
+        <input class="weui-input" value="{{ formData.classmate }}" placeholder-style="color:#F76260" auto-focus placeholder="请注意姓名输入无误"/>
       </view>
     </view>
   </view>
@@ -34,12 +34,21 @@
     <view class="weui-cells__title">您的一位导员姓名：</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" placeholder-style="color:#F76260" auto-focus placeholder="请注意姓名输入无误"/>
+        <input class="weui-input" value="{{ formData.advisor }}" placeholder-style="color:#F76260" auto-focus placeholder="请注意姓名输入无误"/>
       </view>
     </view>
     
+    <view class="page-section">
+    <view class="weui-cells__title">您是否为导员：</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" value="{{ formData.identity }}" maxlength="1" auto-focus placeholder="0为学生 1为辅导员"/>
+      </view>
+    </view>
+  </view>
+
     <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" 
-        disabled="{{disabled}}" catchtap="verifySuccess"> 验证身份 </button>
+        disabled="{{disabled}}" catchtap="verifyInfo"> 验证身份 </button>
     
   </view>
   <!-- <view class="page-section">
