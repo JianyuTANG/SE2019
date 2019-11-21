@@ -63,7 +63,9 @@ def session_check(session_key, request_code):
     :param request_code: 客户端传来的session_code，用于校验客户端身份
     :return: True / False
     '''
-    standard = hashlib.md5().update(session_key.encode()).hexdigest()
+    standard = hashlib.md5()
+    standard.update(session_key.encode())
+    standard = standard.hexdigest()
     if standard == request_code[-32:]:
         return True
     else:
