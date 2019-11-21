@@ -26,6 +26,8 @@ def login(request):
 
     try:
         user = User.objects.get(openid=openid)
+        user.session_key = session_key
+        user.save()
     except:
         user = User.objects.create(openid=openid)
         user.openid = openid
@@ -57,17 +59,27 @@ def verify(request):
     advisor = json_request['advisor']
     student_type = json_request['identity']
     res = {'result': -1}
-    userinfo = verify_student_identity(name, num, classmate, advisor)
-    if student_type == 0 and userinfo is not None:
+
+    if student_type == 0:
         # 学生类型注册
-        res['result'] = 0
-        userinfo.avatar_url = '/media/user_avatar/default/default.jpg'
-        user.info = userinfo
-        userinfo.save()
-        user.save()
+        userinfo = verify_student_identity(name, num, classmate, advisor)
+        if userinfo is not None:
+            res['result'] = 0
+            userinfo.avatar_url = '/media/user_avatar/default/default.jpg'
+            user.info = userinfo
+            userinfo.is_connected = 1
+            userinfo.save()
+            user.save()
     elif student_type == 1:
         # 辅导员类型注册
-        pass
+        userinfo = verify_advisor_identity(name, num, classmate, advisor)
+        if userinfo is not None:
+            res['result'] = 0
+            userinfo.avatar_url = '/media/user_avatar/default/default.jpg'
+            user.info = userinfo
+            userinfo.is_connected = 1
+            userinfo.save()
+            user.save()
     response = HttpResponse(json.dumps(res), content_type="application/json")
     response.status_code = 200
     return response

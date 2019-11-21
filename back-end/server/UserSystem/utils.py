@@ -86,28 +86,93 @@ def status_dehash(hashcode):
 
 
 def verify_student_identity(name, num, classmate, advisor):
-    userinfos = None
-    try:
-        name = str(name)
-        userinfos = UserInfo.objects.filter(real_name=name)
-    except:
+    '''
+    验证学生的身份，如果成功返回数据库中预存的该生的userinfo对象，失败返回None
+    '''
+
+    # 同学姓名验证
+    flag = 0
+    classmates = UserInfo.objects.filter(real_name=classmate)
+    if classmate == name:
         return None
+    for clm in classmates:
+        num_of_entry = clm.number_of_entry.split(',')
+        if num_of_entry[0] == num:
+            flag = 1
+            break
+    if flag == 0:
+        return None
+
+    # 辅导员姓名验证
+    flag = 0
+    advisors = UserInfo.objects.filter(real_name=advisor)
+    for adv in advisors:
+        num_of_entry = adv.number_of_entry.split(',')
+        for x in num_of_entry[1:]:
+            if x == num:
+                flag = 1
+                break
+        if flag == 1:
+            break
+    if flag == 0:
+        return None
+
+    name = str(name)
+    userinfos = UserInfo.objects.filter(real_name=name)
     for userinfo in userinfos:
+        # 判断该userinfo是否绑定了微信号
+        if userinfo.is_connected == 1:
+            continue
+
+        # 期数验证
         num_of_entry = userinfo.number_of_entry.split(',')
         if num != num_of_entry[0]:
             continue
-        try:
-            classmates = UserInfo.objects.filter(real_name=classmate)
-        except:
-            return None
-        if len(classmates) == 0 or classmate == name:
-            continue
+
+        # 所有验证成功
         return userinfo
+
     return None
 
 
-def verify_teacher_identity(name, num, classmate, advisor):
-    return True
+def verify_advisor_identity(name, num, classmate, advisor):
+    '''
+        验证辅导员的身份，如果成功返回数据库中预存的该辅导员的userinfo对象，失败返回None
+        '''
+
+    # 同学姓名验证
+    flag = 0
+    classmates = UserInfo.objects.filter(real_name=classmate)
+    if classmate == name:
+        return None
+    for clm in classmates:
+        num_of_entry = clm.number_of_entry.split(',')
+        if num_of_entry[0] == num:
+            flag = 1
+            break
+    if flag == 0:
+        return None
+
+    name = str(name)
+    userinfos = UserInfo.objects.filter(real_name=name)
+    for userinfo in userinfos:
+        # 判断该userinfo是否绑定了微信号
+        if userinfo.is_connected == 1:
+            continue
+
+        # 期数验证
+        flag = 0
+        num_of_entry = userinfo.number_of_entry.split(',')
+        for x in num_of_entry[1:]:
+            if x == num:
+                flag = 1
+                break
+        if flag == 0:
+            continue
+
+        # 所有验证成功
+        return userinfo
+    return None
 
 
 def verify_invitation(invitation_code):
