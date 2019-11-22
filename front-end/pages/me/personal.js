@@ -28,6 +28,10 @@ Page({
       content: ''
     },
     // 根据formData生成的文字
+    basicText: {
+      department: '',
+      num: ''
+    },
     formText: {
       city: '请选择', // 默认显示文本
       field: '请选择'
@@ -66,11 +70,17 @@ Page({
   // 设置表单中显示的文字
   setFormText () {
     let formData = this.data.formData
+    let basicData = this.data.basicData
+    let numbers = basicData.num.split(',')
+    let number = numbers[basicData.identity]
     let city = areaList['city_list'][formData.cityCode] || '请选择'
     let field = fieldList['city_list'][formData.fieldCode] || '请选择'
+    let depart = departList[basicData.department]
     this.setData({
       'formText.city': city,
-      'formText.field': field
+      'formText.field': field,
+      'basicText.department': depart,
+      'basicText.num': number
     })
   },
   // ---------------------------------------以下是和后端联系的函数--------------------------

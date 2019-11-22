@@ -22,13 +22,13 @@
                     <text >{{basicData.name}}</text>
                 </mp-cell>
                <mp-cell title="期数" ext-class="">
-                    <text >{{basicData.num}}</text>
+                    <text >{{basicText.num}}</text>
                </mp-cell>
                 <mp-cell title="身份" ext-class="">
                     <text >{{basicData.identity==0?'学生':'辅导员'}}</text>
                </mp-cell>
                 <mp-cell title="院系" ext-class="">
-                    <text >{{basicData.department}}</text>
+                    <text >{{basicText.department}}</text>
                </mp-cell>
             </mp-cells>
 
