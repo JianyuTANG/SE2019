@@ -48,10 +48,11 @@ def verify(request):
     json_request = json.loads(post_body)
     user = get_user(json_request['sessionCode'])
     if user is None:
-        # 用户不存在 （sessionCode有误） 直接404
+        # 用户不存在 （sessionCode有误）
+        print('sessioncode有误')
         res = {'result': -1}
         response = HttpResponse(json.dumps(res), content_type="application/json")
-        response.status_code = 404
+        response.status_code = 200
         return response
     name = json_request['name']
     num = json_request['num']
@@ -69,6 +70,7 @@ def verify(request):
             user.info = userinfo
             userinfo.is_connected = 1
             userinfo.save()
+            user.logon_status = 0
             user.save()
     elif student_type == 1:
         # 辅导员类型注册
@@ -79,6 +81,7 @@ def verify(request):
             user.info = userinfo
             userinfo.is_connected = 1
             userinfo.save()
+            user.logon_status = 1
             user.save()
     response = HttpResponse(json.dumps(res), content_type="application/json")
     response.status_code = 200
@@ -191,25 +194,26 @@ def query_user(request):
         response = HttpResponse()
         response.status_code = 404
         return response
-    if user.info is None:
+    userinfo = user.info
+    if userinfo is None:
         # 用户不存在 （sessionCode有误） 直接404
         response = HttpResponse()
         response.status_code = 404
         return response
-    user = user.info
+
     res = {
-        'name': user.real_name,
-        'num': user.number_of_entry,
+        'name': userinfo.real_name,
+        'num': userinfo.number_of_entry,
         'identity': user.logon_status,
-        'city': user.city,
-        'field': user.field,
-        'department': user.department,
-        'wechatID': user.wechatid,
-        'tel': user.tel,
-        'email': user.email,
-        'selfDiscription': user.self_discription,
-        'company': user.company,
-        'hobby': user.hobby,
+        'city': userinfo.city,
+        'field': userinfo.field,
+        'department': userinfo.department,
+        'wechatID': userinfo.wechatid,
+        'tel': userinfo.tel,
+        'email': userinfo.email,
+        'selfDiscription': userinfo.self_discription,
+        'company': userinfo.company,
+        'hobby': userinfo.hobby,
     }
     response = HttpResponse(json.dumps(res), content_type="application/json")
     response.status_code = 200
