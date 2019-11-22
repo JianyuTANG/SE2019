@@ -63,7 +63,7 @@
                     <textarea id="editor"  
                     style="height:120px;width:100%;" 
                     class="ql-container weui-input" 
-                    bindblur = "formTextareaBlur"
+                    bindinput = "formTextareaInput"
                     placeholder="请输入个人介绍(最多140字)"
                     value="{{ formData.content }}"/>
                 </mp-cell>

@@ -109,7 +109,8 @@ Page({
           'formData.cityCode': res.data.city,
           'formData.fieldCode': res.data.field,
           'formData.telephone': res.data.tel,
-          'formData.email': res.data.email
+          'formData.email': res.data.email,
+          'formData.content': res.data.selfDiscription
         })
         that.setInfo()
       }
@@ -119,9 +120,13 @@ Page({
     // 根据用户填些信息,更新用户个人信息
     let that = this
     let formData = that.data.formData
+    let sessionCode = wx.getStorageSync('sessionCode') // 假如我们有一个sessionCode
+    console.log(sessionCode)
+    console.log(formData.content)
     let basicData = that.data.basicData
     wx.request({
       url: that.data.changeInfoUrl, // 仅为示例，并非真实的接口地址
+      method: 'POST',
       data: {
         sessionCode: sessionCode,
         tel: formData.telephone,
@@ -169,7 +174,8 @@ Page({
       [`formData.${field}`]: e.detail.value
     })
   },
-  formTextareaBlur (e) {
+  formTextareaInput (e) {
+    console.log('input')
     this.setData({
       'formData.content': e.detail.value
     })
