@@ -1,6 +1,7 @@
 // eslint-disable-next-line camelcase
 import { areaList } from '../../data/area.js'// 城市的表
 import { fieldList } from '../../data/field.js'// 工作领域的表
+import { departList } from '../../data/department.js'
 const app = getApp()
 // const sessionCode = wx.getStorageSync('sessionCode') // 假如我们有一个sessionCode
 Page({
@@ -90,7 +91,7 @@ Page({
       success (res) {
         console.log(res)
         console.log(res.data)
-        this.setData({
+        that.setData({
           'basicData.name': res.data.name,
           'basicData.num': res.data.num,
           'basicData.identity': res.data.identity,
