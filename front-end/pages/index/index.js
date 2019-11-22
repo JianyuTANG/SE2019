@@ -6,6 +6,7 @@ Page({
   onLoad: function () {
     var that = this;
     // 查看是否授权
+    
     wx.getSetting({
       success: function (res) {
         
@@ -15,9 +16,7 @@ Page({
               //从数据库获取用户信息
               console.log('获取用户unionId', res);
               //用户已经授权过
-              wx.switchTab({
-                url: '/pages/login/login'
-              })
+              checkVerify();
             }
           });
         }
@@ -30,9 +29,8 @@ Page({
       //用户按了允许授权按钮
       var that = this;
       //授权成功后，跳转进入小程序首页
-      wx.navigateTo({
-        url: '/pages/login/login'
-      })
+      this.checkVerify();
+      
     } else {
       //用户按了拒绝按钮
       wx.showModal({
@@ -48,4 +46,13 @@ Page({
       })
     }
   },
+
+  checkVerify: function () {
+    // wx.request({
+      
+    // })
+    wx.navigateTo({
+      url: '/pages/login/login'
+    })
+  }
 })

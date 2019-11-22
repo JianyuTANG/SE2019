@@ -10,7 +10,7 @@
     <view class="weui-cells__title">您的姓名：</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" auto-focus placeholder="" value="{{ formData.name }}"/>
+        <input class="weui-input" bindinput="formInputChange" data-field="name" auto-focus placeholder="" value="{{ formData.name }}"/>
       </view>
     </view>
   </view>
@@ -18,7 +18,7 @@
     <view class="weui-cells__title">您的期数：</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" value="{{ formData.num }}" maxlength="2"auto-focus placeholder="仅输入数字，如“17”"/>
+        <input class="weui-input" bindinput="formInputChange" data-field="num" value="{{ formData.num }}" maxlength="2"auto-focus placeholder="仅输入数字，如“17”"/>
       </view>
     </view>
   </view>
@@ -26,7 +26,7 @@
     <view class="weui-cells__title">您的一位同期学员姓名：</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" value="{{ formData.classmate }}" placeholder-style="color:#F76260" auto-focus placeholder="请注意姓名输入无误"/>
+        <input class="weui-input" bindinput="formInputChange" data-field="classmate" value="{{ formData.classmate }}" placeholder-style="color:#F76260" auto-focus placeholder="请注意姓名输入无误"/>
       </view>
     </view>
   </view>
@@ -34,7 +34,7 @@
     <view class="weui-cells__title">您的一位导员姓名：</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" value="{{ formData.advisor }}" placeholder-style="color:#F76260" auto-focus placeholder="请注意姓名输入无误"/>
+        <input class="weui-input" bindinput="formInputChange" data-field="advisor" value="{{ formData.advisor }}" placeholder-style="color:#F76260" auto-focus placeholder="请注意姓名输入无误"/>
       </view>
     </view>
     
@@ -42,7 +42,7 @@
     <view class="weui-cells__title">您是否为导员：</view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_input">
-        <input class="weui-input" value="{{ formData.identity }}" maxlength="1" auto-focus placeholder="0为学生 1为辅导员"/>
+        <input class="weui-input" bindinput="formInputChange" data-field="identity" value="{{ formData.identity }}" maxlength="1" auto-focus placeholder="0为学生 1为辅导员"/>
       </view>
     </view>
   </view>

@@ -10,6 +10,7 @@ Page({
       advisor: '',
       identity: 0
     },
+
     // 规则中有一些必填
     rules: [
       {
@@ -76,21 +77,28 @@ Page({
       wx.hideKeyboard()
     }
   },
+  formInputChange(e) {
+    const { field } = e.currentTarget.dataset
+    this.setData({
+      [`formData.${field}`]: e.detail.value
+    })
+  },
   // ---------------------------------------以下是和后端联系的函数--------------------------
   verifyInfo() {
     // 根据用户填写的信息进行验证
     let that = this
     let formData = that.data.formData
     let basicData = that.data.basicData
+    var sessionCode;
+    sessionCode = wx.getStorageSync('sessionCode')
+    console.log(sessionCode)
+    console.log(formData)
     wx.request({
       url: "http://127.0.0.1:8000/verify",
       method: "POST",
+      
       data: {
-        sessionCode: '666',
-        
-        //  wx.getStorage({
-        //   key: 'sessionCode'
-        // }),
+        sessionCode: sessionCode,
         name: formData.name,
         num: formData.num,
         classmate: formData.classmate,
@@ -101,19 +109,15 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success(res) {
-        console.log(res.data)
-        that.correctInfo()
-        that.verifySuccess()
+        console.log(res)
       },
-      fail(res) {
-        that.wrongInfo()
-      },
-      complete(res) {
-      }
+      // fail(res) {
+      //   this.wrongInfo()
+      // }
     })
   },
 
-  verifySuccess: function () {
+  verifySuccess: function (e) {
     let that = this
     console.log('验证成功，即将跳转到个人界面');
     wx.switchTab({

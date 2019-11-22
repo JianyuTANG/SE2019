@@ -2,7 +2,7 @@
 import { areaList } from '../../data/area.js'// 城市的表
 import { fieldList } from '../../data/field.js'// 工作领域的表
 const app = getApp()
-const sessionCode = '123456' // 假如我们有一个sessionCode
+const sessionCode = wx.getStorageSync('sessionCode') // 假如我们有一个sessionCode
 Page({
   data: {
     showLoading: false,
@@ -78,6 +78,7 @@ Page({
     let that = this
     wx.request({
       url: that.data.getInfoUrl,
+      method: "POST",
       data: {
         sessionCode: sessionCode
       },
