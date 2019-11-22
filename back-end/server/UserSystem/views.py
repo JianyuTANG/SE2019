@@ -9,13 +9,19 @@ from .config import administration_config
 
 
 def login(request):
+    print('/login')
     post_body = request.body
-    json_request = json.loads(post_body)
-    code = json_request['code']
+    try:
+        json_request = json.loads(post_body)
+        code = json_request['code']
+    except:
+        print('json请求解析错误')
+        return get404()
+
     login_status = authenticator(code)
-    openid = login_status['openid']
-    session_key = login_status['session_key']
+
     if 'errcode' in login_status.keys():
+        print('微信验证失败，发生错误')
         res = {
             'sessionCode': '0',
             'identity': -1
@@ -23,6 +29,13 @@ def login(request):
         response = HttpResponse(json.dumps(res), content_type="application/json")
         response.status_code = 404
         return response
+
+    try:
+        openid = login_status['openid']
+        session_key = login_status['session_key']
+    except:
+        print('json请求解析错误')
+        return get404()
 
     try:
         user = User.objects.get(openid=openid)
@@ -44,20 +57,37 @@ def login(request):
 
 
 def verify(request):
+    print('/verify')
     post_body = request.body
-    json_request = json.loads(post_body)
-    user = get_user(json_request['sessionCode'])
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
+        print('sessionCode有误')
+        return get404()
+    if user.info is not None:
+        # 已绑定过info了
+        print('已绑定过info了')
         res = {'result': -1}
         response = HttpResponse(json.dumps(res), content_type="application/json")
-        response.status_code = 404
+        response.status_code = 200
         return response
-    name = json_request['name']
-    num = json_request['num']
-    classmate = json_request['classmate']
-    advisor = json_request['advisor']
-    student_type = json_request['identity']
+
+    try:
+        name = json_request['name']
+        num = json_request['num']
+        classmate = json_request['classmate']
+        advisor = json_request['advisor']
+        student_type = json_request['identity']
+    except:
+        print('json请求解析错误')
+        return get404()
+
     res = {'result': -1}
 
     if student_type == 0:
@@ -86,15 +116,19 @@ def verify(request):
 
 
 def invite(request):
+    print('/invite')
     post_body = request.body
-    json_request = json.loads(post_body)
-    user = get_user(json_request['sessionCode'])
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
-        res = {'result': -1}
-        response = HttpResponse(json.dumps(res), content_type="application/json")
-        response.status_code = 404
-        return response
+        print('sessionCode有误')
+        return get404()
     res = {'result': -1}
     invitation_code = json_request['invitation_code']
     if verify_invitation(invitation_code) != 0:
@@ -113,23 +147,33 @@ def register(request):
 
     已修改为将User和UserInfo拆开的版本
     '''
+    print('/basic_user_info')
     post_body = request.body
-    json_request = json.loads(post_body)
-    user = get_user(json_request['sessionCode'])
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
-        response = HttpResponse()
-        response.status_code = 404
-        return response
+        print('sessionCode有误')
+        return get404()
     if user.info is None:
         # 用户信息不存在 直接404
-        response = HttpResponse()
-        response.status_code = 404
-        return response
-    city = json_request['city']
-    field = json_request['field']
-    department = json_request['department']
-    wechat_id = json_request['wechatId']
+        print('未通过验证')
+        return get404()
+
+    try:
+        city = json_request['city']
+        field = json_request['field']
+        department = json_request['department']
+        wechat_id = json_request['wechatId']
+    except:
+        print('json请求解析错误')
+        return get404()
+
     userinfo = user.info
     userinfo.city = city
     userinfo.field = field
@@ -137,34 +181,45 @@ def register(request):
     userinfo.wechatid = wechat_id
     userinfo.save()
     user.save()
+
     response = HttpResponse()
     response.status_code = 200
     return response
 
 
 def modify_user(request):
+    print('/modify_user_info')
     post_body = request.body
-    json_request = json.loads(post_body)
-    user = get_user(json_request['sessionCode'])
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
-        response = HttpResponse()
-        response.status_code = 404
-        return response
+        print('sessionCode有误')
+        return get404()
     if user.info is None:
         # 用户信息不存在 直接404
-        response = HttpResponse()
-        response.status_code = 404
-        return response
-    city = json_request['city']
-    field = json_request['field']
-    department = json_request['department']
-    wechat_id = json_request['wechatId']
-    tel = json_request['tel']
-    email = json_request['email']
-    self_discription = json_request['selfDiscription']
-    hobby = json_request['hobby']
-    company = json_request['company']
+        print('未通过验证')
+        return get404()
+
+    try:
+        city = json_request['city']
+        field = json_request['field']
+        department = json_request['department']
+        wechat_id = json_request['wechatId']
+        tel = json_request['tel']
+        email = json_request['email']
+        self_discription = json_request['selfDiscription']
+        hobby = json_request['hobby']
+        company = json_request['company']
+    except:
+        print('json请求解析错误')
+        return get404()
+
     userinfo = user.info
     userinfo.city = city
     userinfo.field = field
@@ -177,25 +232,31 @@ def modify_user(request):
     userinfo.self_discription = self_discription
     userinfo.save()
     user.save()
+
     response = HttpResponse()
     response.status_code = 200
     return response
 
 
 def query_user(request):
+    print('/view_user')
     post_body = request.body
-    json_request = json.loads(post_body)
-    user = get_user(json_request['sessionCode'])
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
-        response = HttpResponse()
-        response.status_code = 404
-        return response
+        print('sessioncode校验失败')
+        return get404()
     if user.info is None:
-        # 用户不存在 （sessionCode有误） 直接404
-        response = HttpResponse()
-        response.status_code = 404
-        return response
+        # 未绑定到userinfo 返回404
+        print('该微信用户尚未注册')
+        return get404()
+
     user = user.info
     res = {
         'name': user.real_name,
@@ -217,6 +278,7 @@ def query_user(request):
 
 
 def upload_user_avatar(request):
+    print('upload_user_avatar')
     session_code = request.META.get('HTTP_SESSIONCODE')
     response = HttpResponse()
     if session_code is None:
@@ -266,28 +328,31 @@ def upload_user_avatar(request):
 
 
 def get_user_avartar(request):
+    print('/get_user_avatar')
     post_body = request.body
-    json_request = json.loads(post_body)
-    user = get_user(json_request['sessionCode'])
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
-        response = HttpResponse()
-        response.status_code = 404
-        return response
+        print('sessionCode有误')
+        return get404()
     if user.info is None:
         # 用户信息不存在 直接404
-        response = HttpResponse()
-        response.status_code = 404
-        return response
+        print('未通过验证')
+        return get404()
+
     src = user.info.avatar_url
     if os.path.isfile('.' + src):
         res = {'url': src}
         response = HttpResponse(json.dumps(res), content_type="application/json")
         response.status_code = 200
         return response
-    response = HttpResponse()
-    response.status_code = 404
-    return response
+    return get404()
 
 
 def create_userinfo(request):
@@ -298,16 +363,19 @@ def create_userinfo(request):
     :return:
     '''
     post_body = request.body
-    json_request = json.loads(post_body)
+    try:
+        json_request = json.loads(post_body)
+    except:
+        print('json请求解析错误')
+        return get404()
     session_code = json_request['sessionCode']
     if session_code is None:
-        res = HttpResponse()
-        res.status_code = 404
-        return res
+        print('sessionCode有误')
+        return get404()
     if session_code != administration_config['session_code']:
-        res = HttpResponse()
-        res.status_code = 404
-        return res
+        print('未通过验证')
+        return get404()
+
     name = json_request['name']
     num = json_request['num']
     department = json_request['department']

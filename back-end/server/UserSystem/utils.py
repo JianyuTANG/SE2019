@@ -3,6 +3,7 @@ import base64
 import hashlib
 from .config import app_config
 from .models import User, UserInfo
+from django.http import HttpResponse
 
 
 def get_user(session_code):
@@ -179,3 +180,9 @@ def verify_advisor_identity(name, num, classmate, advisor):
 
 def verify_invitation(invitation_code):
     return True
+
+
+def get404():
+    res = HttpResponse()
+    res.status_code = 404
+    return res
