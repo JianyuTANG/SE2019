@@ -32,7 +32,7 @@ Page({
         name: 'identity',
         rules: { required: true, message: '0 学生 1 辅导员是必填项' }
       }]
-    
+
   },
 
   onLoad: function () {
@@ -77,40 +77,46 @@ Page({
       wx.hideKeyboard()
     }
   },
-  formInputChange(e) {
+  formInputChange (e) {
     const { field } = e.currentTarget.dataset
     this.setData({
       [`formData.${field}`]: e.detail.value
     })
   },
   // ---------------------------------------以下是和后端联系的函数--------------------------
-  verifyInfo() {
+  verifyInfo () {
     // 根据用户填写的信息进行验证
     let that = this
     let formData = that.data.formData
     let basicData = that.data.basicData
-    var sessionCode;
+    var sessionCode
     sessionCode = wx.getStorageSync('sessionCode')
     console.log(sessionCode)
     console.log(formData)
     wx.request({
-      url: "http://127.0.0.1:8000/verify",
-      method: "POST",
-      
+      url: 'http://127.0.0.1:8000/verify',
+      method: 'POST',
+
       data: {
         sessionCode: sessionCode,
         name: formData.name,
         num: formData.num,
         classmate: formData.classmate,
         advisor: formData.advisor,
-        identity: formData.identity,
+        identity: formData.identity
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success(res) {
+      success (res) {
+        if (res.data.result === 0) {
+          wx.switchTab({
+            url: '/pages/me/me'
+          })
+        }
+
         console.log(res)
-      },
+      }
       // fail(res) {
       //   this.wrongInfo()
       // }
@@ -119,7 +125,7 @@ Page({
 
   verifySuccess: function (e) {
     let that = this
-    console.log('验证成功，即将跳转到个人界面');
+    console.log('验证成功，即将跳转到个人界面')
     wx.switchTab({
       url: '/pages/me/me'
     })
