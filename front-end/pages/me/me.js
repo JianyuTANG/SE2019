@@ -15,16 +15,40 @@ Page({
 
   data: {
     uploadUrl: app.globalData.baseUrl + 'upload_user_avatar',
+    getAvatarUrl: app.globalData.baseUrl + 'get_user_avatar',
     showPlaceholder: true, // 用于头像
     showLoading: false, // 用于头像是否显示加载样式
     avatar: '',
     name: '',
-    activities: []
+    activities: [],
+    t: 0 // 用于更新图片的一种办法,每次更新图片时,t++
+  },
+  onLoad: function () {
+    let that = this
+    let sessionCode = wx.getStorageSync('sessionCode')
+    let prefix = app.globalData.baseUrl.substr(0, app.globalData.baseUrl.length - 1)
+    wx.request({
+      url: that.data.getAvatarUrl,
+      method: 'POST',
+      data: {
+        sessionCode: sessionCode
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+        console.log(res)
+        console.log(res.data)
+        that.setData({
+          'avatar': prefix + res.data.url
+        })
+      }
+    })
   },
 
   onShow: function () {
     this.setData({ // TODO 从服务器得到头像
-      avatar: wx.getStorageSync('avatar') || 'https://yunlaiwu0.cn-bj.ufileos.com/teacher_avatar.png',
+      // avatar: wx.getStorageSync('avatar') || 'https://yunlaiwu0.cn-bj.ufileos.com/teacher_avatar.png',
       name: wx.getStorageSync('name') || ''
     })
     // this.testActivities()
@@ -58,6 +82,7 @@ Page({
   uploadImage: function (filePath) {
     let that = this
     console.log(that.data.uploadUrl)
+    let sessionCode = wx.getStorageSync('sessionCode')
     if (filePath === undefined || filePath === '') {
 
     } else {
@@ -66,11 +91,19 @@ Page({
         url: that.data.uploadUrl,
         filePath: filePath,
         name: filePath,
+        header: {
+          sessionCode: sessionCode
+        },
+        method: 'POST',
         success: function (res) {
           console.log(res)
           // 坑
-          // let resData = JSON.parse(res.data)
+          let resData = JSON.parse(res.data)
           if (res.statusCode === 200) {
+            let prefix = app.globalData.baseUrl.substr(0, app.globalData.baseUrl.length - 1)
+            let filePath = prefix + resData.url
+            console.log(res.data)
+            console.log(filePath)
             that.loadImageSrc(filePath)
           } else {
             that.uploadError()
@@ -100,10 +133,14 @@ Page({
   loadImageSrc: function (filePath) {
     let that = this
     that.setData({
-      avatar: filePath,
+      'avatar': ''
+    })
+    that.setData({
+      'avatar': filePath + '?t=' + that.data.t, // 这里是为了让多次更新图片时微信能重新加载同一地址
       showPlaceholder: false,
       showLoading: false
     })
+    that.data.t += 1
   },
 
   navToDetailPage: function (e) {
