@@ -207,7 +207,6 @@ def modify_user(request):
     try:
         city = json_request['city']
         field = json_request['field']
-        department = json_request['department']
         wechat_id = json_request['wechatId']
         tel = json_request['tel']
         email = json_request['email']
@@ -221,7 +220,6 @@ def modify_user(request):
     userinfo = user.info
     userinfo.city = city
     userinfo.field = field
-    userinfo.department = department
     userinfo.wechatid = wechat_id
     userinfo.tel = tel
     userinfo.email = email
