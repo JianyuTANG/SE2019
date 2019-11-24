@@ -1,3 +1,4 @@
+import { formatTime } from '../../utils/util.js'
 Page({
   data: {
     showTopTips: false,
@@ -7,7 +8,7 @@ Page({
       minDate: new Date().getTime(),
       maxDate: new Date(2019, 10, 1).getTime(),
       currentDate: new Date().getTime(),
-      endDay: new Date().toDateString(),
+      endDay: '请设置',
       endTimeStamp: new Date()
     },
     radioItems: [
@@ -193,7 +194,8 @@ Page({
   changeEndDate: function (e) {
     console.log(e)
     let timeStamp = e.detail
-    let date = new Date(timeStamp).toDateString()
+    let time = new Date(timeStamp)
+    let date = formatTime(time, 'yyyy/MM/dd')
     this.setData({
       'date.endDay': date,
       'date.endTimeStamp': timeStamp

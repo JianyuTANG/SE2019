@@ -5,3 +5,7 @@
 .add-form-content{
     text-align: center;
 }
+
+.set-date-dialog{
+    /* width:600rpx; */
+}
