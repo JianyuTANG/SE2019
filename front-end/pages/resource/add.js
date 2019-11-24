@@ -25,7 +25,8 @@ Page({
       telephone: '',
       email: '',
       qualification: '',
-      content: ''
+      content: '',
+      tags: ['计算机', '还是计算机']
     },
     rules: [{
       name: 'title',
@@ -212,6 +213,17 @@ Page({
     wx.createSelectorQuery().select('#editor').context(function (res) {
       that.editorCtx = res.context
     }).exec()
+  },
+  closeTag: function (e) {
+    let tags = this.data.formData.tags
+    tags.splice(e.currentTarget.dataset.index, 1)
+    this.setData({
+      'formData.tags': tags
+    })
+    console.log(e)
+  },
+  fakeHandle: function (e) {
+
   }
 
 })

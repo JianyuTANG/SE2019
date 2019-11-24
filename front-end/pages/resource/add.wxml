@@ -52,8 +52,16 @@
                <mp-cell show-error prop="email" title="联系方式" ext-class="">
                     <input bindinput="formInputChange" data-field="email" class="weui-input" placeholder="请输入联系方式"/>
                </mp-cell>
-               <mp-cell show-error prop="idcard" title="截止日期" ext-class="" bind:tap="setDate" footer="点击设置"> 
+               <mp-cell show-error prop="date" title="截止日期" ext-class="" bind:tap="setDate" footer="点击设置"> 
                     <text >{{date.endDay}}</text>
+                </mp-cell>
+                <mp-cell show-error prop="tag" title="设置tag" ext-class="" bind:tap="setTag" footer="点击设置">
+                    <view wx:for="{{formData.tags}}">
+                        <van-tag type="primary"  catch:tap="closeTag" data-index="{{index}}">
+                            <van-tag type="primary" catch:tap="fakeHandle">{{item}}</van-tag>
+                            <text>X</text>
+                            </van-tag>
+                    </view>
                 </mp-cell>
             </mp-cells>
         </mp-form>
