@@ -50,7 +50,8 @@ def login(request):
     logon_status = user.logon_status
     hashed = status_hash(openid, session_key)
     res = {'sessionCode': hashed,
-           'identity': logon_status}
+           'identity': logon_status,
+           'openid': openid}
     response = HttpResponse(json.dumps(res), content_type="application/json")
     response.status_code = 200
     return response
