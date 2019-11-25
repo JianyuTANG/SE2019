@@ -31,5 +31,6 @@ urlpatterns = [
     path('upload_user_avatar', UserSystem.views.upload_user_avatar),
     path('get_user_avatar', UserSystem.views.get_user_avartar),
     path('add_userinfo', UserSystem.views.create_userinfo),
+    path('upload_img', UserSystem.views.upload_img),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import User, UserInfo
 from .utils import *
 import json
+import time
 from .forms import *
 import os
 from .config import administration_config
@@ -388,3 +389,46 @@ def create_userinfo(request):
     res = HttpResponse()
     res.status_code = 200
     return res
+
+
+def upload_img(request):
+    print('upload_img')
+    try:
+        session_code = request.META.get('HTTP_SESSIONCODE')
+    except:
+        return get404()
+
+    if session_code is None:
+        # 请求头无参数
+        return get404()
+    user = get_user(session_code)
+    if user is None:
+        # 用户不存在 （sessionCode有误） 直接404
+        return get404()
+    if user.info is None:
+        # 用户信息不存在 直接404
+        return get404()
+    if request.method == 'POST':
+        files = request.FILES
+        for key, values in files.items():
+            img_obj = values
+            # img_obj = request.FILES.get('img')
+            # 获取存放路径
+            src = './media/resource_img/'
+            openid = user.openid
+            img_name = openid + '_' + str(int(time.time()))
+            src = os.path.join(src, img_name)
+            # 写入服务器
+            try:
+                f = open(src, 'wb+')
+                f.write(img_obj.read())
+            except:
+                # 写入失败
+                return get404()
+            src = os.path.join('/media/resource_img/', img_name)
+            res = {'url': src}
+            response = HttpResponse(json.dumps(res), content_type="application/json")
+            response.status_code = 200
+            return response
+
+    return get404()
