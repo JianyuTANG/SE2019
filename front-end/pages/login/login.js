@@ -110,16 +110,25 @@ Page({
       },
       success (res) {
         if (res.data.result === 0) {
+          wx.showToast({
+            title: '信息验证成功',
+            duration: 1000
+          })
+          setTimeout(wx.navigateBack, 1000)
           wx.switchTab({
             url: '/pages/me/me'
           })
         }
-
+        else{
+          wx.showToast({
+            icon: 'none',
+            title: '验证失败，请重新核对信息',
+            duration: 1000
+          })
+        }
+        setTimeout(wx.navigateBack, 1000)
         console.log(res)
       }
-      // fail(res) {
-      //   this.wrongInfo()
-      // }
     })
   },
 
@@ -139,11 +148,4 @@ Page({
     setTimeout(wx.navigateBack, 1000)
   },
 
-  wrongInfo: function () {
-    wx.showToast({
-      icon: 'none',
-      title: '验证失败',
-      duration: 1000
-    })
-  }
 })
