@@ -13,20 +13,20 @@ def push_event(openid, title, place, start_time, contact_person, phone):
     url = url + token
 
     data = {
-        'thing01': {
+        'thing1': {
             'value': title
         },
-        'thing02': {
-            'value': place
-        },
-        'time01': {
+        'date3': {
             'value': start_time
         },
-        'name01': {
-            'value': contact_person
+        'thing4': {
+            'value': place
         },
-        'phone_number01': {
+        'phone_number5': {
             'value': phone
+        },
+        'name6': {
+            'value': contact_person
         },
     }
     request_body = {
@@ -35,6 +35,7 @@ def push_event(openid, title, place, start_time, contact_person, phone):
         'data': data,
     }
     res = requests.post(url=url, json=json.dumps(request_body))
+
     try:
         res = res.json()
         if 'errcode' in res.keys():
