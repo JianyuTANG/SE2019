@@ -2,6 +2,7 @@
   "navigationBarTitleText": "资源创建",
   "navigationBarTitleSize": "30px",
   "usingComponents": {
+    "activity-tags": "/component/activity-tags/activity-tags",
     "mp-cell": "../../miniprogram_npm/weui-miniprogram/cell/cell",
     "mp-cells": "../../miniprogram_npm/weui-miniprogram/cells/cells",
     "mp-checkbox-group": "../../miniprogram_npm/weui-miniprogram/checkbox-group/checkbox-group",

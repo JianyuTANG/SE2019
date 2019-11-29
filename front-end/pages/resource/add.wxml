@@ -62,7 +62,7 @@
                 </mp-cell>
                 <mp-cell show-error prop="tag" title="设置tag" ext-class="" bind:tap="setTag" footer="点击设置">
                     <view wx:for="{{formData.tags}}">
-                        <van-tag type="primary"  catch:tap="closeTag" data-index="{{index}}">
+                        <van-tag type="primary"  catch:tap="onTapCloseTag" data-index="{{index}}">
                             <van-tag type="primary" catch:tap="fakeHandle">{{item}}</van-tag>
                             <text>X</text>
                             </van-tag>
@@ -76,6 +76,8 @@
             <button class="weui-btn" type='default' bindtap="submitCancel">取消</button>
         </view>
     </view>
+
+    <activity-tags tagList="{{formData.tagList}}" curTags="{{formData.tags}}" bind:addTag = "onAddTag" bind:closeTag="onCloseTag"></activity-tags>
                  
 
 </view>

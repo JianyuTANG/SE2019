@@ -1,5 +1,6 @@
 import { formatTime } from '../../utils/util.js'
 import { activityTypes } from '../../data/activityTypes.js'
+import { tags } from '../../data/tags.js'
 Page({
   data: {
     showTopTips: false,
@@ -19,6 +20,7 @@ Page({
       content: '',
       activityTypes: activityTypes, // 必须在这里定义,而不能setData
       type: 0,
+      tagList: tags,
       tags: ['计算机', '还是计算机']
     },
     rules: [{
@@ -176,14 +178,7 @@ Page({
       that.editorCtx = res.context
     }).exec()
   },
-  closeTag: function (e) {
-    let tags = this.data.formData.tags
-    tags.splice(e.currentTarget.dataset.index, 1)
-    this.setData({
-      'formData.tags': tags
-    })
-    console.log(e)
-  },
+
   fakeHandle: function (e) {
 
   },
@@ -195,6 +190,36 @@ Page({
     this.setData({
       'formData.type': curValue
     })
+  },
+  onAddTag: function (e) {
+    console.log(e)
+    let name = e.detail.name
+    let curTags = this.data.formData.tags
+    let match = curTags.filter(item => item === name)
+    console.log(match)
+    if (match.length === 0) {
+      curTags.push(name)
+    }
+    console.log(curTags)
+    this.setData({
+      'formData.tags': curTags
+    })
+  },
+  closeTag: function (index) {
+    let tags = this.data.formData.tags
+    tags.splice(index, 1)
+    this.setData({
+      'formData.tags': tags
+    })
+  },
+  onTapClosTag: function (e) {
+    let index = e.currentTarget.dataset
+    this.closeTag(index)
+  },
+  onCloseTag: function (e) {
+    console.log(e)
+    let index = e.detail.index
+    this.closeTag(index)
   }
 
 })
