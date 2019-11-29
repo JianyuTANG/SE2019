@@ -1,24 +1,15 @@
 import { formatTime } from '../../utils/util.js'
+import { activityTypes } from '../../data/activityTypes.js'
 Page({
   data: {
     showTopTips: false,
     date: {
-      minHour: 10,
-      maxHour: 20,
       minDate: new Date().getTime(),
       maxDate: new Date(2019, 10, 1).getTime(),
       currentDate: new Date().getTime(),
       endDay: '请设置',
       endTimeStamp: new Date()
     },
-    radioItems: [
-      { name: 'cell standard', value: '0', checked: true },
-      { name: 'cell standard', value: '1' }
-    ],
-    checkboxItems: [
-      { name: 'standard is dealt for u.', value: '0', checked: true },
-      { name: 'standard is dealicient for u.', value: '1' }
-    ],
     formData: {
       title: '',
       contact: '',
@@ -26,6 +17,8 @@ Page({
       email: '',
       qualification: '',
       content: '',
+      activityTypes: activityTypes, // 必须在这里定义,而不能setData
+      type: 0,
       tags: ['计算机', '还是计算机']
     },
     rules: [{
@@ -51,42 +44,11 @@ Page({
     tapButtonDate: false
   },
   onLoad () {
+    console.log(activityTypes)
     this.setData({
       selectFile: this.selectFile.bind(this),
       uplaodFile: this.uplaodFile.bind(this)
-    })
-  },
-  radioChange: function (e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
 
-    var radioItems = this.data.radioItems
-    for (var i = 0, len = radioItems.length; i < len; ++i) {
-      radioItems[i].checked = radioItems[i].value == e.detail.value
-    }
-
-    this.setData({
-      radioItems: radioItems,
-      [`formData.radio`]: e.detail.value
-    })
-  },
-  checkboxChange: function (e) {
-    console.log('checkbox发生change事件，携带value值为：', e.detail.value)
-
-    var checkboxItems = this.data.checkboxItems; var values = e.detail.value
-    for (var i = 0, lenI = checkboxItems.length; i < lenI; ++i) {
-      checkboxItems[i].checked = false
-
-      for (var j = 0, lenJ = values.length; j < lenJ; ++j) {
-        if (checkboxItems[i].value == values[j]) {
-          checkboxItems[i].checked = true
-          break
-        }
-      }
-    }
-
-    this.setData({
-      checkboxItems: checkboxItems,
-      [`formData.checkbox`]: e.detail.value
     })
   },
   formInputChange: function (e) {
@@ -224,6 +186,15 @@ Page({
   },
   fakeHandle: function (e) {
 
+  },
+  changeType: function (e) {
+    console.log(e)
+    let curValue = e.detail
+    let match = activityTypes.filter(option => option.value === curValue)
+    console.log(match)
+    this.setData({
+      'formData.type': curValue
+    })
   }
 
 })

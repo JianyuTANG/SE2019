@@ -55,6 +55,11 @@
                <mp-cell show-error prop="date" title="截止日期" ext-class="" bind:tap="setDate" footer="点击设置"> 
                     <text >{{date.endDay}}</text>
                 </mp-cell>
+                <mp-cell show-error prop="type" title="活动类型" ext-class="">
+                    <van-dropdown-menu>
+                      <van-dropdown-item value="{{ formData.type }}" options="{{ formData.activityTypes }}" bind:change="changeType"/>
+                    </van-dropdown-menu>
+                </mp-cell>
                 <mp-cell show-error prop="tag" title="设置tag" ext-class="" bind:tap="setTag" footer="点击设置">
                     <view wx:for="{{formData.tags}}">
                         <van-tag type="primary"  catch:tap="closeTag" data-index="{{index}}">
