@@ -5,45 +5,36 @@ Page({
   data: {
     showTopTips: false,
     date: {
-      minDate: new Date().getTime(),
-      maxDate: new Date(2019, 10, 1).getTime(),
-      currentDate: new Date().getTime(),
-      endDay: '请设置',
-      endTimeStamp: new Date()
+      minDate: new Date().getTime()
     },
     formData: {
       title: '',
       contact: '',
-      telephone: '',
-      email: '',
       qualification: '',
       content: '',
+      endDate: '',
       activityTypes: activityTypes, // 必须在这里定义,而不能setData
       type: 0,
       tagList: tags,
-      tags: ['计算机', '还是计算机']
+      tags: []
     },
     rules: [{
       name: 'title',
-      rules: { required: true, message: '单选列表是必选项' }
-    }, {
-      name: 'contact',
-      rules: { required: true, message: '多选列表是必选项' }
-    }, {
-      name: 'telephone',
-      rules: { required: true, message: 'qq必填' }
-    }, {
-      name: 'email',
-      rules: { required: true, message: '验证码必填' }
-    }, {
-      name: 'qualification',
-      rules: { required: true, message: 'idcard必填' }
+      rules: { required: true, message: '标题必须填写' }
     }, {
       name: 'content',
-      rules: { required: true, message: 'idcard必填' }
+      rules: { required: true, message: '请填写内容' }
+    },
+    {
+      name: 'contact',
+      rules: { required: true, message: '联系方式是必选项' }
+    }, {
+      name: 'endDate',
+      rules: { required: true, message: '请设置截至日期' }
     }],
     files: [],
-    tapButtonDate: false
+    tapButtonDate: false,
+    tapButtonTag: false
   },
   onLoad () {
     console.log(activityTypes)
@@ -151,6 +142,16 @@ Page({
       'tapButtonDate': false
     })
   },
+  tapButtonTag: function (e) {
+    this.setData({
+      'tapButtonTag': false
+    })
+  },
+  setTag: function (e) {
+    this.setData({
+      'tapButtonTag': true
+    })
+  },
   setDate: function (e) {
     this.setData({
       'tapButtonDate': true
@@ -162,8 +163,7 @@ Page({
     let time = new Date(timeStamp)
     let date = formatTime(time, 'yyyy/MM/dd')
     this.setData({
-      'date.endDay': date,
-      'date.endTimeStamp': timeStamp
+      'formData.endDate': date
     })
   },
   onStatusChange: function (e) {

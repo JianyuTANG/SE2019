@@ -10,11 +10,25 @@
                 confirm-button-text=""
                 cancel-button-text=""
                 show-toolbar="{{false}}"
-                v-model="{{date.currentDate}}"
                 type="date"
                 min-date="{{date.minDate}}"
                 bind:input="changeEndDate"
                 />
+            </mp-dialog>
+
+            <mp-dialog 
+            wx:if = "{{tapButtonTag}}"
+            title="设置Tag" 
+            show="{{tapButtonTag}}" 
+            bindbuttontap="tapButtonTag" 
+            ext-class="set-date-dialog"
+            buttons="{{[{text: '确定'}]}}">
+                <activity-tags 
+                tagList="{{formData.tagList}}" 
+                curTags="{{formData.tags}}" 
+                bind:addTag = "onAddTag" 
+                bind:closeTag="onCloseTag">
+                </activity-tags>
             </mp-dialog>
 
 
@@ -27,7 +41,7 @@
                     <input bindinput="formInputChange" data-field="title" class="weui-input" placeholder="请输入标题"/>
                 </mp-cell>
 
-                <mp-cell prop="content">
+                <mp-cell show-error prop="content">
                     <view class="add-form-content"><text>输入详情</text></view>
                     <textarea id="editor"  
                     style="min-height:120px;width:100%;" 
@@ -49,19 +63,19 @@
                 </mp-cell>
             </mp-cells>
             <mp-cells>
-               <mp-cell show-error prop="email" title="联系方式" ext-class="">
-                    <input bindinput="formInputChange" data-field="email" class="weui-input" placeholder="请输入联系方式"/>
+               <mp-cell show-error prop="contact" title="联系方式" ext-class="">
+                    <input bindinput="formInputChange" data-field="contact" class="weui-input" placeholder="请输入联系方式"/>
                </mp-cell>
-               <mp-cell show-error prop="date" title="截止日期" ext-class="" bind:tap="setDate" footer="点击设置"> 
-                    <text >{{date.endDay}}</text>
+               <mp-cell show-error prop="endDate" title="截止日期" ext-class="" bind:tap="setDate" footer="点击设置"> 
+                    <text >{{formData.endDate ? formData.endDate:'请设置'}}</text>
                 </mp-cell>
                 <mp-cell show-error prop="type" title="活动类型" ext-class="">
                     <van-dropdown-menu>
                       <van-dropdown-item value="{{ formData.type }}" options="{{ formData.activityTypes }}" bind:change="changeType"/>
                     </van-dropdown-menu>
                 </mp-cell>
-                <mp-cell show-error prop="tag" title="设置tag" ext-class="" bind:tap="setTag" footer="点击设置">
-                    <view wx:for="{{formData.tags}}">
+                <mp-cell show-error prop="tags" title="设置tag" ext-class="" bind:tap="setTag" footer="点击设置">
+                    <view wx:for="{{formData.tags}}" style="margin-left:20rpx; display: inline-block;">
                         <van-tag type="primary"  catch:tap="onTapCloseTag" data-index="{{index}}">
                             <van-tag type="primary" catch:tap="fakeHandle">{{item}}</van-tag>
                             <text>X</text>
@@ -77,7 +91,5 @@
         </view>
     </view>
 
-    <activity-tags tagList="{{formData.tagList}}" curTags="{{formData.tags}}" bind:addTag = "onAddTag" bind:closeTag="onCloseTag"></activity-tags>
-                 
 
 </view>
