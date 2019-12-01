@@ -1,0 +1,52 @@
+{
+	"description": "项目配置文件",
+	"libVersion": "2.8.3",
+	"projectname": "front-end",
+	"appid": "wxf5319ace2e505c00",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"simulatorType": "wechat",
+	"compileType": "miniprogram",
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"outputPath": "",
+			"disablePlugins": [],
+			"ignore": []
+		}
+	},
+	"simulatorPluginLibVersion": {},
+	"packOptions": {
+		"ignore": []
+	},
+	"isGameTourist": false,
+	"condition": {
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": [],
+			"currentL": -1
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": []
+		}
+	}
+}
