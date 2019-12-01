@@ -33,5 +33,9 @@ urlpatterns = [
     path('get_user_avatar', UserSystem.views.get_user_avartar),
     path('add_userinfo', UserSystem.views.create_userinfo),
     path('add_res', ResourceSystem.views.add_res),
+    path('delete_res', ResourceSystem.views.delete_res),
+    path('modify_res', ResourceSystem.views.modify_res),
+    path('view_res', ResourceSystem.views.view_res),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
