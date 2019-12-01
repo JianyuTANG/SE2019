@@ -225,6 +225,7 @@ def query_res_all(request):
     resources = Resource.objects.filter()
     res_list = []
     for e in resources:
+        interest_list = e.interest_users.split(",")
         tmp = {}
         tmp['title'] = e.title
         tmp['name'] = e.name
@@ -236,7 +237,7 @@ def query_res_all(request):
         tmp['contact'] = e.contact
         tmp['due'] = e.due
         tmp['resID'] = e.res_id
-        tmp['interested'] = "0"   #待修改
+        tmp['interested'] = openid in interest_list
         res_list.append(tmp)
     return JsonResponse({"res_list": res_list})
 
@@ -261,6 +262,7 @@ def query_res_issued(request):
     resources = Resource.objects.filter(openid=openid)
     res_list = []
     for e in resources:
+        interest_list = e.interest_users.split(",")
         tmp = {}
         tmp['title'] = e.title
         tmp['name'] = e.name
@@ -272,7 +274,51 @@ def query_res_issued(request):
         tmp['contact'] = e.contact
         tmp['due'] = e.due
         tmp['resID'] = e.res_id
-        tmp['interested'] = "0"   #待修改
+        tmp['interested'] = openid in interest_list
         res_list.append(tmp)
     return JsonResponse({"res_list": res_list})
     
+def switch_interest(request):
+    '''
+    用于用户切换是否喜爱
+    :param request:
+    :return:
+    '''
+    post_body = request.body
+    json_request = json.loads(post_body)
+    session_code = json_request['sessionCode']
+    if session_code is None:
+        res = HttpResponse()
+        res.status_code = 404
+        return res
+#    if session_code != administration_config['session_code']:
+#        res = HttpResponse()
+#        res.status_code = 404
+#        return res
+    openid = json_request['openid']
+    res_id = json_request['resID']
+    try:
+        resource = Resource.objects.filter(res_id=res_id)[0]
+    except Exception as e:
+        print(e)
+        res = HttpResponse()
+        res.status_code = 404
+        return res
+    if resource.interest_users=='':
+        interest_arr = []
+    else:
+        interest_arr = resource.interest_users.split(",")
+    if openid in interest_arr:
+        interest_arr.remove(openid)
+    else:
+        interest_arr.append(openid)
+    interests = ''
+    for item in interest_arr:
+        interests = interests + item + ","
+    interests = interests[:-1]
+    resource.interest_users = interests
+    resource.save()
+    print(resource.interest_users)
+    res = HttpResponse()
+    res.status_code = 200
+    return res
