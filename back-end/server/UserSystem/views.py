@@ -396,17 +396,21 @@ def upload_img(request):
     try:
         session_code = request.META.get('HTTP_SESSIONCODE')
     except:
+        print('头信息未包含sessioncode')
         return get404()
 
     if session_code is None:
         # 请求头无参数
+        print('头信息未包含sessioncode')
         return get404()
     user = get_user(session_code)
     if user is None:
         # 用户不存在 （sessionCode有误） 直接404
+        print('sessionCode有误')
         return get404()
     if user.info is None:
         # 用户信息不存在 直接404
+        print('未通过验证')
         return get404()
     if request.method == 'POST':
         files = request.FILES
@@ -424,6 +428,7 @@ def upload_img(request):
                 f.write(img_obj.read())
             except:
                 # 写入失败
+                print('写入失败')
                 return get404()
             src = os.path.join('/media/resource_img/', img_name)
             res = {'url': src}
@@ -431,6 +436,7 @@ def upload_img(request):
             response.status_code = 200
             return response
 
+    print('post格式错误')
     return get404()
 
 
@@ -463,10 +469,12 @@ def delete_img(request):
             try:
                 os.remove(src)
             except:
+                print('删除失败')
                 return get404()
 
             res = HttpResponse()
             res.status_code = 200
             return res
 
+    print('openid错误或文件不存在')
     return get404()
