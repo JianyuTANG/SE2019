@@ -4,7 +4,6 @@ from .models import User, UserInfo
 from .utils import *
 import json
 import time
-from .forms import *
 import os
 from .config import administration_config
 
@@ -419,6 +418,8 @@ def upload_img(request):
             # img_obj = request.FILES.get('img')
             # 获取存放路径
             src = './media/resource_img/'
+            if not os.path.isdir(src):
+                os.mkdir(src)
             openid = user.openid
             img_name = openid + '_' + str(int(time.time()))
             src = os.path.join(src, img_name)
