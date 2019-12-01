@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "资源",
-  "navigationBarTitleSize": "30px",
-    "usingComponents": {
-      "resource-card": "/component/resource-card/resource-card",
-      "mp-tabbar": "../../miniprogram_npm/weui-miniprogram/tabbar/tabbar",
-      "mp-searchbar": "../../miniprogram_npm/weui-miniprogram/searchbar/searchbar"
-    }
-  }

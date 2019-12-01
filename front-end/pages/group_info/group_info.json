@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "思源十七期",
-    "usingComponents": {
-      "group-card": "/component/group-card/group-card",
-      "member-card": "/component/member-card/member-card",
-      "mp-tabbar": "../../miniprogram_npm/weui-miniprogram/tabbar/tabbar"
-    }
-  }

@@ -1,4 +1,0 @@
-/* pages/me/personal.wxss */
-.van-area .van-picker__toolbar{
-    display: none;
-}

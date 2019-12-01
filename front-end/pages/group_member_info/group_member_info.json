@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "陈语凝",
-    "usingComponents": {
-      "resource-card": "/component/resource-card/resource-card",
-      "mp-tabbar": "../../miniprogram_npm/weui-miniprogram/tabbar/tabbar"
-    }
-  }
