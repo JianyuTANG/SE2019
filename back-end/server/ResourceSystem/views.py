@@ -196,6 +196,7 @@ def query_res_all(request):
 #        return res
     openid = json_request['openid']
     resources = Resource.objects.filter()
+    print(len(resources))
     res = HttpResponse()
     res.status_code = 200
     return res

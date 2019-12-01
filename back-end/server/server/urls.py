@@ -38,7 +38,7 @@ urlpatterns = [
     path('view_res', ResourceSystem.views.view_res),
     path('upload_img', UserSystem.views.upload_img),
     path('delete_img', UserSystem.views.delete_img),
-    path('query_res_all', UserSystem.views.query_res_all),
+    path('query_res_all', ResourceSystem.views.query_res_all),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
