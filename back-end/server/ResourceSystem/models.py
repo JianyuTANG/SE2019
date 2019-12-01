@@ -12,7 +12,9 @@ class Resource(models.Model):
     c_time = models.DateTimeField(auto_now_add=True)                                     # 自动添加 资源生成时间
     res_id = models.AutoField(primary_key=True)
     res_id.editable = True
-    img_arr = models.TextField(default='')                                        # 资源主键 自增   
+    img_arr = models.TextField(default='')  
+    tag_arr = models.TextField(default='')  
+    category = models.CharField(max_length=100, default='')
 
     def __str__(self):
         return self.title

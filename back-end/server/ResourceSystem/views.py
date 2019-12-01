@@ -29,12 +29,18 @@ def add_res(request):
     due = json_request['due']
     contact = json_request['contact']
     openid = json_request['openid']
+    category = json_request['category']
     img_arr = json_request['imgArr']
-    imgs = ''
+    tag_arr = json_request['tagArr']
     name = get_username(openid)
+    imgs = ''
+    tags = ''
     for item in img_arr:
         imgs = imgs + item + ','
+    for item in tag_arr:
+        tags = tags + item + ','
     imgs = imgs[:-1]
+    tags = tags[:-1]
     resource = Resource.objects.create()
     resource.openid = openid
     resource.title = title
@@ -42,7 +48,9 @@ def add_res(request):
     resource.due = due
     resource.contact = contact
     resource.img_arr = imgs
+    resource.tag_arr = tags
     resource.name = name
+    resource.category = category
     resource.save()
     res = HttpResponse()
     res.status_code = 200
@@ -130,16 +138,24 @@ def modify_res(request):
     content = json_request['content']
     due = json_request['due']
     contact = json_request['contact']
+    category = json_request['category']
     img_arr = json_request['imgArr']
+    tag_arr = json_request['tagArr']
     imgs = ''
+    tags = ''
     for item in img_arr:
         imgs = imgs + item + ','
+    for item in tag_arr:
+        tags = tags + item + ','
     imgs = imgs[:-1]
+    tags = tags[:-1]
     resource.title = title
     resource.content = content
     resource.due = due
     resource.contact = contact
     resource.img_arr = imgs
+    resource.tag_arr = tags
+    resource.category = category
     resource.save()
     res = HttpResponse()
     res.status_code = 200
@@ -176,8 +192,10 @@ def view_res(request):
     "title": str(resource.title),
     "content": str(resource.content),
     "due": str(resource.due),
+    "tagArr": resource.tag_arr.split(","),
+    "category": str(resource.category),
     "contact": str(resource.contact),
-    "imgArr": resource.img_arr.split(",")})
+    "imgArr": resource.img_arr.split(","),})
 
 def query_res_all(request):
     '''
@@ -203,8 +221,10 @@ def query_res_all(request):
         tmp = {}
         tmp['title'] = e.title
         tmp['name'] = e.name
+        tmp['createTime'] = e.c_time
         tmp['imgUrl'] = e.img_arr.split(",")
-        tmp['time'] = e.name
+        tmp['tags'] = e.tag_arr.split(",")
+        tmp['category'] = e.category
         tmp['contact'] = e.contact
         tmp['due'] = e.due
         tmp['resID'] = e.res_id
@@ -212,5 +232,38 @@ def query_res_all(request):
         res_list.append(tmp)
     return JsonResponse({"res_list": res_list})
 
-
+def query_res_issued(request):
+    '''
+    用于用户查看现有的资源
+    :param request:
+    :return:
+    '''
+    post_body = request.body
+    json_request = json.loads(post_body)
+    session_code = json_request['sessionCode']
+    if session_code is None:
+        res = HttpResponse()
+        res.status_code = 404
+        return res
+#    if session_code != administration_config['session_code']:
+#        res = HttpResponse()
+#        res.status_code = 404
+#        return res
+    openid = json_request['openid']
+    resources = Resource.objects.filter()
+    res_list = []
+    for e in resources:
+        tmp = {}
+        tmp['title'] = e.title
+        tmp['name'] = e.name
+        tmp['createTime'] = e.c_time
+        tmp['imgUrl'] = e.img_arr.split(",")
+        tmp['tags'] = e.tag_arr.split(",")
+        tmp['category'] = e.category
+        tmp['contact'] = e.contact
+        tmp['due'] = e.due
+        tmp['resID'] = e.res_id
+        tmp['interested'] = "0"   #待修改
+        res_list.append(tmp)
+    return JsonResponse({"res_list": res_list})
     
