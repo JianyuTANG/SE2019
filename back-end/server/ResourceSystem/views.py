@@ -20,10 +20,10 @@ def add_res(request):
         res = HttpResponse()
         res.status_code = 404
         return res
-    if session_code != administration_config['session_code']:
-        res = HttpResponse()
-        res.status_code = 404
-        return res
+#    if session_code != administration_config['session_code']:
+#        res = HttpResponse()
+#        res.status_code = 404
+#        return res
     title = json_request['title']
     content = json_request['content']
     due = json_request['due']
@@ -59,10 +59,10 @@ def delete_res(request):
         res = HttpResponse()
         res.status_code = 404
         return res
-    if session_code != administration_config['session_code']:
-        res = HttpResponse()
-        res.status_code = 404
-        return res
+#    if session_code != administration_config['session_code']:
+#        res = HttpResponse()
+#        res.status_code = 404
+#        return res
     openid = json_request['openid']
     res_id = json_request['resID']
     try:
@@ -106,10 +106,10 @@ def modify_res(request):
         res = HttpResponse()
         res.status_code = 404
         return res
-    if session_code != administration_config['session_code']:
-        res = HttpResponse()
-        res.status_code = 404
-        return res
+#    if session_code != administration_config['session_code']:
+#        res = HttpResponse()
+#        res.status_code = 404
+#        return res
     openid = json_request['openid']
     res_id = json_request['resID']
     try:
@@ -156,10 +156,10 @@ def view_res(request):
         res = HttpResponse()
         res.status_code = 404
         return res
-    if session_code != administration_config['session_code']:
-        res = HttpResponse()
-        res.status_code = 404
-        return res
+#    if session_code != administration_config['session_code']:
+#        res = HttpResponse()
+#        res.status_code = 404
+#        return res
     openid = json_request['openid']
     res_id = json_request['resID']
     try:
@@ -176,3 +176,28 @@ def view_res(request):
     "due": str(resource.due),
     "contact": str(resource.contact),
     "imgArr": resource.img_arr.split(",")})
+
+def query_res_all(request):
+    '''
+    用于用户查看现有的资源
+    :param request:
+    :return:
+    '''
+    post_body = request.body
+    json_request = json.loads(post_body)
+    session_code = json_request['sessionCode']
+    if session_code is None:
+        res = HttpResponse()
+        res.status_code = 404
+        return res
+#    if session_code != administration_config['session_code']:
+#        res = HttpResponse()
+#        res.status_code = 404
+#        return res
+    openid = json_request['openid']
+    resources = Resource.objects.filter()
+    res = HttpResponse()
+    res.status_code = 200
+    return res
+
+    
