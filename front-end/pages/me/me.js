@@ -27,23 +27,23 @@ Page({
     let that = this
     let sessionCode = wx.getStorageSync('sessionCode')
     let prefix = app.globalData.baseUrl.substr(0, app.globalData.baseUrl.length - 1)
-    wx.request({
-      url: that.data.getAvatarUrl,
-      method: 'POST',
-      data: {
-        sessionCode: sessionCode
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success (res) {
-        console.log(res)
-        console.log(res.data)
-        that.setData({
-          'avatar': prefix + res.data.url
-        })
-      }
-    })
+    // wx.request({
+    //   url: that.data.getAvatarUrl,
+    //   method: 'POST',
+    //   data: {
+    //     sessionCode: sessionCode
+    //   },
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success (res) {
+    //     console.log(res)
+    //     console.log(res.data)
+    //     that.setData({
+    //       'avatar': prefix + res.data.url
+    //     })
+    //   }
+    // })
   },
 
   onShow: function () {

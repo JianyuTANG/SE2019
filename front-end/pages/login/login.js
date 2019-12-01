@@ -1,5 +1,9 @@
+const app = getApp()
 Page({
   data: {
+    baseUrl: app.globalData.baseUrl,
+    baseUrlPrefix: app.globalData.baseUrl.substr(0, app.globalData.baseUrl.length - 1),
+    verifyUrl: app.globalData.baseUrl + 'verify',
     focus: false,
     inputValue: '',
     // 可以被修改的提交表单的数据
@@ -94,7 +98,7 @@ Page({
     console.log(sessionCode)
     console.log(formData)
     wx.request({
-      url: 'http://127.0.0.1:8000/verify',
+      url: that.data.verifyUrl,
       method: 'POST',
 
       data: {
@@ -114,12 +118,24 @@ Page({
             title: '信息验证成功',
             duration: 1000
           })
-          setTimeout(wx.navigateBack, 1000)
+
+          var a = wx.canIUse('requestSubscribeMessage')
+          console.log(a)
+          wx.requestSubscribeMessage({
+            tmplIds: ['6EUI850A7o0k-irU7ygiKBt55wo60QhIyofNTjSEB1U'],
+            success (res) {
+              console.log('success' + res)
+            },
+            fail (res) {
+              console.log('failed' + res)
+            }
+          })
+
+          // setTimeout(wx.navigateBack, 1000)
           wx.switchTab({
             url: '/pages/me/me'
           })
-        }
-        else{
+        } else {
           wx.showToast({
             icon: 'none',
             title: '验证失败，请重新核对信息',
@@ -146,6 +162,6 @@ Page({
       duration: 1000
     })
     setTimeout(wx.navigateBack, 1000)
-  },
+  }
 
 })

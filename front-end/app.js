@@ -3,7 +3,7 @@ const app = getApp()
 App({
   // 全局变量请在这里定义
   globalData: {
-    baseUrl: 'http://127.0.0.1:8000/',
+    baseUrl: 'http://154.8.172.132/',
     userInfo: null,
     code: ''
   },
@@ -20,6 +20,7 @@ App({
         console.log('login success res', res)
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         that.globalData.code = res.code
+
         wx.getSetting({
           success: res => {
             if (res.authSetting['scope.userInfo']) {
@@ -27,18 +28,18 @@ App({
               wx.getUserInfo({
                 success: res => {
                   // 可以将 res 发送给后台解码出 unionId
-                  this.globalData.userInfo = res.userInfo
+                  that.globalData.userInfo = res.userInfo
 
                   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
                   // 所以此处加入 callback 以防止这种情况
-                  if (this.userInfoReadyCallback) {
-                    this.userInfoReadyCallback(res)
+                  if (that.userInfoReadyCallback) {
+                    that.userInfoReadyCallback(res)
                   }
                 }
               })
             }
             wx.request({
-              url: 'http://127.0.0.1:8000/login',
+              url: that.globalData.baseUrl + 'login',
               data: { code: that.globalData.code },
               method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
               header: {
