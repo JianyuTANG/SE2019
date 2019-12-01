@@ -36,6 +36,7 @@ urlpatterns = [
     path('delete_res', ResourceSystem.views.delete_res),
     path('modify_res', ResourceSystem.views.modify_res),
     path('view_res', ResourceSystem.views.view_res),
-
+    path('upload_img', UserSystem.views.upload_img),
+    path('delete_img', UserSystem.views.delete_img),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

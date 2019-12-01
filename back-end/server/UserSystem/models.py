@@ -21,6 +21,7 @@ class UserInfo(models.Model):
     hobby = models.CharField(max_length=100, default='')  # 爱好
     avatar_url = models.CharField(max_length=100,
                                   default='/media/user_avatar/default/default.jpg')  # 头像
+    is_connected = models.IntegerField(default=0)
 
     def __str__(self):
         return self.real_name
