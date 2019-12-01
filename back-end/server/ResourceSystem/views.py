@@ -258,7 +258,7 @@ def query_res_issued(request):
 #        res.status_code = 404
 #        return res
     openid = json_request['openid']
-    resources = Resource.objects.filter()
+    resources = Resource.objects.filter(openid=openid)
     res_list = []
     for e in resources:
         tmp = {}
