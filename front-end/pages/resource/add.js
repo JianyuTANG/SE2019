@@ -12,6 +12,7 @@ Page({
     uploadImgUrl: app.globalData.baseUrl + 'upload_img',
     deleteImgUrl: app.globalData.baseUrl + 'delete_img',
     sessionCode: '',
+    openid: '',
     showTopTips: false,
     date: {
       minDate: new Date().getTime()
@@ -24,7 +25,7 @@ Page({
       endDate: '',
       activityTypes: activityTypes, // 必须在这里定义,而不能setData
       type: 0,
-      tagList: tags,
+      tagList: tags, // 显示的预置tag
       tags: [],
       coverFile: [], // 封面图片
       appendixFiles: [] // 附件图片文件
@@ -50,9 +51,11 @@ Page({
   onLoad () {
     console.log(activityTypes)
     let sessionCode = wx.getStorageSync('sessionCode')
+    let openid = wx.getStorageSync('openid')
     console.log(sessionCode)
     this.setData({
-      sessionCode: sessionCode
+      sessionCode: sessionCode,
+      openid: openid
     })
   },
   formInputChange: function (e) {
@@ -67,6 +70,7 @@ Page({
     })
   },
   submitForm: function (e) {
+    let that = this
     this.selectComponent('#form').validate((valid, errors) => {
       console.log('valid', valid, errors)
       if (!valid) {
@@ -77,29 +81,52 @@ Page({
           })
         }
       } else {
-        wx.showToast({
-          title: '校验通过'
-        })
-        let id = 100
-        let resourceId = 'resource' + String(id)
-        let src = '/assets/activity.png'
-        let info = {
-          id: id,
-          title: this.data.formData.title,
-          content: this.data.formData.content,
-          contact: this.data.formData.contact,
-          telephone: this.data.formData.telephone,
-          email: this.data.formData.email,
-          qualification: this.data.formData.qualification,
-          startDate: this.data.date.currentDate,
-          endDate: this.data.date.endDate,
-          imageSrc: src
+        console.log('submit ')
+        //  生成用于提交的img格式串, 以 / 绝对路径开头
+        let imgArr = []
+        let cover = that.data.formData.coverFile[0].suffix
+        console.log('submit 1')
+        console.log(cover)
+        for (let i of that.data.formData.appendixFiles) {
+          console.log('submit img')
+          imgArr.push(i.suffix)
         }
-        let fList = wx.getStorageSync('facultyList')
-        fList.push(info)
-        wx.setStorageSync('facultyList', fList)
-        wx.setStorageSync(resourceId, info)
-        wx.navigateBack()
+        console.log('submit img')
+        // 生成提交的类别的str
+        let match = activityTypes.filter(option => option.value === that.data.formData.type)
+        console.log(match)
+        let category = match[0].text
+        console.log('submit category')
+        let data = {
+          sessionCode: that.data.sessionCode,
+          openid: that.data.openid,
+          coverImg: cover,
+          title: that.data.formData.title,
+          content: that.data.formData.content,
+          due: that.data.formData.endDate,
+          contact: that.data.formData.contact,
+          imgArr: imgArr,
+          tagArr: that.data.formData.tags,
+          category: category
+        }
+        console.log(data)
+        wx.request({
+          url: that.data.addResUrl,
+          method: 'POST',
+          data: data,
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          success (res) {
+            console.log(res)
+            console.log(res.data)
+            wx.showToast({
+              title: '提交成功'
+            })
+
+            wx.navigateBack()
+          }
+        })
       }
     })
   },
@@ -232,5 +259,4 @@ Page({
       [`formData.${field}`]: files
     })
   }
-
 })
