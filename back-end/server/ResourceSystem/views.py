@@ -30,6 +30,7 @@ def add_res(request):
     contact = json_request['contact']
     openid = json_request['openid']
     category = json_request['category']
+    cover_img = json_request['coverImg']
     img_arr = json_request['imgArr']
     tag_arr = json_request['tagArr']
     name = get_username(openid)
@@ -47,6 +48,7 @@ def add_res(request):
     resource.content = content
     resource.due = due
     resource.contact = contact
+    resource.cover_img = cover_img
     resource.img_arr = imgs
     resource.tag_arr = tags
     resource.name = name
@@ -89,9 +91,11 @@ def delete_res(request):
         return res
     try:
         res_imgs = resource.img_arr.split(',')
+        if os.path.exists(resource.cover_img):
+            os.remove(str(resource.cover_img)[1:])
         for item in res_imgs:
             if os.path.exists(item):
-                os.remove(str(item))
+                os.remove(str(item)[1:])
         resource.delete()
         res = HttpResponse()
         res.status_code = 200
@@ -136,6 +140,7 @@ def modify_res(request):
         return res
     title = json_request['title']
     content = json_request['content']
+    cover_img =json_request['coverImg']
     due = json_request['due']
     contact = json_request['contact']
     category = json_request['category']
@@ -151,6 +156,7 @@ def modify_res(request):
     tags = tags[:-1]
     resource.title = title
     resource.content = content
+    resource.cover_img = cover_img
     resource.due = due
     resource.contact = contact
     resource.img_arr = imgs
@@ -192,6 +198,7 @@ def view_res(request):
     "title": str(resource.title),
     "content": str(resource.content),
     "due": str(resource.due),
+    "coverImg": str(resource.cover_img),
     "tagArr": resource.tag_arr.split(","),
     "category": str(resource.category),
     "contact": str(resource.contact),
@@ -223,6 +230,7 @@ def query_res_all(request):
         tmp['name'] = e.name
         tmp['createTime'] = e.c_time
         tmp['imgUrl'] = e.img_arr.split(",")
+        tmp['coverImg'] = e.cover_img
         tmp['tags'] = e.tag_arr.split(",")
         tmp['category'] = e.category
         tmp['contact'] = e.contact
@@ -258,6 +266,7 @@ def query_res_issued(request):
         tmp['name'] = e.name
         tmp['createTime'] = e.c_time
         tmp['imgUrl'] = e.img_arr.split(",")
+        tmp['coverImg'] = e.cover_img
         tmp['tags'] = e.tag_arr.split(",")
         tmp['category'] = e.category
         tmp['contact'] = e.contact

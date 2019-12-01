@@ -6,6 +6,7 @@ class Resource(models.Model):
     #session_key = models.CharField(max_length=32, default='')                      # 本次登录的session_key
     title = models.CharField(max_length=100, default='') 
     name = models.CharField(max_length=100, default='')               # 字符串格式 发布人姓名 最长100个字符
+    cover_img = models.CharField(max_length=10000, default='')
     content = models.TextField(default='')                             # 字符串格式 资源正文 最长99999个字符
     due = models.CharField(max_length=100, default='')                                   # 截止日期
     contact = models.CharField(max_length=100, default='')                               # 联系方式 邮箱或手机号码等
