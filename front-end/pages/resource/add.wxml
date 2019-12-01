@@ -53,13 +53,25 @@
                     value="{{ formData.content }}"/>                
                 </mp-cell>
 
-                <mp-cell prop="images">
-                    <mp-uploader bindfail="uploadError" bindsuccess="uploadSuccess" 
-                    select="{{selectFile}}" upload="{{uplaodFile}}" files="{{files}}" 
-                    max-count="5" title="图片" tips="第一张图为封面"
-                   >
-
-                    </mp-uploader>
+                <mp-cell prop="images" >
+                    <van-uploader
+                    upload-text="封面"
+                    data-field="coverFile"
+                    file-list="{{ formData.coverFile }}"
+                    max-count="1"
+                    bind:after-read="afterReadImg"
+                    image-fit = "aspectFit"
+                    bind:delete="deleteImg"
+                    />
+                    <van-uploader
+                    upload-text="附件图片"
+                    data-field="appendixFiles"
+                    file-list="{{ formData.appendixFiles }}"
+                    max-count="4"
+                    bind:after-read="afterReadImg"
+                    image-fit = "aspectFit"
+                    bind:delete="deleteImg"
+                    />
                 </mp-cell>
             </mp-cells>
             <mp-cells>
