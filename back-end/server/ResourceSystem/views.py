@@ -169,15 +169,9 @@ def view_res(request):
         res = HttpResponse()
         res.status_code = 404
         return res
-    if not resource.openid == openid:
-        res = HttpResponse()
-        res.status_code = 404
-        print("error: user invalid!")
-        return res
     return JsonResponse({
     "title": str(resource.title),
     "content": str(resource.content),
     "due": str(resource.due),
     "contact": str(resource.contact),
-    "imgArr": resource.img_arr.split(",")
-})
+    "imgArr": resource.img_arr.split(",")})
