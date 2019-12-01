@@ -170,6 +170,7 @@ def view_res(request):
         res.status_code = 404
         return res
     return JsonResponse({
+    "openid": str(resource.openid),
     "title": str(resource.title),
     "content": str(resource.content),
     "due": str(resource.due),
