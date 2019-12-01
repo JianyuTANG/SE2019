@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from .models import Resource
 import json
 import os
-from .utils import *
 from .config import administration_config
 
 
@@ -25,19 +24,24 @@ def add_res(request):
         res = HttpResponse()
         res.status_code = 404
         return res
-    print(json_request)
     session_code = json_request['sessionCode']
     title = json_request['title']
     content = json_request['content']
     due = json_request['due']
     contact = json_request['contact']
+    openid = json_request['openid']
+    img_arr = json_request['imgArr']
+    imgs = ''
+    for item in img_arr:
+        imgs = imgs + item + ','
+    imgs = imgs[:-1]
     resource = Resource.objects.create()
-    openid, _ = status_dehash(session_code)
     resource.openid = openid
     resource.title = title
     resource.content = content
     resource.due = due
     resource.contact = contact
+    resource.img_arr = imgs
     resource.save()
     res = HttpResponse()
     res.status_code = 200
