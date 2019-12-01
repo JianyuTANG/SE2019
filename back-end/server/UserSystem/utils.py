@@ -60,7 +60,7 @@ def status_hash(openid, session_key):
 def session_check(session_key, request_code):
     '''
 
-    :param session_key: 微信api返回
+    :param session_key: 数据库里的session_key
     :param request_code: 客户端传来的session_code，用于校验客户端身份
     :return: True / False
     '''

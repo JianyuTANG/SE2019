@@ -432,3 +432,41 @@ def upload_img(request):
             return response
 
     return get404()
+
+
+def delete_img(request):
+    print('/delete_img')
+    post_body = request.body
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
+    if user is None:
+        # 用户不存在 （sessionCode有误） 直接404
+        print('sessionCode有误')
+        return get404()
+
+    try:
+        src = json_request['src']
+    except:
+        print('json请求解析错误')
+        return get404()
+
+    img_name = src.split('/')
+    owner_openid = img_name[-1].split('_')[0]
+    if owner_openid == user.openid:
+        src = '.' + src
+        if os.path.isfile(src):
+            try:
+                os.remove(src)
+            except:
+                return get404()
+
+            res = HttpResponse()
+            res.status_code = 200
+            return res
+
+    return get404()
