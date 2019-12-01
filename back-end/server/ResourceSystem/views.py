@@ -196,7 +196,18 @@ def query_res_all(request):
 #        return res
     openid = json_request['openid']
     resources = Resource.objects.filter()
-    print(len(resources))
+    res_list = []
+    for e in resources:
+        tmp = {}
+        tmp['title'] = e.title
+        tmp['imgUrl'] = e.img_arr.split(",")
+        tmp['time'] = e.name
+        tmp['contact'] = e.contact
+        tmp['due'] = e.due
+        tmp['resID'] = e.res_id
+        tmp['interested'] = "0"
+        res_list.append(tmp)
+    print(res_list)
     res = HttpResponse()
     res.status_code = 200
     return res
