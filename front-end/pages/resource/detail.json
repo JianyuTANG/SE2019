@@ -1,7 +1,0 @@
-{
-  "navigationBarTitleText": "资源详情",
-  "navigationBarTitleSize": "30px",
-  "usingComponents": {
-    "mp-cell": "../../miniprogram_npm/weui-miniprogram/cell/cell",
-    "mp-dialog": "../../miniprogram_npm/weui-miniprogram/dialog/dialog"}
-}
