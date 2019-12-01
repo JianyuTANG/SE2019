@@ -1,0 +1,107 @@
+<!--WXML示例代码-->
+            <mp-dialog 
+            wx:if = "{{tapButtonDate}}"
+            title="设置日期" 
+            show="{{tapButtonDate}}" 
+            bindbuttontap="tapButtonDate" 
+            ext-class="set-date-dialog"
+            buttons="{{[{text: '确定'}]}}">
+                <van-datetime-picker
+                confirm-button-text=""
+                cancel-button-text=""
+                show-toolbar="{{false}}"
+                type="date"
+                min-date="{{date.minDate}}"
+                bind:input="changeEndDate"
+                />
+            </mp-dialog>
+
+            <mp-dialog 
+            wx:if = "{{tapButtonTag}}"
+            title="设置Tag" 
+            show="{{tapButtonTag}}" 
+            bindbuttontap="tapButtonTag" 
+            ext-class="set-date-dialog"
+            buttons="{{[{text: '确定'}]}}">
+                <activity-tags 
+                tagList="{{formData.tagList}}" 
+                curTags="{{formData.tags}}" 
+                bind:addTag = "onAddTag" 
+                bind:closeTag="onCloseTag">
+                </activity-tags>
+            </mp-dialog>
+
+
+<view class="page">
+    <view class="page__bd">
+        <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+            <mp-cells >
+                <mp-cell show-error prop="title" ext-class="flex">
+                    <view class = "add-form-title"><text >标题</text></view>
+                    <input bindinput="formInputChange" data-field="title" class="weui-input" placeholder="请输入标题"/>
+                </mp-cell>
+
+                <mp-cell show-error prop="content">
+                    <view class="add-form-content"><text>输入详情</text></view>
+                    <textarea id="editor"  
+                    style="min-height:120px;width:100%;" 
+                    class="ql-container weui-input" 
+                    bindinput = "formTextareaInput"
+                    placeholder="请输入活动详情"
+                    auto-height="{{true}}"
+                    maxlength ="{{-1}}"
+                    value="{{ formData.content }}"/>                
+                </mp-cell>
+
+                <mp-cell prop="images" >
+                    <van-uploader
+                    upload-text="封面"
+                    data-field="coverFile"
+                    file-list="{{ formData.coverFile }}"
+                    max-count="1"
+                    bind:after-read="afterReadImg"
+                    image-fit = "aspectFit"
+                    bind:delete="deleteImg"
+                    />
+                    <van-uploader
+                    upload-text="附件图片"
+                    data-field="appendixFiles"
+                    file-list="{{ formData.appendixFiles }}"
+                    max-count="4"
+                    bind:after-read="afterReadImg"
+                    image-fit = "aspectFit"
+                    bind:delete="deleteImg"
+                    />
+                </mp-cell>
+            </mp-cells>
+            <mp-cells>
+               <mp-cell show-error prop="contact" title="联系方式" ext-class="">
+                    <input bindinput="formInputChange" data-field="contact" class="weui-input" placeholder="请输入联系方式"/>
+               </mp-cell>
+               <mp-cell show-error prop="endDate" title="截止日期" ext-class="" bind:tap="setDate" footer="点击设置"> 
+                    <text >{{formData.endDate ? formData.endDate:'请设置'}}</text>
+                </mp-cell>
+                <mp-cell show-error prop="type" title="活动类型" ext-class="">
+                    <van-dropdown-menu>
+                      <van-dropdown-item value="{{ formData.type }}" options="{{ formData.activityTypes }}" bind:change="changeType"/>
+                    </van-dropdown-menu>
+                </mp-cell>
+                <mp-cell show-error prop="tags" title="设置tag" ext-class="" bind:tap="setTag" footer="点击设置">
+                    <view wx:for="{{formData.tags}}" style="margin-left:20rpx; display: inline-block;">
+                        <van-tag type="primary"  catch:tap="onTapCloseTag" data-index="{{index}}">
+                            <van-tag type="primary" catch:tap="fakeHandle">{{item}}</van-tag>
+                            <text>X</text>
+                            </van-tag>
+                    </view>
+                </mp-cell>
+            </mp-cells>
+        </mp-form>
+
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" bindtap="submitForm">确定</button>
+            <button class="weui-btn" type='default' bindtap="submitCancel">取消</button>
+        </view>
+    </view>
+
+
+</view>

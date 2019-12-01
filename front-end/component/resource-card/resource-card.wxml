@@ -1,0 +1,30 @@
+<view class='background'>
+<view class='image-container'>
+<image  src="{{imageSrc}}"> </image>
+</view>
+<view class="container">
+    <text class="title-line"> {{title}} </text>
+    
+    <!-- <text >{{content}}</text> -->
+    
+    <view class="info-line">
+    <!-- <image src="{{contactIcon}}" /> -->
+    <text>发起人:{{contact}} </text>
+    </view>
+
+    <view class="info-line">
+    <text>身份限定:{{qualification}} </text>
+    </view>
+
+    <view class="info-line">
+    <!-- <image src="{{telephoneIcon}}" /> -->
+    <text>发起时间:{{startDate}} </text>
+    </view>
+
+    <view class="info-line">
+    <text>截止日期:{{endDate}} </text>
+    </view>
+
+    <text class="stress-line" bindtap="readmore"> 更多详情 </text>
+</view>
+</view>

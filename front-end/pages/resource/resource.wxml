@@ -1,0 +1,25 @@
+<mp-tabbar ext-class="tabbar-item" style="" list="{{list}}" bindchange="tabChange"></mp-tabbar>
+<button class="add-button" catchtap="addResource">
+    <view style="display:flex; align-items: center; justify-content: center; height:100%">
+    <text>+</text>
+    </view>
+</button>
+<view>
+<mp-searchbar placeholder="请输入关键字搜索" 
+    bindselectresult="selectResult" 
+    bindinput="search"></mp-searchbar>
+<view wx:for="{{showResouceList}}"  class = "resource-card">
+<resource-card 
+            data-id="{{item.id}}"
+            bind:readmore="readmore"
+            imageSrc="{{item.imageSrc}}"
+            qualification="{{item.qualification}}"
+            title="{{item.title}}" 
+            content="{{item.content}}"
+            contact="{{item.contact}}"
+            telephone="{{item.telephone}}"
+            email="{{item.email}}"
+            startDate="{{item.startDate}}"
+            endDate="{{item.endDate}}"></resource-card>
+</view>
+</view>

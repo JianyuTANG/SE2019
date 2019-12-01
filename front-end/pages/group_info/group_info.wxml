@@ -1,0 +1,89 @@
+<view class="resource-background">
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-cells weui-cells_after-title">
+            
+
+        <view class="weui-search-bar">
+          <view class="weui-search-bar__form">
+            <view class="weui-search-bar__box">
+              <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+              <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" />
+              <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                <icon type="clear" size="14"></icon>
+              </view>
+            </view>
+            <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+              <icon class="weui-icon-search" type="search" size="14"></icon>
+              <view class="weui-search-bar__text">搜索组内成员</view>
+            </label>
+          </view>
+          <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+        </view>
+        <view class="weui-cells searchbar-result" wx:if="{{inputVal.length > 0}}">
+          <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">
+              <view>高一凡</view>
+            </view>
+          </navigator>
+          <navigator url="" class="weui-cell" hover-class="weui-cell_active">
+            <view class="weui-cell__bd">
+              <view>耿宇昊</view>
+            </view>
+          </navigator>
+          
+        </view>
+
+          <group-card title="思源17期" 
+            intro="思源17期，2017级学员"
+            master="高一凡 耿宇昊"
+            num="37">
+          </group-card>
+            
+            <view class="weui-cell" catchtap="memberDetail">
+                <view class="weui-cell__hd" style="position: relative;margin-right:10px;">
+                    <image src="/assets/member.jpg" style="width: 50px; height: 50px;display: block"/>
+                </view>
+                <view class="weui-cell__bd">
+                    <view>陈语凝</view>
+                    <view style="font-size: 13px;color: #888888;">17期 软件学院</view>
+                </view>
+            </view>
+            
+            
+            <view class="weui-cell">
+                <view class="weui-cell__hd" style="position: relative;margin-right:10px;">
+                    <image src="/assets/member.jpg" style="width: 50px; height: 50px;display: block"/>
+                </view>
+                <view class="weui-cell__bd">
+                    <view>王纪超</view>
+                    <view style="font-size: 13px;color: #888888;">17期 建筑学院</view>
+                </view>
+            </view>
+
+            <view class="weui-cell">
+                <view class="weui-cell__hd" style="position: relative;margin-right:10px;">
+                    <image src="/assets/member.jpg" style="width: 50px; height: 50px;display: block"/>
+                </view>
+                <view class="weui-cell__bd">
+                    <view>高一凡</view>
+                    <view style="font-size: 13px;color: #888888;">13期 环境学院 17期辅导员</view>
+                </view>
+            </view>
+
+
+            <view class="weui-cell">
+                <view class="weui-cell__hd" style="position: relative;margin-right:10px;">
+                    <image src="/assets/member.jpg" style="width: 50px; height: 50px;display: block"/>
+                </view>
+                <view class="weui-cell__bd">
+                    <view>耿宇昊</view>
+                    <view style="font-size: 13px;color: #888888;">17期辅导员</view>
+                </view>
+            </view>
+
+
+          </view>
+    </view>
+</view>
+</view>

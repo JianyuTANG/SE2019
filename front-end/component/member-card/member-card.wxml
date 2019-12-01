@@ -1,0 +1,33 @@
+<view class='background'>
+<view class="container">
+  <view class="weui-cell">
+
+
+    <view class="weui-cell__hd" style="position: relative;margin-left:10px;">
+      <image src="/assets/me.png" style="width: 50px; height: 50px;display: block"/>
+    </view>
+
+
+    <view class="weui-cell__hd" style="position: relative;margin-right:10px;">
+
+    <view class="weui-cell__bd">
+      <view>陈语凝</view>
+      <view style="font-size: 13px;color: #888888;">17期 软件学院</view>
+    </view>
+
+    <view class="icon-line">
+      <image src="{{contactIcon}}" />
+      <text>电话:18500720300 </text>
+    </view>
+
+    <view class="icon-line">
+    <image src="{{telephoneIcon}}" />
+    <text>微信：cyn10221017</text>
+    </view>
+
+    </view>
+
+
+  </view>
+</view>
+</view>

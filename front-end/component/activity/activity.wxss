@@ -1,0 +1,8 @@
+.activity-container{
+    padding: 25rpx;
+}
+
+.activity{
+    background-color: antiquewhite;
+    
+}

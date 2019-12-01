@@ -1,0 +1,36 @@
+.tabbar{
+    position:absolute;
+    top:0;
+    width:100%;
+    left:0;
+    right:0;
+    padding:0;
+    margin:0;
+    height:60rpx;
+}
+
+.tabbar-item{
+    /* height: 0rpx; */
+    height: 100%;
+}
+
+.tabbar-item image{
+    display: none;
+
+}
+
+page{
+    background: #eef1f9;
+}
+
+.resource-background{
+    /* background-color: rgb(206, 206, 206)!important; */
+    min-height: 100%;
+}
+
+.resource-card{
+    margin-top:30rpx;
+}
+/* body{
+    top:80rpx;
+} */
