@@ -4,7 +4,7 @@ from .models import Resource
 import json
 import os
 from .config import administration_config
-
+from utils.get_username import get_username 
 
 # Create your views here.
 def add_res(request):
@@ -31,6 +31,7 @@ def add_res(request):
     openid = json_request['openid']
     img_arr = json_request['imgArr']
     imgs = ''
+    name = get_username(openid)
     for item in img_arr:
         imgs = imgs + item + ','
     imgs = imgs[:-1]
@@ -41,6 +42,7 @@ def add_res(request):
     resource.due = due
     resource.contact = contact
     resource.img_arr = imgs
+    resource.name = name
     resource.save()
     res = HttpResponse()
     res.status_code = 200
@@ -200,16 +202,15 @@ def query_res_all(request):
     for e in resources:
         tmp = {}
         tmp['title'] = e.title
+        tmp['name'] = e.name
         tmp['imgUrl'] = e.img_arr.split(",")
         tmp['time'] = e.name
         tmp['contact'] = e.contact
         tmp['due'] = e.due
         tmp['resID'] = e.res_id
-        tmp['interested'] = "0"
+        tmp['interested'] = "0"   #待修改
         res_list.append(tmp)
-    print(res_list)
-    res = HttpResponse()
-    res.status_code = 200
-    return res
+    return JsonResponse({"res_list": res_list})
+
 
     
