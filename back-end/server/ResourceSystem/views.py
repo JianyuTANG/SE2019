@@ -48,7 +48,7 @@ def add_res(request):
 
 def delete_res(request):
     '''
-    用于用户提交新的资源
+    用于用户删除资源
     :param request:
     :return:
     '''
@@ -95,7 +95,7 @@ def delete_res(request):
 
 def modify_res(request):
     '''
-    用于用户提交新的资源
+    用于用户修改现有的资源
     :param request:
     :return:
     '''
@@ -144,4 +144,40 @@ def modify_res(request):
     return res
 
 def view_res(request):
-    pass
+    '''
+    用于用户查看现有的资源
+    :param request:
+    :return:
+    '''
+    post_body = request.body
+    json_request = json.loads(post_body)
+    session_code = json_request['sessionCode']
+    if session_code is None:
+        res = HttpResponse()
+        res.status_code = 404
+        return res
+    if session_code != administration_config['session_code']:
+        res = HttpResponse()
+        res.status_code = 404
+        return res
+    openid = json_request['openid']
+    res_id = json_request['resID']
+    try:
+        resource = Resource.objects.filter(res_id=res_id)[0]
+    except Exception as e:
+        print(e)
+        res = HttpResponse()
+        res.status_code = 404
+        return res
+    if not resource.openid == openid:
+        res = HttpResponse()
+        res.status_code = 404
+        print("error: user invalid!")
+        return res
+    return JsonResponse({
+    "title": str(resource.title),
+    "content": str(resource.content),
+    "due": str(resource.due),
+    "contact": str(resource.contact),
+    "imgArr": resource.img_arr.split(",")
+})
