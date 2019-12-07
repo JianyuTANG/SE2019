@@ -11,9 +11,13 @@ Page({
     addResUrl: app.globalData.baseUrl + 'add_res',
     uploadImgUrl: app.globalData.baseUrl + 'upload_img',
     deleteImgUrl: app.globalData.baseUrl + 'delete_img',
+    viewResUrl: app.globalData.baseUrl + 'view_res',
+    modifyResUrl: app.globalData.baseUrl + 'modify_res',
     sessionCode: '',
     openid: '',
     showTopTips: false,
+    isModify: false, // 是否是修改页面,默认不是
+    resID: null,
     date: {
       minDate: new Date().getTime()
     },
@@ -48,7 +52,39 @@ Page({
     tapButtonDate: false,
     tapButtonTag: false
   },
-  onLoad () {
+  loadResource: function(resID){
+    let that = this
+    let data = {
+      resID: resID,
+      sessionCode: this.data.sessionCode,
+      openid: this.data.openid
+    }
+    wx.request({
+      url: that.data.viewResUrl,
+      method: 'POST',
+      data: data,
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+        console.log(res)
+        console.log(res.data)
+        data = JSON.parse(res.data)
+        let match = activityTypes.filter(option => option.value === data.category)
+        let category = match[0].text
+        this.setData({
+          'formData.title': data.title,
+          'formData.content': data.content,
+          'formData.contact': data.contact,
+          'formData.endDate': data.due,
+          'formData.tags': data.tagArr,
+          'formData.coverFile': data.coverImg,
+          'formData.appendixFiles': data.imgArr,
+          'formData.type': category
+        })
+      },
+  onLoad (options) {
+
     console.log(activityTypes)
     let sessionCode = wx.getStorageSync('sessionCode')
     let openid = wx.getStorageSync('openid')
@@ -57,6 +93,16 @@ Page({
       sessionCode: sessionCode,
       openid: openid
     })
+
+    let resID = options.resID
+    if (type(resID) !== 'undefined') {
+      this.setData({
+        resID: resID,
+        isModify: false
+      })
+
+      this.loadResource(resID)
+    }
   },
   formInputChange: function (e) {
     const { field } = e.currentTarget.dataset
@@ -81,6 +127,10 @@ Page({
           })
         }
       } else {
+        //根据类别决定是否是修改
+        let url = that.data.addResUrl
+        if(that.data.isModify)
+          url = that.data.modifyResUrl
         console.log('submit ')
         //  生成用于提交的img格式串, 以 / 绝对路径开头
         let imgArr = []
@@ -97,8 +147,10 @@ Page({
         console.log(match)
         let category = match[0].text
         console.log('submit category')
+        
         let data = {
           sessionCode: that.data.sessionCode,
+          resID: that.data.resID,
           openid: that.data.openid,
           coverImg: cover,
           title: that.data.formData.title,
@@ -111,7 +163,7 @@ Page({
         }
         console.log(data)
         wx.request({
-          url: that.data.addResUrl,
+          url: url,
           method: 'POST',
           data: data,
           header: {

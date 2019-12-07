@@ -38,7 +38,8 @@
             <mp-cells >
                 <mp-cell show-error prop="title" ext-class="flex">
                     <view class = "add-form-title"><text >标题</text></view>
-                    <input bindinput="formInputChange" data-field="title" class="weui-input" placeholder="请输入标题"/>
+                    <input bindinput="formInputChange" data-field="title" 
+                    class="weui-input" placeholder="请输入标题" value="{{ formData.title}}"/>
                 </mp-cell>
 
                 <mp-cell show-error prop="content">
@@ -76,7 +77,9 @@
             </mp-cells>
             <mp-cells>
                <mp-cell show-error prop="contact" title="联系方式" ext-class="">
-                    <input bindinput="formInputChange" data-field="contact" class="weui-input" placeholder="请输入联系方式"/>
+                    <input bindinput="formInputChange" data-field="contact" 
+                    class="weui-input" placeholder="请输入联系方式"
+                    value = "{{ formData.contact }}"/>
                </mp-cell>
                <mp-cell show-error prop="endDate" title="截止日期" ext-class="" bind:tap="setDate" footer="点击设置"> 
                     <text >{{formData.endDate ? formData.endDate:'请设置'}}</text>
