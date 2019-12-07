@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 import UserSystem.views
+import ResourceSystem.views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -31,7 +32,16 @@ urlpatterns = [
     path('upload_user_avatar', UserSystem.views.upload_user_avatar),
     path('get_user_avatar', UserSystem.views.get_user_avartar),
     path('add_userinfo', UserSystem.views.create_userinfo),
+    path('add_res', ResourceSystem.views.add_res),
+    path('delete_res', ResourceSystem.views.delete_res),
+    path('modify_res', ResourceSystem.views.modify_res),
+    path('view_res', ResourceSystem.views.view_res),
     path('upload_img', UserSystem.views.upload_img),
     path('delete_img', UserSystem.views.delete_img),
+    path('query_res_all', ResourceSystem.views.query_res_all),
+    path('query_res_issued', ResourceSystem.views.query_res_issued),
+    path('query_res_interested', ResourceSystem.views.query_res_interested),
+    path('switch_interest', ResourceSystem.views.switch_interest),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
