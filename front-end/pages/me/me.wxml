@@ -24,7 +24,7 @@
     <mp-cells>
     
     <!-- 姓名、期数【链接】、modify【电话、邮箱、行业、工作单位】 -->
-    <mp-cell  bindtap="navToDetailPage" link="{{true}}" value="个人卡片" data-field="personal">
+    <mp-cell  bindtap="navToDetailPage"  value="个人卡片" data-field="personal">
 
       <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>
@@ -32,13 +32,13 @@
     </mp-cell>
     
     <!-- 包括我发布的、我收藏的 -->
-    <mp-cell  link="{{true}}" value="相关资源">
+    <mp-cell   value="相关资源">
       <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>
       </view>
     </mp-cell>
 
-    <mp-cell  link="{{true}}" value="使用指南">
+    <mp-cell  value="使用指南">
       <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>
       </view>
