@@ -1,9 +1,10 @@
 Component({
 
   properties: {
-    imgUrl: {
+    
+    coverImg: {
       type: String,
-      value: ''
+      value: 'baseUrlwithoutTailLine'
     },
     title: {
       type: String,
@@ -22,8 +23,8 @@ Component({
       value: ''
     },
     interested: {
-      type: String,
-      value: ''
+      type: Boolean,
+      value: false
     },
     resID: {
       type: Number,
@@ -43,6 +44,10 @@ Component({
       // console.log('readmore')
       // console.log(this.data.imageSrc)
       this.triggerEvent('readmore')
+    },
+    switch_interest: function() {
+
+      this.triggerEvent('switch_interest')
     }
   }
 })

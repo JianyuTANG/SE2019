@@ -1,7 +1,9 @@
 // pages/me/me.js
+const app = getApp()
 Page({
 
   data: {
+    baseUrlwithoutTailLine: 'http://127.0.0.1:8000',
     list: [{
       text: '全部资源'
     }, {
@@ -23,11 +25,14 @@ Page({
   onShow: function () {
     // 以下从服务器获取信息
     this.query_res_all()
+    this.query_res_issued()
+    this.query_res_interested()
+
     let lists = [0, 0, 0, 0]
     lists[0] = wx.getStorageSync('allList')
-    lists[1] = wx.getStorageSync('domesticList')
-    lists[2] = wx.getStorageSync('overseasList')
-    lists[3] = wx.getStorageSync('interestList')
+    lists[1] = wx.getStorageSync('allList')
+    lists[2] = wx.getStorageSync('likeList')
+    lists[3] = wx.getStorageSync('issueList')
     console.log("全部资源：",lists[0])
     //this.view_res()
     this.setData({
@@ -38,7 +43,6 @@ Page({
       issueList: lists[3]
     })
     this.loadResouceList()
-
     // let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
   },
 
@@ -48,6 +52,33 @@ Page({
     wx.navigateTo({
       url: '/pages/resource/detail?resID=' + resID
     })
+  },
+
+  switch_interest: function (e) {
+    var sessionCode
+    sessionCode = wx.getStorageSync('sessionCode')
+    var openid
+    openid = wx.getStorageSync('openid')
+    let resID = e.currentTarget.dataset.id
+    wx.request({
+      url: 'http://127.0.0.1:8000/switch_interest',
+      method: 'POST',
+
+      data: {
+        sessionCode: sessionCode,
+        openid: openid,
+        resID: resID
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        console.log("switch_interest返回值", res)
+        //allList
+      }
+    })
+    this.onShow()
+    
   },
 
   addResource: function (e) {
@@ -67,15 +98,71 @@ Page({
 
       data: {
         sessionCode: sessionCode,
-        openid: "asdfqwer",
+        openid: openid,
       },
       header: {
         'content-type': 'application/json' // 默认值
       },
       success(res) {
         console.log("query_res_all返回值",res)
+        for (var resItem in res.data.res_list){
+          //从这里继续
+          // if (resItem.coverImg != ''):{
+
+          // }
+          // else:
+          // resItem.coverImg = resItem.coverImg 
+        }
+        console.log("加前缀的链接", res.data)
+        
+      }
+    })
+  },
+
+  query_res_interested: function (e) {
+    var sessionCode
+    sessionCode = wx.getStorageSync('sessionCode')
+    var openid
+    openid = wx.getStorageSync('openid')
+    wx.request({
+      url: 'http://127.0.0.1:8000/query_res_interested',
+      method: 'POST',
+
+      data: {
+        sessionCode: sessionCode,
+        openid: openid,
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        console.log("query_res_interested返回值", res)
         //allList
-        wx.setStorageSync('allList', res.data.res_list)
+        wx.setStorageSync('likeList', res.data.res_list)
+      }
+    })
+  },
+
+  query_res_issued: function (e) {
+    var sessionCode
+    sessionCode = wx.getStorageSync('sessionCode')
+    var openid
+    openid = wx.getStorageSync('openid')
+    wx.request({
+      url: 'http://127.0.0.1:8000/query_res_issued',
+      method: 'POST',
+
+      data: {
+        sessionCode: sessionCode,
+        openid: openid,
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        console.log("query_res_issued返回值", res)
+        //allList
+        wx.setStorageSync('issueList', res.data.res_list)
       }
     })
   },
