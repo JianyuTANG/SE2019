@@ -46,11 +46,14 @@ App({
               }, // 设置请求的 header
               success: function (res) {
                 console.log(res)
-                // 存储sessionCode：
+                // 存储openid与sessionCode：
+                wx.setStorageSync('openid', res.data.openid)
+                // var testopenid
+                // testopenid = wx.getStorageSync('openid')
+                // console.log('啦啦啦', testopenid)
                 wx.setStorageSync('sessionCode', res.data.sessionCode)
-                var testA
-                testA = wx.getStorageSync('sessionCode')
-                console.log('啦啦啦', testA)
+                // wx.setStorageSync('openId', res.data.openId)
+                
                 if (res.data.identity !== -1) {
                   wx.switchTab({
                     url: '/pages/me/me'
@@ -68,7 +71,6 @@ App({
                 console.log('index.js wx.request CheckCallUser fail')
               },
               complete: function () {
-
                 // complete
               }
             })

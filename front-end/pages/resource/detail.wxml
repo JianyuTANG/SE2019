@@ -24,9 +24,9 @@ question.wxml -->
 show="{{tapEnrollment}}" 
 bindbuttontap="tapDialogButton" 
 buttons="{{[{text: '确定'}]}}">
-
 </mp-dialog>
-<view class="container">
+
+<!-- <view class="container">
     <view class="question" bindtap="toQuestion">
         <text class="question-title">{{title}}</text>
     </view>
@@ -63,5 +63,60 @@ buttons="{{[{text: '确定'}]}}">
                 <text>十 我要报名</text>
         </view>
     </view>
-</view>
+</view> -->
 
+
+<view class="page">
+    <view class="page__bd">
+        <mp-form id="form" rules="{{rules}}" models="{{formData}}">
+            <mp-cells >
+                <mp-cell show-error prop="title" ext-class="flex">
+                    <view class = "add-form-title"><text >{{title}}</text></view>
+                </mp-cell>
+
+                <mp-cell prop="content">
+                    <view class="add-form-content"><text>详情：
+                    {{content}}</text></view>
+                    <text style="min-height:120px;width:100%;"></text> 
+                </mp-cell>
+                    
+                <mp-cell prop="images">
+                    <view class="add-form-content">
+                        <text>{{imgArr}}</text>
+                        <image style="width: 200rpx; height: 200rpx;" src="{{imgArr}}" fit="fill" show-error= "true" show-loading= "true" > </image>
+                    </view>
+                    <text style="min-height:120px;width:100%;"></text> 
+                </mp-cell>
+            </mp-cells>
+            <mp-cells>
+               <mp-cell show-error prop="issuer" title="发起者openid(开发用):" ext-class="">
+                    <text>{{openid}}</text>
+               </mp-cell>
+               <mp-cell show-error prop="email" title="联系方式：" ext-class="">
+                    <text>{{contact}}</text>
+               </mp-cell>
+               <mp-cell show-error prop="date" title="截止日期：" ext-class=""> 
+                    <text >{{due}}</text>
+                </mp-cell>
+                
+                <mp-cell show-error prop="tag" title="活动tag" ext-class="">
+                    <view wx:for="{{formData.tags}}">
+                        <van-tag type="primary"  catch:tap="closeTag" data-index="{{index}}">
+                            <van-tag type="primary" catch:tap="fakeHandle">{{item}}</van-tag>
+                            <text>X</text>
+                            </van-tag>
+                    </view>
+                </mp-cell>
+            </mp-cells>
+        </mp-form>
+        <view class="answer-footer flex-around">
+          <view class="end-date flex-item">
+            <text>截止日期:{{due}}</text>
+          </view>
+
+          <view class="follow flex-item" catch:tap="enroll">
+                <van-icon name='like-o' size="2.5em"/>
+          </view>
+      </view>
+    </view>
+</view>
