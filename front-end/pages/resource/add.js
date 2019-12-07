@@ -52,7 +52,7 @@ Page({
     tapButtonDate: false,
     tapButtonTag: false
   },
-  loadResource: function(resID){
+  loadResource: function (resID) {
     let that = this
     let data = {
       resID: resID,
@@ -69,22 +69,34 @@ Page({
       success (res) {
         console.log(res)
         console.log(res.data)
-        data = JSON.parse(res.data)
-        let match = activityTypes.filter(option => option.value === data.category)
-        let category = match[0].text
-        this.setData({
+        // data = JSON.parse(res.data)
+        data = res.data
+        let match = activityTypes.filter(option => option.text === data.category)
+        console.log(match)
+        let category = match[0].value
+        console.log(category)
+        let imgArr = data.imgArr.map(x => {
+          return { url: that.data.baseUrlPrefix + x, isImage: true, suffix: data.coverImg }
+        })
+        console.log(imgArr)
+        that.setData({
           'formData.title': data.title,
           'formData.content': data.content,
           'formData.contact': data.contact,
           'formData.endDate': data.due,
           'formData.tags': data.tagArr,
-          'formData.coverFile': data.coverImg,
-          'formData.appendixFiles': data.imgArr,
+          'formData.coverFile': [{
+            url: that.data.baseUrlPrefix + data.coverImg,
+            isImage: true,
+            suffix: data.coverImg
+          }],
+          'formData.appendixFiles': imgArr,
           'formData.type': category
         })
-      },
+      }
+    })
+  },
   onLoad (options) {
-
     console.log(activityTypes)
     let sessionCode = wx.getStorageSync('sessionCode')
     let openid = wx.getStorageSync('openid')
@@ -95,10 +107,11 @@ Page({
     })
 
     let resID = options.resID
-    if (type(resID) !== 'undefined') {
+    console.log(resID)
+    if (typeof (resID) !== 'undefined') {
       this.setData({
         resID: resID,
-        isModify: false
+        isModify: true
       })
 
       this.loadResource(resID)
@@ -127,11 +140,12 @@ Page({
           })
         }
       } else {
-        //根据类别决定是否是修改
+        // 根据类别决定是否是修改
         let url = that.data.addResUrl
-        if(that.data.isModify)
-          url = that.data.modifyResUrl
+        if (that.data.isModify) { url = that.data.modifyResUrl }
         console.log('submit ')
+        console.log(url)
+
         //  生成用于提交的img格式串, 以 / 绝对路径开头
         let imgArr = []
         let cover = that.data.formData.coverFile[0].suffix
@@ -147,7 +161,7 @@ Page({
         console.log(match)
         let category = match[0].text
         console.log('submit category')
-        
+
         let data = {
           sessionCode: that.data.sessionCode,
           resID: that.data.resID,
