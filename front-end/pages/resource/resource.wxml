@@ -10,7 +10,6 @@
   <van-tab title="精选推荐"></van-tab>
   <van-tab title="我中意的"></van-tab>
   <van-tab title="我发布的"></van-tab>
-  
 </van-tabs> -->
 
 <button class="add-button" catchtap="addResource">
@@ -25,7 +24,8 @@
             data-id="{{item.resID}}"
             resID="{{item.resID}}"
             bind:readmore="readmore"
-            imgUrl="{{item.imgUrl}}"
+            bind:switch_interest="switch_interest"
+            coverImg="{{item.coverImg}}"
             title="{{item.title}}" 
             name="{{item.name}}"
             contact="{{item.contact}}"
