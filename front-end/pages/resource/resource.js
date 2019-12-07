@@ -43,7 +43,6 @@ Page({
       issueList: lists[3]
     })
     this.loadResouceList()
-
     // let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
   },
 
@@ -79,9 +78,7 @@ Page({
       }
     })
     this.onShow()
-    wx.startPullDownRefresh()
-    onPullDownRefresh
-    wx.stopPullDownRefresh()
+    
   },
 
   addResource: function (e) {
