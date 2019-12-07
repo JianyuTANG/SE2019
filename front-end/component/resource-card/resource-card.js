@@ -1,7 +1,7 @@
 Component({
 
   properties: {
-    imageSrc: {
+    imgUrl: {
       type: String,
       value: ''
     },
@@ -9,7 +9,7 @@ Component({
       type: String,
       value: ''
     },
-    content: {
+    name: {
       type: String,
       value: ''
     },
@@ -17,33 +17,25 @@ Component({
       type: String,
       value: ''
     },
-    qualification: {
+    due: {
       type: String,
       value: ''
     },
-    telephone: {
+    interested: {
       type: String,
       value: ''
     },
-    email: {
-      type: String,
-      value: ''
-    },
-    startDate: {
-      type: String,
-      value: ''
-    },
-    endDate: {
-      type: String,
-      value: ''
+    resID: {
+      type: Number,
+      value: 0
     }
   },
-
   data: {
     contactIcon: '/assets/activity.png',
     telephoneIcon: '/assets/activity.png',
-    emailIcon: '/assets/activity.png'
-
+    emailIcon: '/assets/activity.png',
+    likeIcon: '/assets/like.png',
+    unlikeIcon: '/assets/unlike.png'
   },
 
   methods: {

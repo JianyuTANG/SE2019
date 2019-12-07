@@ -1,21 +1,25 @@
 .background{
+    height:320rpx;
     background-color: white !important;
     display: flex;
     flex-direction: row;
+    align-items: flex-start;
 }
 
-.image-container{
-    width: 300rpx;
+.tiny-image-container{
+  height:80px;
+  width:80px; 
+  display:flex;
 }
 
 .image-container image{
     width: 100%;
     height: 100%;
+    display:flex;
 }
 
 .container{
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
     /* background-color:red; */
@@ -33,13 +37,14 @@
 }
 
 .title-line{
-    font-size: 30rpx !important;
+    font-size: 36rpx !important;
     font-weight: bold;
-    margin-left:55rpx;
-    margin-bottom: 10rpx;
+    margin:10rpx;
+    width: 100%
 }
 
 .info-line{
+    font-size: 26rpx !important;
     display: flex;
     flex-direction: row;
     justify-content: start;

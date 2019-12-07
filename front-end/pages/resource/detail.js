@@ -13,33 +13,50 @@ Page({
     qualification: 'x',
     startDate: 'x',
     endDate: 'x',
-    imageSrc: '',
+    imgArr: '',
+
+    iconName:'like-o',
+    iconUnlike:"like-o",
+    iconLike: "like",
     avatarSrc: '/assets/member.jpg',
     enrollment: 0,
 
-    tapEnrollment: false
+    tapEnrollment: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let id = options.detailId
+    let resID = options.resID
     // 以下通过从本地读取模拟从服务器获得信息
-    let resourceId = 'resource' + String(id)
-    // console.log(resourceId)
-    let item = wx.getStorageSync(resourceId)
+    console.log(resID)
+    this.view_res(resID)
+    // let item = wx.getStorageSync(resID)
+    // this.setData({
+    //   title: item.title,
+    //   content: item.content,
+    //   contact: item.contact,
+    //   telephone: item.telephone,
+    //   email: item.email,
+    //   qualification: item.qualification,
+    //   startDate: item.startDate,
+    //   endDate: item.endDate,
+    //   imageSrc: item.imageSrc,
+    //   resID: item.resID,
+    //   interested: item.interested
+    // })
+    let res = wx.getStorageSync('res')
+    //console.log('res in onLoad func:',res)
     this.setData({
-      title: item.title,
-      content: item.content,
-      contact: item.contact,
-      telephone: item.telephone,
-      email: item.email,
-      qualification: item.qualification,
-      startDate: item.startDate,
-      endDate: item.endDate,
-      imageSrc: item.imageSrc
-
+      title: res.data.title,
+      content: res.data.content,
+      contact: res.data.contact,
+      //startDate: res.data.startDate,
+      due: res.data.due,
+      imgArr: res.data.imgArr,
+      openid: res.data.openid,
+      //interested: res.data.interested
     })
   },
 
@@ -54,7 +71,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**
@@ -103,5 +120,28 @@ Page({
     this.setData({
       tapEnrollment: false
     })
-  }
+  },
+
+  view_res: function (resID) {
+    var sessionCode
+    sessionCode = wx.getStorageSync('sessionCode')
+    var openid
+    openid = wx.getStorageSync('openid')
+    wx.request({
+      url: 'http://127.0.0.1:8000/view_res',
+      method: 'POST',
+      data: {
+        sessionCode: sessionCode,
+        openid: openid,
+        resID: resID
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        console.log(res)
+        wx.setStorageSync('res', res)
+      }
+    })
+  },
 })

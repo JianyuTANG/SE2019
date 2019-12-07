@@ -75,6 +75,4 @@
             <button class="weui-btn" type='default' bindtap="submitCancel">取消</button>
         </view>
     </view>
-                 
-
 </view>

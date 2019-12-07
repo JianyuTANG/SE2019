@@ -3,5 +3,6 @@
   "navigationBarTitleSize": "30px",
   "usingComponents": {
     "mp-cell": "../../miniprogram_npm/weui-miniprogram/cell/cell",
-    "mp-dialog": "../../miniprogram_npm/weui-miniprogram/dialog/dialog"}
+    "mp-dialog": "../../miniprogram_npm/weui-miniprogram/dialog/dialog",
+    "van-icon": "../../miniprogram_npm/vant-weapp/icon/index"}
 }

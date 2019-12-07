@@ -11,12 +11,12 @@
 
 .tabbar-item{
     /* height: 0rpx; */
+    font-size: 40rpx;
     height: 100%;
 }
 
 .tabbar-item image{
     display: none;
-
 }
 
 .add-button{
