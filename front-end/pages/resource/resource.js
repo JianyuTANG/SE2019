@@ -3,7 +3,7 @@ const app = getApp()
 Page({
 
   data: {
-    baseUrlwithoutTailLine: 'http://127.0.0.1:8000',
+    baseUrlwithoutTailLine: 'http://154.8.172.132',
     list: [{
       text: '全部资源'
     }, {
@@ -61,7 +61,7 @@ Page({
     openid = wx.getStorageSync('openid')
     let resID = e.currentTarget.dataset.id
     wx.request({
-      url: 'http://127.0.0.1:8000/switch_interest',
+      url: 'http://154.8.172.132/switch_interest',
       method: 'POST',
 
       data: {
@@ -88,12 +88,13 @@ Page({
   },
 
   query_res_all: function (e) {
+    let that = this
     var sessionCode
     sessionCode = wx.getStorageSync('sessionCode')
     var openid
     openid = wx.getStorageSync('openid')
     wx.request({
-      url: 'http://127.0.0.1:8000/query_res_all',
+      url: 'http://154.8.172.132/query_res_all',
       method: 'POST',
 
       data: {
@@ -105,16 +106,20 @@ Page({
       },
       success(res) {
         console.log("query_res_all返回值",res)
-        for (var resItem in res.data.res_list){
+        for (let i in res.data.res_list){
           //从这里继续
-          // if (resItem.coverImg != ''):{
-
-          // }
-          // else:
-          // resItem.coverImg = resItem.coverImg 
+          if (res.data.res_list[i].coverImg == '')
+          {
+            res.data.res_list[i].coverImg == '/assets/bluelogo.png'
+          }
+          else
+            res.data.res_list[i].coverImg = that.data.baseUrlwithoutTailLine + res.data.res_list[i].coverImg 
         }
         console.log("加前缀的链接", res.data)
-        
+        that.setData({
+          'allList': res.data.res_list
+        })
+        // wx.setStorageSync('allList', res.data.res_list)
       }
     })
   },
@@ -125,7 +130,7 @@ Page({
     var openid
     openid = wx.getStorageSync('openid')
     wx.request({
-      url: 'http://127.0.0.1:8000/query_res_interested',
+      url: 'http://154.8.172.132/query_res_interested',
       method: 'POST',
 
       data: {
@@ -138,7 +143,9 @@ Page({
       success(res) {
         console.log("query_res_interested返回值", res)
         //allList
-        wx.setStorageSync('likeList', res.data.res_list)
+        that.setData({
+          'likeList': res.data.res_list
+        })
       }
     })
   },
@@ -149,7 +156,7 @@ Page({
     var openid
     openid = wx.getStorageSync('openid')
     wx.request({
-      url: 'http://127.0.0.1:8000/query_res_issued',
+      url: 'http://154.8.172.132/query_res_issued',
       method: 'POST',
 
       data: {
@@ -162,7 +169,9 @@ Page({
       success(res) {
         console.log("query_res_issued返回值", res)
         //allList
-        wx.setStorageSync('issueList', res.data.res_list)
+        that.setData({
+          'issueList': res.data.res_list
+        })
       }
     })
   },
@@ -173,7 +182,7 @@ Page({
   //   var openid
   //   openid = wx.getStorageSync('openid')
   //   wx.request({
-  //     url: 'http://127.0.0.1:8000/view_res',
+  //     url: 'http://154.8.172.132/view_res',
   //     method: 'POST',
 
   //     data: {

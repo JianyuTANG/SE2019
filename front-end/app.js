@@ -3,7 +3,7 @@ const app = getApp()
 App({
   // 全局变量请在这里定义
   globalData: {
-    baseUrl: 'http://127.0.0.1:8000/',
+    baseUrl: 'http://154.8.172.132/',
     userInfo: null,
     code: ''
   },
@@ -38,7 +38,7 @@ App({
               })
             }
             wx.request({
-              url: 'http://127.0.0.1:8000/login',
+              url: 'http://154.8.172.132/login',
               data: { code: that.globalData.code },
               method: 'POST', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
               header: {

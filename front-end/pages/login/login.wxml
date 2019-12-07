@@ -1,7 +1,7 @@
 <view class="page-body">
 
   <view class="page-section">
-    <view class="notice" >注意：仅身份验证通过后才能使用小程序其他功能！
+    <view class="notice" >注意：仅身份验证通过后才能使用小程序其他功能！若有成员与导员两重身份则任选一个通过验证即可，使用没有区别。
     </view>
     
   </view>

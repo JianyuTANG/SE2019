@@ -94,7 +94,7 @@ Page({
     console.log(sessionCode)
     console.log(formData)
     wx.request({
-      url: 'http://127.0.0.1:8000/verify',
+      url: 'http://154.8.172.132/verify',
       method: 'POST',
 
       data: {
