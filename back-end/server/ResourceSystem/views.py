@@ -202,7 +202,9 @@ def view_res(request):
     "tagArr": resource.tag_arr.split(","),
     "category": str(resource.category),
     "contact": str(resource.contact),
-    "imgArr": resource.img_arr.split(","),})
+    "imgArr": resource.img_arr.split(","),
+    "name": resource.name,
+    "resID": str(resource.res_id)})
 
 def query_res_all(request):
     '''
