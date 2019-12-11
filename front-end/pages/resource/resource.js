@@ -125,6 +125,7 @@ Page({
   },
 
   query_res_interested: function (e) {
+    let that = this
     var sessionCode
     sessionCode = wx.getStorageSync('sessionCode')
     var openid
@@ -142,7 +143,14 @@ Page({
       },
       success(res) {
         console.log("query_res_interested返回值", res)
-        //allList
+        for (let i in res.data.res_list) {
+          //从这里继续
+          if (res.data.res_list[i].coverImg == '') {
+            res.data.res_list[i].coverImg == '/assets/bluelogo.png'
+          }
+          else
+            res.data.res_list[i].coverImg = that.data.baseUrlwithoutTailLine + res.data.res_list[i].coverImg
+        }
         that.setData({
           'likeList': res.data.res_list
         })
@@ -151,6 +159,7 @@ Page({
   },
 
   query_res_issued: function (e) {
+    let that = this
     var sessionCode
     sessionCode = wx.getStorageSync('sessionCode')
     var openid
@@ -168,7 +177,14 @@ Page({
       },
       success(res) {
         console.log("query_res_issued返回值", res)
-        //allList
+        for (let i in res.data.res_list) {
+          //从这里继续
+          if (res.data.res_list[i].coverImg == '') {
+            res.data.res_list[i].coverImg == '/assets/bluelogo.png'
+          }
+          else
+            res.data.res_list[i].coverImg = that.data.baseUrlwithoutTailLine + res.data.res_list[i].coverImg
+        }
         that.setData({
           'issueList': res.data.res_list
         })

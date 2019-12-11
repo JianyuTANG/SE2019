@@ -47,16 +47,22 @@ Page({
     //   interested: item.interested
     // })
     let res = wx.getStorageSync('res')
-    //console.log('res in onLoad func:',res)
+    console.log('用于渲染详情页的res in onLoad func(从本地获得的):',
+    res)
     this.setData({
       title: res.data.title,
       content: res.data.content,
       contact: res.data.contact,
-      //startDate: res.data.startDate,
+      category: res.data.category,
+      coverImg: res.data.coverImg,
       due: res.data.due,
       imgArr: res.data.imgArr,
+      name: res.data.name,
+      resID: res.data.resID,
+      tagArr: res.data.tagArr,
       openid: res.data.openid,
       //interested: res.data.interested
+      //startDate: res.data.startDate,
     })
   },
 
@@ -128,7 +134,7 @@ Page({
     var openid
     openid = wx.getStorageSync('openid')
     wx.request({
-      url: 'http://127.0.0.1:8000/view_res',
+      url: 'http://154.8.172.132/view_res',
       method: 'POST',
       data: {
         sessionCode: sessionCode,
@@ -139,7 +145,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success(res) {
-        console.log(res)
         wx.setStorageSync('res', res)
       }
     })
