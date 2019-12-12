@@ -54,7 +54,7 @@ Page({
       content: res.data.content,
       contact: res.data.contact,
       category: res.data.category,
-      coverImg: res.data.coverImg,
+      coverImg: 'http://154.8.172.132' + res.data.coverImg,
       due: res.data.due,
       imgArr: res.data.imgArr,
       name: res.data.name,
