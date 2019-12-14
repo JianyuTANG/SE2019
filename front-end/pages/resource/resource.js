@@ -4,6 +4,7 @@ Page({
 
   data: {
     baseUrlwithoutTailLine: 'http://154.8.172.132',
+    deleteUrl: 'http://154.8.172.132/delete_res',
     list: [{
       text: '全部资源'
     }, {
@@ -44,6 +45,16 @@ Page({
   },
   onLoad: function () {
     // 以下从服务器获取信息
+
+    // 本地储存方法，已废弃
+    // let lists = [0, 0, 0, 0]
+    // lists[0] = wx.getStorageSync('allList')
+    // lists[1] = wx.getStorageSync('allList')
+    // lists[2] = wx.getStorageSync('likeList')
+    // lists[3] = wx.getStorageSync('issueList')
+    // console.log("全部资源：",lists[0])
+  },
+  onShow: function () {
     let that = this
     let promiseIssued = new Promise((resolve, reject) => {
       this.query_res_issued(resolve, reject)
@@ -66,17 +77,6 @@ Page({
       console.log('promise fail')
       console.log(reason)
     })
-
-    // 本地储存方法，已废弃
-    // let lists = [0, 0, 0, 0]
-    // lists[0] = wx.getStorageSync('allList')
-    // lists[1] = wx.getStorageSync('allList')
-    // lists[2] = wx.getStorageSync('likeList')
-    // lists[3] = wx.getStorageSync('issueList')
-    // console.log("全部资源：",lists[0])
-  },
-  onShow: function () {
-
     // let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
   },
 
@@ -120,7 +120,7 @@ Page({
     })
 
     promise.then(
-      this.onLoad).catch(function (e) {
+      this.onShow).catch(function (e) {
       console.log(e)
     })
   },
@@ -137,6 +137,41 @@ Page({
     wx.navigateTo({
       url: '/pages/resource/add?resID=' + resID
     })
+  },
+
+  deleteResource: function (e) {
+    let sessionCode
+    sessionCode = wx.getStorageSync('sessionCode')
+    let openid
+    openid = wx.getStorageSync('openid')
+    let resID = e.currentTarget.dataset.id
+    let that = this
+    let promise = new Promise((resolve, reject) => {
+      wx.request({
+        url: that.data.deleteUrl,
+        method: 'POST',
+
+        data: {
+          sessionCode: sessionCode,
+          openid: openid,
+          resID: resID
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success (res) {
+          console.log('switch_interest返回值', res)
+          if (res.statusCode === 200) {
+            resolve()
+          } else {
+            reject(new Error('server rejects'))
+          }
+        // allList
+        }
+      })
+    })
+
+    promise.then(that.onShow).catch(function (e) { console.log(e) })
   },
 
   query_res_all: function (resolve, reject) {

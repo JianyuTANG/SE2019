@@ -155,7 +155,10 @@ Page({
 
         //  生成用于提交的img格式串, 以 / 绝对路径开头
         let imgArr = []
-        let cover = that.data.formData.coverFile[0].suffix
+        let cover = ''
+        if (that.data.formData.coverFile.length) {
+          cover = that.data.formData.coverFile[0].suffix
+        }
         console.log('submit 1')
         console.log(cover)
         for (let i of that.data.formData.appendixFiles) {
