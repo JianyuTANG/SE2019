@@ -48,26 +48,31 @@ buttons="{{[{text: '确定'}]}}">
     <view class="answer-content">
 
         <image mode='widthFix' src="{{coverImg}}"></image>
-        <view wx:if="{{imgArr[0]!=''}}" class="container">
-          <view class="page-body">
-            <view class="page-section page-section-spacing swiper">
-              <swiper indicator-dots="{{indicatorDots}}"
-                autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-                <block wx:for="{{background}}" wx:key="*this">
-                  <swiper-item>
-                    <!-- <view class="swiper-item {{item}}"></view> -->
-                    <image class="swiper_image" src="{{imgArr}}" lazy-load="true" />
-                  </swiper-item>
-                </block>
-              </swiper>
-            </view>x
+
+
+        <!-- <view wx:if="{{imgArr[0]!==''}}" class="container">
+          <view wx:for="{{imgArr}}" class="container">
+            <text>{{item}}</text>
           </view>
+        </view> -->
+
+
+        <view wx:if="{{imgArr[0]!==''}}" class="swipers-container">
+          <swiper indicator-dots="{{indicatorDots}}"
+            autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{current}}">
+            <block wx:for="{{imgArr}}" wx:key="*this">
+              <swiper-item>
+                <!-- <text>{{item}}</text> -->
+                <image class="swiper_image" src="{{item}}" mode="fill" lazy-load="true" />
+              </swiper-item>
+            </block>
+          </swiper>
         </view>
         <text>
         活动详情：{{content}}
         已报名人数:{{enrollment}}
-         </text>
-         <text class="begin-date">发起日期：{{startDate}}</text>
+        </text>
+        <text class="begin-date">发起日期：{{startDate}}</text>
     </view>
 
     <view class="answer-footer flex-around">
