@@ -10,9 +10,11 @@ Page({
       advisor: '',
       identity: 0
     },
-    items: [
-      { name: '0', value: '本期学员', checked: 'true' },
-      { name: '1', value: '本期导员' },
+    showTopTips: false,
+
+    radioItems: [
+      { name: '本期学员', value: '0', checked: true },
+      { name: '本期辅导员', value: '1' }
     ],
 
     // 规则中有一些必填
@@ -39,17 +41,22 @@ Page({
 
   },
 
-  onLoad: function () {
-  },
-
   radioChange: function (e) {
-    let that = this
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    console.log('radio发生change事件，携带value值为：', e.detail.value);
+
+    var radioItems = this.data.radioItems;
+    for (var i = 0, len = radioItems.length; i < len; ++i) {
+      radioItems[i].checked = radioItems[i].value == e.detail.value;
+    }
     const { field } = e.currentTarget.dataset
     this.setData({
+      radioItems: radioItems,
       [`formData.${field}`]: e.detail.value
     })
-    console.log(that.data.formData)
+    // console.log(this.data.formData)
+  },
+
+  onLoad: function () {
   },
 
   submitForm: function (e) {
