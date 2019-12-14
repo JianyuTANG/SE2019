@@ -43,16 +43,11 @@
     <view class="page-section">
       <view class="weui-cells__title">您是否为导员：</view>
       <view class="weui-cells weui-cells_after-title">
-        <mp-cell show-error prop="identity" title="" ext-class="">
           <!-- <input class="weui-input" bindinput="formInputChange" data-field="identity" value="{{ formData.identity }}" maxlength="1" auto-focus placeholder="0为学生 1为辅导员"/> -->
-          <radio-group class="radio-group" bindchange="radioChange">
-            <radio class="radio" wx:for-items="{{items}}" wx:key="name" data-field="identity" value="{{ formData.identity }}" checked="{{item.checked}}">
-              <text>{{item.value}}
-              </text>
-
-            </radio>
-          </radio-group>
-        </mp-cell>
+          <mp-checkbox-group prop="identity" multi="{{false}}" bindchange="radioChange" data-field="identity">
+            <mp-checkbox wx:for="{{radioItems}}" wx:key="value" label="{{item.name}}" value="{{item.value}}" checked="{{item.checked}}">
+            </mp-checkbox>
+          </mp-checkbox-group>
       </view>
       <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" 
         disabled="{{disabled}}" catchtap="verifyInfo"> 验证身份 </button>
