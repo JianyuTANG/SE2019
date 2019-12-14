@@ -122,7 +122,7 @@ Page({
         console.log('query_res_all返回值', res)
         for (let i in res.data.res_list) {
           // 从这里继续
-          if (res.data.res_list[i].coverImg == '') {
+          if (res.data.res_list[i].coverImg === '') {
             res.data.res_list[i].coverImg = '/assets/bluelogo.png'
           } else { res.data.res_list[i].coverImg = that.data.baseUrlwithoutTailLine + res.data.res_list[i].coverImg }
         }
@@ -161,8 +161,8 @@ Page({
         console.log('query_res_interested返回值', res)
         for (let i in res.data.res_list) {
           // 从这里继续
-          if (res.data.res_list[i].coverImg == '') {
-            res.data.res_list[i].coverImg == '/assets/bluelogo.png'
+          if (res.data.res_list[i].coverImg === '') {
+            res.data.res_list[i].coverImg = '/assets/bluelogo.png'
           } else { res.data.res_list[i].coverImg = that.data.baseUrlwithoutTailLine + res.data.res_list[i].coverImg }
         }
         that.setData({
@@ -197,7 +197,7 @@ Page({
         console.log('query_res_issued返回值', res)
         for (let i in res.data.res_list) {
           // 从这里继续
-          if (res.data.res_list[i].coverImg == '') {
+          if (res.data.res_list[i].coverImg === '') {
             res.data.res_list[i].coverImg = '/assets/bluelogo.png'
           } else { res.data.res_list[i].coverImg = that.data.baseUrlwithoutTailLine + res.data.res_list[i].coverImg }
         }

@@ -15,13 +15,13 @@ Page({
     endDate: 'x',
     imgArr: '',
 
-    iconName:'like-o',
-    iconUnlike:"like-o",
-    iconLike: "like",
+    iconName: 'like-o',
+    iconUnlike: 'like-o',
+    iconLike: 'like',
     avatarSrc: '/assets/member.jpg',
     enrollment: 0,
 
-    tapEnrollment: false,
+    tapEnrollment: false
   },
 
   /**
@@ -31,7 +31,10 @@ Page({
     let resID = options.resID
     // 以下通过从本地读取模拟从服务器获得信息
     console.log(resID)
-    this.view_res(resID)
+    let that = this
+    let promise = new Promise((resolve, reject) => {
+      that.view_res(resID, resolve, reject)
+    })
     // let item = wx.getStorageSync(resID)
     // this.setData({
     //   title: item.title,
@@ -46,23 +49,28 @@ Page({
     //   resID: item.resID,
     //   interested: item.interested
     // })
-    let res = wx.getStorageSync('res')
-    console.log('用于渲染详情页的res in onLoad func(从本地获得的):',
-    res)
-    this.setData({
-      title: res.data.title,
-      content: res.data.content,
-      contact: res.data.contact,
-      category: res.data.category,
-      coverImg: 'http://154.8.172.132' + res.data.coverImg,
-      due: res.data.due,
-      imgArr: res.data.imgArr,
-      name: res.data.name,
-      resID: res.data.resID,
-      tagArr: res.data.tagArr,
-      openid: res.data.openid,
-      //interested: res.data.interested
-      //startDate: res.data.startDate,
+    // let res = wx.getStorageSync('res')
+
+    promise.then(function (res) {
+      console.log('用于渲染详情页的res in onLoad func(从本地获得的):',
+        res)
+      that.setData({
+        title: res.data.title,
+        content: res.data.content,
+        contact: res.data.contact,
+        category: res.data.category,
+        coverImg: 'http://154.8.172.132' + res.data.coverImg,
+        due: res.data.due,
+        imgArr: res.data.imgArr,
+        name: res.data.name,
+        resID: res.data.resID,
+        tagArr: res.data.tagArr,
+        openid: res.data.openid
+      // interested: res.data.interested
+      // startDate: res.data.startDate,
+      })
+    }).catch(function () {
+      console.log('reject')
     })
   },
 
@@ -77,7 +85,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**
@@ -128,7 +136,7 @@ Page({
     })
   },
 
-  view_res: function (resID) {
+  view_res: function (resID, resolve, reject) {
     var sessionCode
     sessionCode = wx.getStorageSync('sessionCode')
     var openid
@@ -144,9 +152,12 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success(res) {
-        wx.setStorageSync('res', res)
+      success (res) {
+        if (resolve) { resolve(res) }
+      },
+      fail (res) {
+        if (reject) { reject() }
       }
     })
-  },
+  }
 })
