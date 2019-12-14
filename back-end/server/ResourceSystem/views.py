@@ -193,6 +193,10 @@ def view_res(request):
         res = HttpResponse()
         res.status_code = 404
         return res
+    isInterested = False
+    interest_arr = resource.interest_users.split(",")
+    if openid in interest_arr:
+        isInterested = True
     return JsonResponse({
     "openid": str(resource.openid),
     "title": str(resource.title),
@@ -204,7 +208,8 @@ def view_res(request):
     "contact": str(resource.contact),
     "imgArr": resource.img_arr.split(","),
     "name": resource.name,
-    "resID": str(resource.res_id)})
+    "resID": str(resource.res_id),
+    "isInterested": isInterested})
 
 def query_res_all(request):
     '''
