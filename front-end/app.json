@@ -10,13 +10,14 @@
 
         "pages/login/login",
         "pages/me/me",
-         "pages/me/personal",
+        "pages/me/personal",
         "pages/resource/resource",
         "pages/resource/detail",
         "pages/resource/add",
         "pages/groups/groups",
         "pages/group_info/group_info",
-        "pages/group_member_info/group_member_info"
+        "pages/group_member_info/group_member_info",
+        "pages/plaza/plaza"
     ],
     "window": {
         "backgroundTextStyle": "light",
@@ -31,7 +32,7 @@
         "borderStyle": "black",
         "list": [
             {
-                "pagePath": "pages/groups/groups",
+                "pagePath": "pages/plaza/plaza",
                 "text": "广场",
                 "iconPath": "assets/activity.png",
                 "selectedIconPath": "assets/activity-active.png"

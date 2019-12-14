@@ -10,6 +10,10 @@ Page({
       advisor: '',
       identity: 0
     },
+    items: [
+      { name: '0', value: '本期学员', checked: 'true' },
+      { name: '1', value: '本期导员' },
+    ],
 
     // 规则中有一些必填
     rules: [
@@ -36,6 +40,16 @@ Page({
   },
 
   onLoad: function () {
+  },
+
+  radioChange: function (e) {
+    let that = this
+    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    const { field } = e.currentTarget.dataset
+    this.setData({
+      [`formData.${field}`]: e.detail.value
+    })
+    console.log(that.data.formData)
   },
 
   submitForm: function (e) {

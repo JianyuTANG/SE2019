@@ -1,9 +1,22 @@
 // pages/me/me.js
 const app = getApp()
 Page({
+  onShareAppMessage() {
+    return {
+      title: 'swiper',
+      path: 'page/component/pages/swiper/swiper'
+    }
+  },
 
   data: {
     baseUrlwithoutTailLine: 'http://154.8.172.132',
+    
+    indicatorDots: true,
+    vertical: false,
+    autoplay: true,
+    interval: 2000,
+    duration: 200,
+
     list: [{
       text: '全部资源'
     }, {
@@ -27,7 +40,6 @@ Page({
     this.query_res_all()
     this.query_res_issued()
     this.query_res_interested()
-
     //本地储存方法，已废弃
     // let lists = [0, 0, 0, 0]
     // lists[0] = wx.getStorageSync('allList')
@@ -35,7 +47,7 @@ Page({
     // lists[2] = wx.getStorageSync('likeList')
     // lists[3] = wx.getStorageSync('issueList')
     // console.log("全部资源：",lists[0])
-
+    //this.view_res()
     this.setData({
       // resourceList: lists[0],
       // allList: lists[0],
@@ -112,9 +124,8 @@ Page({
         for (let i in res.data.res_list){
           //从这里继续
           if (res.data.res_list[i].coverImg == '')
-          {
             res.data.res_list[i].coverImg == '/assets/bluelogo.png'
-          }
+          
           else
             res.data.res_list[i].coverImg = that.data.baseUrlwithoutTailLine + res.data.res_list[i].coverImg 
         }
@@ -253,6 +264,7 @@ Page({
     })
     this.loadResouceList()
   },
+
   searchItem: function (item, value) {
     if (item.title.indexOf(value) !== -1) { return true }
     if (item.content.indexOf(value) !== -1) { return true }

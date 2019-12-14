@@ -17,8 +17,12 @@ element{
     padding: 40rpx 50rpx 30rpx;
     background: rgb(19, 34, 122);
     color: #eef1f9;
-    font-size: 38rpx;
+    font-size: 40rpx;
     line-height: 48rpx;
+}
+
+.category-title{
+  font-size: 28rpx;
 }
 .answerer-wrp{
     position: relative;
@@ -67,10 +71,12 @@ element{
 }
 .answerer .answerer-info .answerer-name{
     font-size: 32rpx;
+    padding: 10rpx, 0rpx;
 }
 .answerer .answerer-info .answerer-des{
-    font-size: 22rpx;
+    font-size: 24rpx;
     color: #808080;
+    padding: 10rpx, 0rpx;
     line-height: 28rpx;
 }
 .follow{

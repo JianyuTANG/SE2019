@@ -9,48 +9,54 @@
   <view class="page-section">
     <view class="weui-cells__title">您的姓名：</view>
     <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <input class="weui-input" bindinput="formInputChange" data-field="name" auto-focus placeholder="" value="{{ formData.name }}"/>
-      </view>
+      <mp-cell show-error prop="name" title="" ext-class="">
+        <input class="weui-input" bindinput="formInputChange" data-field="name" auto-focus placeholder="" value="{{ formData.name }}" placeholder="请输入您的姓名"/>
+      </mp-cell>
     </view>
   </view>
+
   <view class="page-section">
     <view class="weui-cells__title">您的期数：</view>
     <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
+      <mp-cell show-error prop="num" title="" ext-class="">
         <input class="weui-input" bindinput="formInputChange" data-field="num" value="{{ formData.num }}" maxlength="2"auto-focus placeholder="仅输入数字，如“17”"/>
+      </mp-cell>  
       </view>
     </view>
   </view>
   <view class="page-section">
     <view class="weui-cells__title">您的一位同期学员姓名：</view>
     <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
+      <mp-cell show-error prop="classmate" title="" ext-class="">
         <input class="weui-input" bindinput="formInputChange" data-field="classmate" value="{{ formData.classmate }}" placeholder-style="color:#F76260" auto-focus placeholder="请注意姓名输入无误"/>
-      </view>
+      </mp-cell>  
     </view>
   </view>
   <view class="page-section">
     <view class="weui-cells__title">您的一位导员姓名：</view>
     <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
+      <mp-cell show-error prop="advisor" title="" ext-class="">
         <input class="weui-input" bindinput="formInputChange" data-field="advisor" value="{{ formData.advisor }}" placeholder-style="color:#F76260" auto-focus placeholder="请注意姓名输入无误"/>
-      </view>
+      </mp-cell>
     </view>
     
     <view class="page-section">
-    <view class="weui-cells__title">您是否为导员：</view>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell weui-cell_input">
-        <input class="weui-input" bindinput="formInputChange" data-field="identity" value="{{ formData.identity }}" maxlength="1" auto-focus placeholder="0为学生 1为辅导员"/>
-      </view>
-    </view>
-  </view>
+      <view class="weui-cells__title">您是否为导员：</view>
+      <view class="weui-cells weui-cells_after-title">
+        <mp-cell show-error prop="identity" title="" ext-class="">
+          <!-- <input class="weui-input" bindinput="formInputChange" data-field="identity" value="{{ formData.identity }}" maxlength="1" auto-focus placeholder="0为学生 1为辅导员"/> -->
+          <radio-group class="radio-group" bindchange="radioChange">
+            <radio class="radio" wx:for-items="{{items}}" wx:key="name" data-field="identity" value="{{ formData.identity }}" checked="{{item.checked}}">
+              <text>{{item.value}}
+              </text>
 
-    <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" 
+            </radio>
+          </radio-group>
+        </mp-cell>
+      </view>
+      <button type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" 
         disabled="{{disabled}}" catchtap="verifyInfo"> 验证身份 </button>
-    
-  </view>
+    </view>
   <!-- <view class="page-section">
     <view class="weui-cells__title">控制最大输入长度的input</view>
     <view class="weui-cells weui-cells_after-title">

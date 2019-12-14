@@ -8,8 +8,8 @@
     startDate: '10/1',
     endDate: '10/23',
     imageSrc: '/assets/activity.png' -->
-<!-- 
-<mp-cell title="{{title}}" ></mp-cell>
+
+<!-- <mp-cell title="{{title}}" ></mp-cell>
 <text >{{content}}</text>
 <text >发起人:{{contact}}</text>
 <text >联系方式:{{telephone}}</text>
@@ -17,8 +17,8 @@
 <text >限定人员:{{qualification}}</text>
 <text >发起日期:{{startDate}}</text>
 <text >截止日期:{{endDate}}</text>
-<image src="{{imageSrc}}" />
-question.wxml -->
+<image src="{{imageSrc}}" /> -->
+<!-- question.wxml -->
 <!--answer.wxml-->
 <mp-dialog title="已报名"    
 show="{{tapEnrollment}}" 
@@ -26,9 +26,11 @@ bindbuttontap="tapDialogButton"
 buttons="{{[{text: '确定'}]}}">
 </mp-dialog>
 
-<!-- <view class="container">
+<view class="container">
     <view class="question" bindtap="toQuestion">
-        <text class="question-title">{{title}}</text>
+        <text class="question-title">{{title}}
+        </text>
+        <text class="category-title">类型：{{category}}</text>
     </view>
     <view class="answerer-wrp">
         <view class="bg-half"></view>
@@ -37,21 +39,35 @@ buttons="{{[{text: '确定'}]}}">
                 <image src="{{avatarSrc}}"></image>
             </view>
             <view class="answerer-info flex-item">
-                <text class="answerer-name">联系人:{{contact}}</text>
-                <text class="answerer-des">联系电话:{{telephone}} 邮箱:{{telephone}}</text>
-                <text class="begin-date">发起日期:{{startDate}}</text>
+                <text class="answerer-name">发起人：{{name}}</text>
+                <text class="answerer-des">联系方式：{{contact}}</text>
             </view>
 
         </view>
     </view>
     <view class="answer-content">
 
-        <image mode='widthFix' src="{{imageSrc}}"></image>
+        <image mode='widthFix' src="{{coverImg}}"></image>
+        <view wx:if="{{imgArr[0]!=''}}" class="container">
+          <view class="page-body">
+            <view class="page-section page-section-spacing swiper">
+              <swiper indicator-dots="{{indicatorDots}}"
+                autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+                <block wx:for="{{background}}" wx:key="*this">
+                  <swiper-item>
+                    <!-- <view class="swiper-item {{item}}"></view> -->
+                    <image class="swiper_image" src="{{imgArr}}" lazy-load="true" />
+                  </swiper-item>
+                </block>
+              </swiper>
+            </view>x
+          </view>
+        </view>
         <text>
-            {{content}}
-    限定人员:{{qualification}}
-    已报名人数:{{enrollment}}
+        活动详情：{{content}}
+        已报名人数:{{enrollment}}
          </text>
+         <text class="begin-date">发起日期：{{startDate}}</text>
     </view>
 
     <view class="answer-footer flex-around">
@@ -63,7 +79,7 @@ buttons="{{[{text: '确定'}]}}">
                 <text>十 我要报名</text>
         </view>
     </view>
-</view> -->
+</view>
 
 
 <view class="page">
@@ -82,13 +98,15 @@ buttons="{{[{text: '确定'}]}}">
                     
                 <mp-cell prop="images">
                     <view class="add-form-content">
-                        <text>{{imgArr}}</text>
                         <image style="width: 200rpx; height: 200rpx;" src="{{coverImg}}" fit="cover" show-error= "true" show-loading= "true" > </image>
                     </view>
                     <text style="min-height:120px;width:100%;"></text> 
                 </mp-cell>
             </mp-cells>
             <mp-cells>
+              <mp-cell show-error prop="category" title="类型：" ext-class="">
+                    <text>{{category}}</text>
+               </mp-cell>
                <mp-cell show-error prop="name" title="发起者：" ext-class="">
                     <text>{{name}}</text>
                </mp-cell>
@@ -100,9 +118,9 @@ buttons="{{[{text: '确定'}]}}">
                 </mp-cell>
                 
                 <mp-cell show-error prop="tag" title="活动tag" ext-class="">
-                    <view wx:for="{{formData.tags}}" style="margin-left:20rpx; display: inline-block;">
-                        <van-tag type="primary"  catch:tap="onTapCloseTag" data-index="{{index}}">
-                            <van-tag type="primary" catch:tap="fakeHandle">{{item}}</van-tag>
+                    <view wx:for="{{tags}}" style="margin-left:20rpx; display: inline-block;">
+                        <van-tag type="primary" data-index="{{index}}">
+                            <van-tag type="primary" >{{item}}</van-tag>
                             <text>X</text>
                             </van-tag>
                     </view>
