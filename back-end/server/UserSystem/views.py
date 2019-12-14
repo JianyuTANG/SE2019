@@ -255,11 +255,19 @@ def query_user(request):
         # 未绑定到userinfo 返回404
         print('该微信用户尚未注册')
         return get404()
-
-    
+    studentArr = []
+    advisorArr = []
+    nums = userinfo.number_of_entry.split(',')
+    if nums[0] != -1:
+        studentArr.append(nums[0])
+    nums = nums[1:]
+    for i in nums:
+        if i != -1:
+            advisorArr.append(i)
     res = {
         'name': userinfo.real_name,
-        'num': userinfo.number_of_entry,
+        'studentArr': studentArr,
+        'advisorArr': advisorArr,
         'identity': user.logon_status,
         'city': userinfo.city,
         'field': userinfo.field,
