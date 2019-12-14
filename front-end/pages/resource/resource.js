@@ -131,6 +131,14 @@ Page({
     })
   },
 
+  changeResource: function (e) {
+    console.log(e)
+    let resID = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/resource/add?resID=' + resID
+    })
+  },
+
   query_res_all: function (resolve, reject) {
     let that = this
     var sessionCode

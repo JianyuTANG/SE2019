@@ -53,6 +53,7 @@ Page({
     tapButtonTag: false
   },
   loadResource: function (resID) {
+    console.log(resID)
     let that = this
     let data = {
       resID: resID,
@@ -75,8 +76,14 @@ Page({
         console.log(match)
         let category = match[0].value
         console.log(category)
-        let imgArr = data.imgArr.map(x => {
-          return { url: that.data.baseUrlPrefix + x, isImage: true, suffix: data.coverImg }
+        let imgArr = data.imgArr.filter(d => d).map(x => {
+          return function () {
+            if (x) {
+              return { url: that.data.baseUrlPrefix + x, isImage: true, suffix: data.coverImg }
+            } else {
+              return null
+            }
+          }
         })
         console.log(imgArr)
         that.setData({
