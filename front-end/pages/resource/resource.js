@@ -19,30 +19,49 @@ Page({
     recommendList: [],
     likeList: [],
     issueList: [],
-    listIndex: 0
+    listIndex: 0,
+    canChange: false
+  },
+  index2list: function (index) {
+    switch (index) {
+      case 0:
+        return this.data.allList
+      case 1:
+        return this.data.recommendList
+      case 2:
+        return this.data.likeList
+      case 3:
+        return this.data.issueList
+    }
+  },
+  loadCurList: function () {
+    let that = this
+    let curList = that.index2list(that.data.listIndex)
+    that.setData({
+      resourceList: curList
+    })
+    that.loadResouceList()
   },
   onLoad: function () {
     // 以下从服务器获取信息
     let that = this
-    this.query_res_issued(null, null)
-    this.query_res_interested(null, null)
+    let promiseIssued = new Promise((resolve, reject) => {
+      this.query_res_issued(resolve, reject)
+    })
+    let promiseInterest = new Promise((resolve, reject) => {
+      this.query_res_interested(resolve, reject)
+    })
     let promise = new Promise((resolve, reject) => {
       that.query_res_all(resolve, reject)
     })
     console.log(promise)
-
     promise.then(function () {
       console.log('promise success')
-      that.setData({
-        // resourceList: lists[0],
-        // allList: lists[0],
-        // recommendList: lists[1],
-        // likeList: lists[2],
-        // issueList: lists[3]
-        resourceList: that.data.allList,
-        recommendList: that.data.allList
-      })
-      that.loadResouceList()
+      return promiseIssued
+    }).then(function () {
+      return promiseInterest
+    }).then(function () {
+      that.loadCurList()
     }).catch((reason) => {
       console.log('promise fail')
       console.log(reason)
@@ -259,22 +278,26 @@ Page({
     switch (index) {
       case 0:
         this.setData({
-          resourceList: this.data.allList
+          resourceList: this.data.allList,
+          canChange: false
         })
         break
       case 1:
         this.setData({
-          resourceList: this.data.recommendList
+          resourceList: this.data.recommendList,
+          canChange: false
         })
         break
       case 2:
         this.setData({
-          resourceList: this.data.likeList
+          resourceList: this.data.likeList,
+          canChange: false
         })
         break
       case 3:
         this.setData({
-          resourceList: this.data.issueList
+          resourceList: this.data.issueList,
+          canChange: true
         })
         break
     }

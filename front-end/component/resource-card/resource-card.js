@@ -1,7 +1,7 @@
 Component({
 
   properties: {
-    
+
     coverImg: {
       type: String,
       value: 'baseUrlwithoutTailLine'
@@ -29,6 +29,10 @@ Component({
     resID: {
       type: Number,
       value: 0
+    },
+    canChange: {
+      type: Boolean,
+      value: false
     }
   },
   data: {
@@ -45,9 +49,14 @@ Component({
       // console.log(this.data.imageSrc)
       this.triggerEvent('readmore')
     },
-    switch_interest: function() {
-
+    switch_interest: function () {
       this.triggerEvent('switch_interest')
+    },
+    change: function () {
+      this.triggerEvent('change')
+    },
+    delete: function () {
+      this.triggerEvent('delete')
     }
   }
 })
