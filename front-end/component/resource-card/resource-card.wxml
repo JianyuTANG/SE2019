@@ -1,3 +1,11 @@
+<wxs module="foo">
+var tostr = function(value){
+  return value.substring(0,8)
+}
+module.exports = {
+  tostr: tostr,
+}
+</wxs>
 <view class='background'>
   <van-row >
     <!-- <view bindtap="readmore" >  -->
@@ -9,7 +17,7 @@
     <van-col span="15">
       <van-row span="10" bindtap="readmore">
           <view class="title-container">
-            <text class="title-line"> {{title}} </text>
+            <text class="title-line"> {{title.length > 8 ? foo.tostr(title)+'...': title}} </text>
           </view>
       </van-row>
 

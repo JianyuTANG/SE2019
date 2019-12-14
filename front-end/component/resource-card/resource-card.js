@@ -42,7 +42,9 @@ Component({
     likeIcon: '/assets/like.png',
     unlikeIcon: '/assets/unlike.png'
   },
-
+  toStr: function (value) {
+    return value.subsubstring(8)
+  },
   methods: {
     readmore: function () {
       // console.log('readmore')
@@ -58,5 +60,6 @@ Component({
     delete: function () {
       this.triggerEvent('delete')
     }
+
   }
 })
