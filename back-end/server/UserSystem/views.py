@@ -479,3 +479,45 @@ def delete_img(request):
 
     print('openid错误或文件不存在')
     return get404()
+
+
+def query_user_by_num(request):
+    print('/query_user_by_num')
+    post_body = request.body
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
+    if user is None:
+        # 用户不存在 （sessionCode有误） 直接404
+        print('sessionCode有误')
+        return get404()
+    if user.info is None:
+        # 用户信息不存在 直接404
+        print('未通过验证')
+        return get404()
+
+    try:
+        num = str(json_request['num'])
+    except:
+        print('缺失请求参数')
+        return get404()
+    classmates = UserInfo.objects.filter(number_of_entry__contains=num)
+    user_arr = []
+    for classmate in classmates:
+        num_entry = classmate.number_of_entry.split(',')
+        if num_entry[0] == num:
+            isStudent = 1
+        else:
+            isStudent = 0
+        user_arr.append({
+            'name': classmate.real_name,
+            'isStudent': isStudent,
+        })
+    res = {'userArr': user_arr}
+    response = HttpResponse(json.dumps(res), content_type="application/json")
+    response.status_code = 200
+    return response
