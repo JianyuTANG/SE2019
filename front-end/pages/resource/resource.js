@@ -75,24 +75,35 @@ Page({
     var openid
     openid = wx.getStorageSync('openid')
     let resID = e.currentTarget.dataset.id
-    wx.request({
-      url: 'http://154.8.172.132/switch_interest',
-      method: 'POST',
+    let promise = new Promise((resolve, reject) => {
+      wx.request({
+        url: 'http://154.8.172.132/switch_interest',
+        method: 'POST',
 
-      data: {
-        sessionCode: sessionCode,
-        openid: openid,
-        resID: resID
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success (res) {
-        console.log('switch_interest返回值', res)
+        data: {
+          sessionCode: sessionCode,
+          openid: openid,
+          resID: resID
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success (res) {
+          console.log('switch_interest返回值', res)
+          if (res.statusCode === 200) {
+            resolve()
+          } else {
+            reject(new Error('server rejects'))
+          }
         // allList
-      }
+        }
+      })
     })
-    this.onShow()
+
+    promise.then(
+      this.onLoad).catch(function (e) {
+      console.log(e)
+    })
   },
 
   addResource: function (e) {
