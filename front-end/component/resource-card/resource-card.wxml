@@ -1,3 +1,11 @@
+<wxs module="foo">
+var tostr = function(value){
+  return value.substring(0,8)
+}
+module.exports = {
+  tostr: tostr,
+}
+</wxs>
 <view class='background'>
   <van-row >
     <!-- <view bindtap="readmore" >  -->
@@ -9,7 +17,7 @@
     <van-col span="15">
       <van-row span="10" bindtap="readmore">
           <view class="title-container">
-            <text class="title-line"> {{title}} </text>
+            <text class="title-line"> {{title.length > 8 ? foo.tostr(title)+'...': title}} </text>
           </view>
       </van-row>
 
@@ -42,7 +50,8 @@
             </text>
               <van-icon wx:if="{{interested}}" name='like' size="2.5em" bind:click="switch_interest"/>
               <van-icon wx:else name='like-o' size="2.5em" bind:click="switch_interest"/>
-            <van-icon name='setting' size="2.5em"/>
+            <van-icon wx:if="{{canChange}}" name='setting' size="2.5em" bind:tap="change"/>
+            <van-icon wx:if="{{canChange}}" name="clear" size="2.5em" bind:tap="delete"/>
           </view>
         </van-col>
           <!-- <view class='image-container' bindtap="readmore">

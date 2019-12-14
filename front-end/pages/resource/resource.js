@@ -4,6 +4,7 @@ Page({
 
   data: {
     baseUrlwithoutTailLine: 'http://154.8.172.132',
+    deleteUrl: 'http://154.8.172.132/delete_res',
     list: [{
       text: '全部资源'
     }, {
@@ -19,34 +20,31 @@ Page({
     recommendList: [],
     likeList: [],
     issueList: [],
-    listIndex: 0
+    listIndex: 0,
+    canChange: false
+  },
+  index2list: function (index) {
+    switch (index) {
+      case 0:
+        return this.data.allList
+      case 1:
+        return this.data.recommendList
+      case 2:
+        return this.data.likeList
+      case 3:
+        return this.data.issueList
+    }
+  },
+  loadCurList: function () {
+    let that = this
+    let curList = that.index2list(that.data.listIndex)
+    that.setData({
+      resourceList: curList
+    })
+    that.loadResouceList()
   },
   onLoad: function () {
     // 以下从服务器获取信息
-    let that = this
-    this.query_res_issued(null, null)
-    this.query_res_interested(null, null)
-    let promise = new Promise((resolve, reject) => {
-      that.query_res_all(resolve, reject)
-    })
-    console.log(promise)
-
-    promise.then(function () {
-      console.log('promise success')
-      that.setData({
-        // resourceList: lists[0],
-        // allList: lists[0],
-        // recommendList: lists[1],
-        // likeList: lists[2],
-        // issueList: lists[3]
-        resourceList: that.data.allList,
-        recommendList: that.data.allList
-      })
-      that.loadResouceList()
-    }).catch((reason) => {
-      console.log('promise fail')
-      console.log(reason)
-    })
 
     // 本地储存方法，已废弃
     // let lists = [0, 0, 0, 0]
@@ -57,7 +55,28 @@ Page({
     // console.log("全部资源：",lists[0])
   },
   onShow: function () {
-
+    let that = this
+    let promiseIssued = new Promise((resolve, reject) => {
+      this.query_res_issued(resolve, reject)
+    })
+    let promiseInterest = new Promise((resolve, reject) => {
+      this.query_res_interested(resolve, reject)
+    })
+    let promise = new Promise((resolve, reject) => {
+      that.query_res_all(resolve, reject)
+    })
+    console.log(promise)
+    promise.then(function () {
+      console.log('promise success')
+      return promiseIssued
+    }).then(function () {
+      return promiseInterest
+    }).then(function () {
+      that.loadCurList()
+    }).catch((reason) => {
+      console.log('promise fail')
+      console.log(reason)
+    })
     // let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
   },
 
@@ -75,30 +94,84 @@ Page({
     var openid
     openid = wx.getStorageSync('openid')
     let resID = e.currentTarget.dataset.id
-    wx.request({
-      url: 'http://154.8.172.132/switch_interest',
-      method: 'POST',
+    let promise = new Promise((resolve, reject) => {
+      wx.request({
+        url: 'http://154.8.172.132/switch_interest',
+        method: 'POST',
 
-      data: {
-        sessionCode: sessionCode,
-        openid: openid,
-        resID: resID
-      },
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success (res) {
-        console.log('switch_interest返回值', res)
+        data: {
+          sessionCode: sessionCode,
+          openid: openid,
+          resID: resID
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success (res) {
+          console.log('switch_interest返回值', res)
+          if (res.statusCode === 200) {
+            resolve()
+          } else {
+            reject(new Error('server rejects'))
+          }
         // allList
-      }
+        }
+      })
     })
-    this.onShow()
+
+    promise.then(
+      this.onShow).catch(function (e) {
+      console.log(e)
+    })
   },
 
   addResource: function (e) {
     wx.navigateTo({
       url: '/pages/resource/add'
     })
+  },
+
+  changeResource: function (e) {
+    console.log(e)
+    let resID = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/resource/add?resID=' + resID
+    })
+  },
+
+  deleteResource: function (e) {
+    let sessionCode
+    sessionCode = wx.getStorageSync('sessionCode')
+    let openid
+    openid = wx.getStorageSync('openid')
+    let resID = e.currentTarget.dataset.id
+    let that = this
+    let promise = new Promise((resolve, reject) => {
+      wx.request({
+        url: that.data.deleteUrl,
+        method: 'POST',
+
+        data: {
+          sessionCode: sessionCode,
+          openid: openid,
+          resID: resID
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success (res) {
+          console.log('switch_interest返回值', res)
+          if (res.statusCode === 200) {
+            resolve()
+          } else {
+            reject(new Error('server rejects'))
+          }
+        // allList
+        }
+      })
+    })
+
+    promise.then(that.onShow).catch(function (e) { console.log(e) })
   },
 
   query_res_all: function (resolve, reject) {
@@ -248,22 +321,26 @@ Page({
     switch (index) {
       case 0:
         this.setData({
-          resourceList: this.data.allList
+          resourceList: this.data.allList,
+          canChange: false
         })
         break
       case 1:
         this.setData({
-          resourceList: this.data.recommendList
+          resourceList: this.data.recommendList,
+          canChange: false
         })
         break
       case 2:
         this.setData({
-          resourceList: this.data.likeList
+          resourceList: this.data.likeList,
+          canChange: false
         })
         break
       case 3:
         this.setData({
-          resourceList: this.data.issueList
+          resourceList: this.data.issueList,
+          canChange: true
         })
         break
     }
