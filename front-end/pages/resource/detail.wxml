@@ -1,25 +1,3 @@
-<!--pages/resource/detail.wxml-->
-    <!-- title: '清华校友总会生命科学...',
-    content: '急需两人过柱子...',
-    contact: 'test',
-    telephone: '110',
-    email: 'nonexist@nonexist.com',
-    qualification: 'qua',
-    startDate: '10/1',
-    endDate: '10/23',
-    imageSrc: '/assets/activity.png' -->
-
-<!-- <mp-cell title="{{title}}" ></mp-cell>
-<text >{{content}}</text>
-<text >发起人:{{contact}}</text>
-<text >联系方式:{{telephone}}</text>
-<text >邮箱:{{email}}</text>
-<text >限定人员:{{qualification}}</text>
-<text >发起日期:{{startDate}}</text>
-<text >截止日期:{{endDate}}</text>
-<image src="{{imageSrc}}" /> -->
-<!-- question.wxml -->
-<!--answer.wxml-->
 <mp-dialog title="已报名"    
 show="{{tapEnrollment}}" 
 bindbuttontap="tapDialogButton" 
@@ -57,7 +35,7 @@ buttons="{{[{text: '确定'}]}}">
         </view> -->
 
 
-        <view wx:if="{{imgArr[0]!==''}}" class="swipers-container">
+        <view wx:if="{{imgArr[0]!=='http://154.8.172.132'}}" class="swipers-container">
           <swiper indicator-dots="{{indicatorDots}}"
             autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{current}}">
             <block wx:for="{{imgArr}}" wx:key="*this">
@@ -72,6 +50,14 @@ buttons="{{[{text: '确定'}]}}">
         活动详情：{{content}}
         已报名人数:{{enrollment}}
         </text>
+        <mp-cell show-error prop="tag" title="活动tag" ext-class="">
+          <view wx:for="{{tags}}" style="margin-left:20rpx; display: inline-block;">
+            <van-tag type="primary" data-index="{{index}}">
+              <van-tag type="primary" >{{item}}</van-tag>
+              <text>X</text>
+            </van-tag>
+          </view>
+        </mp-cell>
         <text class="begin-date">发起日期：{{startDate}}</text>
     </view>
 
@@ -85,53 +71,6 @@ buttons="{{[{text: '确定'}]}}">
         </view>
     </view>
 </view>
-
-
-<view class="page">
-    <view class="page__bd">
-        <mp-form id="form" rules="{{rules}}" models="{{formData}}">
-            <mp-cells >
-                <mp-cell show-error prop="title" ext-class="flex">
-                    <view class = "add-form-title"><text >{{title}}</text></view>
-                </mp-cell>
-
-                <mp-cell prop="content">
-                    <view class="add-form-content"><text>详情：
-                    {{content}}</text></view>
-                    <text style="min-height:120px;width:100%;"></text> 
-                </mp-cell>
-                    
-                <mp-cell prop="images">
-                    <view class="add-form-content">
-                        <image style="width: 200rpx; height: 200rpx;" src="{{coverImg}}" fit="cover" show-error= "true" show-loading= "true" > </image>
-                    </view>
-                    <text style="min-height:120px;width:100%;"></text> 
-                </mp-cell>
-            </mp-cells>
-            <mp-cells>
-              <mp-cell show-error prop="category" title="类型：" ext-class="">
-                    <text>{{category}}</text>
-               </mp-cell>
-               <mp-cell show-error prop="name" title="发起者：" ext-class="">
-                    <text>{{name}}</text>
-               </mp-cell>
-               <mp-cell show-error prop="contact" title="联系方式：" ext-class="">
-                    <text>{{contact}}</text>
-               </mp-cell>
-               <mp-cell show-error prop="date" title="截止日期：" ext-class=""> 
-                    <text >{{due}}</text>
-                </mp-cell>
-                
-                <mp-cell show-error prop="tag" title="活动tag" ext-class="">
-                    <view wx:for="{{tags}}" style="margin-left:20rpx; display: inline-block;">
-                        <van-tag type="primary" data-index="{{index}}">
-                            <van-tag type="primary" >{{item}}</van-tag>
-                            <text>X</text>
-                            </van-tag>
-                    </view>
-                </mp-cell>
-            </mp-cells>
-        </mp-form>
         <view class="answer-footer flex-around">
           <view class="end-date flex-item">
             <text>截止日期:{{due}}</text>
