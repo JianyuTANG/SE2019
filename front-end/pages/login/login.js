@@ -13,8 +13,8 @@ Page({
     showTopTips: false,
 
     radioItems: [
-      { name: '本期学员', value: '0', checked: true },
-      { name: '本期辅导员', value: '1' }
+      { name: '本期学员', value: 0, checked: true },
+      { name: '本期辅导员', value: 1 }
     ],
 
     // 规则中有一些必填

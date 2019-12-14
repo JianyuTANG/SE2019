@@ -3,6 +3,20 @@ element{
 
 }
 
+swiper{
+  width:100%
+}
+
+.swiper_image{
+  width: 600rpx;
+  height: 500rpx;
+}
+
+.swipers-container{
+  width: 600rpx;
+  height: 500rpx;
+}
+
 .container {
     padding: 0;
     font-size: 14rpx;

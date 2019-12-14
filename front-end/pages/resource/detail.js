@@ -1,6 +1,11 @@
 // pages/resource/detail.js
 Page({
-
+  onShareAppMessage() {
+    return {
+      title: 'swiper',
+      path: '../../miniprogram_npm/weui-miniprogram/swiper/swiper'
+    }
+  },
   /**
    * 页面的初始数据
    */
@@ -14,6 +19,12 @@ Page({
     startDate: 'x',
     endDate: 'x',
     imgArr: '',
+
+    indicatorDots: true,
+    vertical: false,
+    autoplay: false,
+    interval: 2000,
+    duration: 500,
 
     iconName: 'like-o',
     iconUnlike: 'like-o',
@@ -52,6 +63,12 @@ Page({
     // let res = wx.getStorageSync('res')
 
     promise.then(function (res) {
+      // let imgArr = res.data.imgArr.map(x => {
+      //   return { url: 'http://154.8.172.132' + x, isImage: true, suffix: data.coverImg }
+      // })
+      for (var x in res.data.imgArr) {
+        res.data.imgArr[x] = 'http://154.8.172.132' + res.data.imgArr[x]
+      }
       console.log('用于渲染详情页的res in onLoad func(从本地获得的):',
         res)
       that.setData({
