@@ -40,8 +40,8 @@ class User(models.Model):
         return self.openid
 
 
-class Group(models.Model):
-    num = models.IntegerField(unique=True)
+class Group_num(models.Model):
+    num = models.IntegerField(unique=True, null=True)
     student_list_id = models.TextField(default='')
     advisor_list_id = models.TextField(default='')
     student_list_name = models.TextField(default='')

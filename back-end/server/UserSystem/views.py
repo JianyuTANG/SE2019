@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .models import User, UserInfo, Group
+from .models import User, UserInfo, Group_num
 from .utils import *
 import json
 import time
@@ -582,7 +582,7 @@ def query_user_by_num(request):
     #         'openid': classmate.id,
     #     })
     user_arr = []
-    group = Group.objects.filter(num=num)
+    group = Group_num.objects.filter(num=num)
     student_list_id = group.student_list_id.split(',')
     student_list_name = group.student_list_name.split(',')
     l = len(student_list_id)
@@ -608,6 +608,7 @@ def query_user_by_num(request):
 
 
 def refresh_group(request):
+    print('/refresh_group')
     userinfos = UserInfo.objects.all()
     for userinfo in userinfos:
         if userinfo.is_in_group == 0:
@@ -615,27 +616,59 @@ def refresh_group(request):
             name = userinfo.real_name
             id = userinfo.id
             # 学生
-            if nums[0] != '-1':
-                n = int(nums[0])
-                try:
-                    group = Group.objects.get(num=n)
-                except:
-                    group = Group.objects.create(num=n)
-                group.student_list_id += str(id) + ','
-                group.student_list_name += name + ','
-                group.save()
-            # 辅导员
-            nums = nums[1:]
-            for num in nums:
-                if num != '-1':
-                    num = int(num)
+            try:
+                if nums[0] != '-1':
+                    n = int(nums[0])
                     try:
-                        group = Group.objects.get(num=num)
+                        group = Group_num.objects.get(num=n)
                     except:
-                        group = Group.objects.create(num=num)
-                    group.advisor_list_id += str(id) + ','
-                    group.advisor_list_name += name + ','
+                        group = Group_num.objects.create(num=n)
+                    group.student_list_id += str(id) + ','
+                    group.student_list_name += name + ','
                     group.save()
+            except:
+                print('part1 error')
+            # 辅导员
+
+            try:
+                nums = nums[1:]
+                for num in nums:
+                    if num != '-1':
+                        num = int(num)
+                        try:
+                            group = Group_num.objects.get(num=num)
+                        except:
+                            group = Group_num.objects.create(num=num)
+                        group.advisor_list_id += str(id) + ','
+                        group.advisor_list_name += name + ','
+                        group.save()
+            except:
+                print('part2 error')
             userinfo.is_in_group = 1
             userinfo.save()
     return JsonResponse({'result': 'succeed'})
+
+
+def query_all_num(request):
+    print('/query_all_num')
+    post_body = request.body
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
+    if user is None:
+        # 用户不存在 （sessionCode有误） 直接404
+        print('sessionCode有误')
+        return get404()
+
+    groups = Group_num.objects.all()
+    arr = []
+    for group in groups:
+        arr.append(group.num)
+    arr.sort()
+    return JsonResponse({
+        'arr': arr,
+    })
