@@ -24,6 +24,8 @@
             resID="{{item.resID}}"
             bind:readmore="readmore"
             bind:switch_interest="switch_interest"
+            bind:change="changeResource"
+            bind:delete="deleteResource"
             coverImg="{{item.coverImg}}"
             title="{{item.title}}" 
             name="{{item.name}}"
@@ -31,6 +33,7 @@
             due="{{item.due}}"
             content="{{item.content}}"
             startDate="{{item.startDate}}"
-            interested="{{item.interested}}">
-            </resource-card>
+            interested="{{item.interested}}"
+            canChange="{{canChange}}">
+</resource-card>
 </view>
