@@ -24,6 +24,7 @@
       "van-grid-item": "../../miniprogram_npm/vant-weapp/grid-item/index",
       "van-dropdown-menu": "../../miniprogram_npm/vant-weapp/dropdown-menu/index",
       "van-dropdown-item": "../../miniprogram_npm/vant-weapp/dropdown-item/index",
-      "van-button": "../../miniprogram_npm/vant-weapp/button/index"
+      "van-button": "../../miniprogram_npm/vant-weapp/button/index",
+      "van-search": "../../miniprogram_npm/vant-weapp/search/index"
     }
   }

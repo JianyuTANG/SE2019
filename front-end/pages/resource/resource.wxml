@@ -14,12 +14,22 @@
       </activity-tags>
 </mp-dialog>
 
-<mp-searchbar 
+<van-search
+  wx:if="{{listIndex === 0}}"
+  value="{{ searchValue }}"
+  placeholder="请输入搜索关键词"
+  use-action-slot
+  bind:change="onSearchChange"
+  bind:search="onSearch"
+>
+  <view slot="action" bind:tap="onSearch">搜索</view>
+</van-search>
+<!-- <mp-searchbar 
     wx:if="{{listIndex === 0}}"
     placeholder="请输入关键字搜索" 
     bindselectresult="selectResult" 
     bindinput="search">
-</mp-searchbar>
+</mp-searchbar> -->
 
 
 <mp-tabbar ext-class="tabbar-item" style="" list="{{nameList}}" bindchange="tabChange"></mp-tabbar>

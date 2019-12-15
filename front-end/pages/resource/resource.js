@@ -11,6 +11,7 @@ Page({
     searchCategoryUrl: baseUrl + 'query_res_by_category',
     searchTagsUrl: baseUrl + 'query_res_by_tags',
     queryAllUrl: baseUrl + 'query_res_all',
+    searchUrl: baseUrl + 'search_res',
     nameList: [{
       text: '全部资源'
     }, {
@@ -31,6 +32,7 @@ Page({
     tagList: tags, // 显示已有的tag
     tapButtonTag: false,
     showActivityTypes: showActivityTypes,
+    searchValue: '',
     activityType: -1,
     allList: [],
     recommendList: [],
@@ -109,6 +111,10 @@ Page({
       })
       that.queryTag()
     }
+
+    that.setData({
+      searchValue: ''
+    })
     // let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
   },
 
@@ -370,20 +376,57 @@ Page({
     if (item.telephone.indexOf(value) !== -1) { return true }
     return false
   },
-  search: function (e) {
+  onSearchChange: function (e) {
     console.log(e)
-    let value = e.detail.value
-
-    let items = []
-    for (let item of this.data.resourceList) {
-      if (this.searchItem(item, value)) {
-        items.push(item)
-      }
-    }
-
     this.setData({
-      showResouceList: items
+      searchValue: e.detail
     })
+  },
+  onSearch: function (e) {
+    console.log(e)
+    let that = this
+    let val = this.data.searchValue
+    console.log(val)
+    let sessionCode = wx.getStorageSync('sessionCode')
+    let openid = wx.getStorageSync('openid')
+    let url = that.data.searchUrl
+    sessionCode = wx.getStorageSync('sess')
+
+    wx.request({
+      url: url,
+      method: 'POST',
+      data: {
+        sessionCode: sessionCode,
+        openid: openid,
+        content: val
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+        console.log('search返回值', res)
+        if (res.statusCode === 200) {
+          let arr = res.data.res_list
+          that.setData({
+            showResouceList: that.listAddImagePrefix(arr)
+          })
+        } else {
+          // fail
+
+        }
+      // allList
+      }
+    })
+    // let items = []
+    // for (let item of this.data.resourceList) {
+    //   if (this.searchItem(item, value)) {
+    //     items.push(item)
+    //   }
+    // }
+
+    // this.setData({
+    //   showResouceList: items
+    // })
   },
   queryTag: function () {
     // 后端通讯
