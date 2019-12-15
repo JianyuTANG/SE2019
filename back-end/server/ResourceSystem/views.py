@@ -345,7 +345,7 @@ def serch_res(request):
     resources = Resource.objects.filter()
     res_list = []
     for e in resources:
-        if search_content in e.title or search_content in e.contact:
+        if search_content in e.title or search_content in e.content:
             interest_list = e.interest_users.split(",")
             tmp = {}
             tmp['title'] = e.title
