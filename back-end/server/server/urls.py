@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 import UserSystem.views
 import ResourceSystem.views
+import AdminSystem.views
 from django.conf import settings
 from django.conf.urls.static import static
 
