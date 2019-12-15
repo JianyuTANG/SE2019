@@ -391,6 +391,12 @@ Page({
     let openid = wx.getStorageSync('openid')
     let url = that.data.searchUrl
     sessionCode = wx.getStorageSync('sess')
+    that.setData({
+      searchTags: [],
+      activityType: -1
+    })
+    app.globalData.curResourceTags = []
+    app.globalData.curResourceType = -1
 
     wx.request({
       url: url,
@@ -431,6 +437,13 @@ Page({
   queryTag: function () {
     // 后端通讯
     let that = this
+
+    that.setData({
+      searchValue: '',
+      activityType: -1
+    })
+    app.globalData.curResourceType = -1
+
     let url = that.data.searchTagsUrl
     console.log(url)
     var sessionCode
@@ -524,9 +537,12 @@ Page({
   searchType: function (curValue, resolve, reject) {
     app.globalData.curResourceType = curValue
     let that = this
-    this.setData({
-      'formData.type': curValue
+    that.setData({
+      searchValue: '',
+      searchTags: []
     })
+    app.globalData.curResourceTags = []
+
     let match = showActivityTypes.filter(option => option.value === curValue)
     let category = match[0].text
     console.log(category)
