@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import User, UserInfo
+from django.http import HttpResponse, JsonResponse
+from .models import User, UserInfo, Group
 from .utils import *
 import json
 import time
@@ -258,11 +258,11 @@ def query_user(request):
     studentArr = []
     advisorArr = []
     nums = userinfo.number_of_entry.split(',')
-    if nums[0] != -1:
+    if nums[0] != '-1':
         studentArr.append(nums[0])
     nums = nums[1:]
     for i in nums:
-        if i != -1:
+        if i != '-1':
             advisorArr.append(i)
     res = {
         'name': userinfo.real_name,
@@ -282,6 +282,61 @@ def query_user(request):
     response = HttpResponse(json.dumps(res), content_type="application/json")
     response.status_code = 200
     return response
+
+
+def query_other(request):
+    print('/view_other')
+    post_body = request.body
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+        openid = int(json_request['openid'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
+    if user is None:
+        # 用户不存在 （sessionCode有误） 直接404
+        print('sessioncode校验失败')
+        return get404()
+
+    try:
+        userinfo = UserInfo.objects.get(id=openid)
+    except:
+        res = {'error': 'no such user'}
+        response = HttpResponse(json.dumps(res), content_type="application/json")
+        return response
+
+    studentArr = []
+    advisorArr = []
+    nums = userinfo.number_of_entry.split(',')
+    if nums[0] != '-1':
+        studentArr.append(nums[0])
+    nums = nums[1:]
+    for i in nums:
+        if i != '-1':
+            advisorArr.append(i)
+
+    res = {
+        'name': userinfo.real_name,
+        'studentArr': studentArr,
+        'advisorArr': advisorArr,
+        'identity': user.logon_status,
+        'city': userinfo.city,
+        'field': userinfo.field,
+        'department': userinfo.department,
+        'wechatID': userinfo.wechatid,
+        'tel': userinfo.tel,
+        'email': userinfo.email,
+        'selfDiscription': userinfo.self_discription,
+        'company': userinfo.company,
+        'hobby': userinfo.hobby,
+        'avatar_url': userinfo.avatar_url,
+    }
+    response = HttpResponse(json.dumps(res), content_type="application/json")
+    response.status_code = 200
+    return response
+
 
 
 def upload_user_avatar(request):
@@ -487,3 +542,100 @@ def delete_img(request):
 
     print('openid错误或文件不存在')
     return get404()
+
+
+def query_user_by_num(request):
+    print('/query_user_by_num')
+    post_body = request.body
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
+    if user is None:
+        # 用户不存在 （sessionCode有误） 直接404
+        print('sessionCode有误')
+        return get404()
+    if user.info is None:
+        # 用户信息不存在 直接404
+        print('未通过验证')
+        return get404()
+
+    try:
+        num = int(json_request['num'])
+    except:
+        print('缺失请求参数')
+        return get404()
+    # classmates = UserInfo.objects.filter(number_of_entry__contains=num)
+    # user_arr = []
+    # for classmate in classmates:
+    #     num_entry = classmate.number_of_entry.split(',')
+    #     if num_entry[0] == num:
+    #         isStudent = 1
+    #     else:
+    #         isStudent = 0
+    #     user_arr.append({
+    #         'name': classmate.real_name,
+    #         'isStudent': isStudent,
+    #         'openid': classmate.id,
+    #     })
+    user_arr = []
+    group = Group.objects.filter(num=num)
+    student_list_id = group.student_list_id.split(',')
+    student_list_name = group.student_list_name.split(',')
+    l = len(student_list_id)
+    for i in range(l - 1):
+        user_arr.append({
+            'name': student_list_name[i],
+            'openid': student_list_id[i],
+            'isStudent': 1,
+        })
+    advisor_list_id = group.advisor_list_id.split(',')
+    advisor_list_name = group.advisor_list_name.split(',')
+    l = len(advisor_list_id)
+    for i in range(l - 1):
+        user_arr.append({
+            'name': advisor_list_name[i],
+            'openid': advisor_list_id[i],
+            'isStudent': 0,
+        })
+    res = {'userArr': user_arr}
+    response = HttpResponse(json.dumps(res), content_type="application/json")
+    response.status_code = 200
+    return response
+
+
+def refresh_group(request):
+    userinfos = UserInfo.objects.all()
+    for userinfo in userinfos:
+        if userinfo.is_in_group == 0:
+            nums = userinfo.number_of_entry.split(',')
+            name = userinfo.real_name
+            id = userinfo.id
+            # 学生
+            if nums[0] != '-1':
+                n = int(nums[0])
+                try:
+                    group = Group.objects.get(num=n)
+                except:
+                    group = Group.objects.create(num=n)
+                group.student_list_id += str(id) + ','
+                group.student_list_name += name + ','
+                group.save()
+            # 辅导员
+            nums = nums[1:]
+            for num in nums:
+                if num != '-1':
+                    num = int(num)
+                    try:
+                        group = Group.objects.get(num=num)
+                    except:
+                        group = Group.objects.create(num=num)
+                    group.advisor_list_id += str(id) + ','
+                    group.advisor_list_name += name + ','
+                    group.save()
+            userinfo.is_in_group = 1
+            userinfo.save()
+    return JsonResponse({'result': 'succeed'})
