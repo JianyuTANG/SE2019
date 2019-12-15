@@ -43,6 +43,8 @@ urlpatterns = [
     path('query_res_interested', ResourceSystem.views.query_res_interested),
     path('switch_interest', ResourceSystem.views.switch_interest),
     path('query_user_by_number', UserSystem.views.query_user_by_num),
+    path('view_other', UserSystem.views.query_other),
+    path('refresh_group', UserSystem.views.refresh_group),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

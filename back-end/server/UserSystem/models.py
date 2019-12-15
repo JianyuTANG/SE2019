@@ -22,6 +22,7 @@ class UserInfo(models.Model):
     avatar_url = models.CharField(max_length=100,
                                   default='/media/user_avatar/default/default.jpg')  # 头像
     is_connected = models.IntegerField(default=0)
+    is_in_group = models.IntegerField(default=0)
 
     def __str__(self):
         return self.real_name
@@ -37,3 +38,14 @@ class User(models.Model):
 
     def __str__(self):
         return self.openid
+
+
+class Group(models.Model):
+    num = models.IntegerField(unique=True)
+    student_list_id = models.TextField(default='')
+    advisor_list_id = models.TextField(default='')
+    student_list_name = models.TextField(default='')
+    advisor_list_name = models.TextField(default='')
+
+    def __str__(self):
+        return str(self.num)
