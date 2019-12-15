@@ -258,11 +258,11 @@ def query_user(request):
     studentArr = []
     advisorArr = []
     nums = userinfo.number_of_entry.split(',')
-    if nums[0] != -1:
+    if nums[0] != '-1':
         studentArr.append(nums[0])
     nums = nums[1:]
     for i in nums:
-        if i != -1:
+        if i != '-1':
             advisorArr.append(i)
     res = {
         'name': userinfo.real_name,
