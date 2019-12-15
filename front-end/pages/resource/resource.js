@@ -1,11 +1,13 @@
 // pages/me/me.js
+import { tags } from '../../data/tags.js'
+import { showActivityTypes } from '../../data/activityTypes.js'
 const app = getApp()
 Page({
 
   data: {
     baseUrlwithoutTailLine: 'http://154.8.172.132',
     deleteUrl: 'http://154.8.172.132/delete_res',
-    list: [{
+    nameList: [{
       text: '全部资源'
     }, {
       text: '精选推荐'
@@ -14,8 +16,19 @@ Page({
     }, {
       text: '我发布的'
     }],
+    searchList: [{
+      text: '设置类别'
+    }, {
+      text: '设置tag'
+    }],
+    searchTags: [],
+    // searchTags: ['1', '2', '3', '4', '5', '6', '7', '8'],
     resourceList: [],
     showResouceList: [],
+    tagList: tags, // 显示已有的tag
+    tapButtonTag: false,
+    showActivityTypes: showActivityTypes,
+    activityType: -1,
     allList: [],
     recommendList: [],
     likeList: [],
@@ -44,6 +57,7 @@ Page({
     that.loadResouceList()
   },
   onLoad: function () {
+    console.log('load resource' + showActivityTypes)
     // 以下从服务器获取信息
 
     // 本地储存方法，已废弃
@@ -285,29 +299,6 @@ Page({
     })
   },
 
-  // view_res: function (e) {
-  //   var sessionCode
-  //   sessionCode = wx.getStorageSync('sessionCode')
-  //   var openid
-  //   openid = wx.getStorageSync('openid')
-  //   wx.request({
-  //     url: 'http://154.8.172.132/view_res',
-  //     method: 'POST',
-
-  //     data: {
-  //       sessionCode: sessionCode,
-  //       openid: openid,
-  //       resID: "25",
-  //     },
-  //     header: {
-  //       'content-type': 'application/json' // 默认值
-  //     },
-  //     success(res) {
-  //       console.log(res)
-  //     }
-  //   })
-  // },
-
   loadResouceList: function () {
     console.log('load resource')
     console.log(this.data.resourceList)
@@ -349,6 +340,7 @@ Page({
     })
     this.loadResouceList()
   },
+
   searchItem: function (item, value) {
     if (item.title.indexOf(value) !== -1) { return true }
     if (item.content.indexOf(value) !== -1) { return true }
@@ -373,6 +365,65 @@ Page({
 
     this.setData({
       showResouceList: items
+    })
+  },
+  tapButtonTag: function (e) {
+    this.setData({
+      'tapButtonTag': false
+    })
+    // 后端通讯
+  },
+  setTag: function (e) {
+    this.setData({
+      'tapButtonTag': true
+    })
+  },
+  onAddTag: function (e) {
+    console.log(e)
+    let name = e.detail.name
+    let curTags = this.data.searchTags
+    let match = curTags.filter(item => item === name)
+    console.log(match)
+    if (match.length === 0) {
+      curTags.push(name)
+    }
+    console.log(curTags)
+    this.setData({
+      'searchTags': curTags
+    })
+  },
+  closeTag: function (index) {
+    let tags = this.data.searchTags
+    tags.splice(index, 1)
+    this.setData({
+      'searchTags': tags
+    })
+  },
+  onCloseTag: function (e) {
+    console.log(e)
+    let index = e.detail.index
+    this.closeTag(index)
+  },
+  onTapCloseTag: function (e) {
+    let index = e.currentTarget.dataset
+    this.closeTag(index)
+  },
+  clearTags: function (e) {
+    this.setData({
+      'searchTags': []
+    })
+  },
+  fakeHandle: function (e) {
+    // no use so fake
+  },
+
+  changeType: function (e) {
+    console.log(e)
+    let curValue = e.detail
+    let match = showActivityTypes.filter(option => option.value === curValue)
+    console.log(match)
+    this.setData({
+      'formData.type': curValue
     })
   }
 })

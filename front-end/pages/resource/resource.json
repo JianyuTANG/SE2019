@@ -17,6 +17,13 @@
       "van-tab": "../../miniprogram_npm/vant-weapp/tab/index",
       "van-tabs": "../../miniprogram_npm/vant-weapp/tabs/index",
       "van-row": "../../miniprogram_npm/vant-weapp/row/index",
-      "van-col": "../../miniprogram_npm/vant-weapp/col/index"
+      "van-col": "../../miniprogram_npm/vant-weapp/col/index",
+      "van-nav-bar": "../../miniprogram_npm/vant-weapp/nav-bar/index",
+      "activity-tags": "/component/activity-tags/activity-tags",
+      "van-grid": "../../miniprogram_npm/vant-weapp/grid/index",
+      "van-grid-item": "../../miniprogram_npm/vant-weapp/grid-item/index",
+      "van-dropdown-menu": "../../miniprogram_npm/vant-weapp/dropdown-menu/index",
+      "van-dropdown-item": "../../miniprogram_npm/vant-weapp/dropdown-item/index",
+      "van-button": "../../miniprogram_npm/vant-weapp/button/index"
     }
   }
