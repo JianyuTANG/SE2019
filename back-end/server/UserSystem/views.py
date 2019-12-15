@@ -672,3 +672,31 @@ def query_all_num(request):
     return JsonResponse({
         'arr': arr,
     })
+
+
+def get_other_avatar(request):
+    print('/get_other_avatar')
+    post_body = request.body
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+        openid = int(json_request['openid'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
+    if user is None:
+        # 用户不存在 （sessionCode有误） 直接404
+        print('sessioncode校验失败')
+        return get404()
+
+    try:
+        userinfo = UserInfo.objects.get(id=openid)
+    except:
+        res = {'error': 'no such user'}
+        response = HttpResponse(json.dumps(res), content_type="application/json")
+        return response
+
+    return JsonResponse({
+        'avatar_url': userinfo.avatar_url,
+    })
