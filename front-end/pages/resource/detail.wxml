@@ -26,12 +26,12 @@ buttons="{{[{text: '确定'}]}}">
     <view class="answer-content">
         <image mode='widthFix' src="{{coverImg}}"></image>
         <view wx:if="{{imgArr[0]!=='http://154.8.172.132'}}" class="swipers-container">
-          <swiper indicator-dots="{{indicatorDots}}"
-            autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{current}}">
+          <swiper previous-margin="{{leftMargin}}" next-margin="{{rightMargin}}" indicator-dots="{{indicatorDots}}"
+            autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{current}}"bindchange="handleChange">
             <block wx:for="{{imgArr}}" wx:key="*this">
               <swiper-item>
                 <!-- <text>{{item}}</text> -->
-                <image class="swiper_image" src="{{item}}" mode="fill" lazy-load="true" />
+                <image class="slide-image {{currentIndex == index ? 'active': ''}}" src="{{item}}" mode='scaleToFill' lazy-load="true" />
               </swiper-item>
             </block>
           </swiper>

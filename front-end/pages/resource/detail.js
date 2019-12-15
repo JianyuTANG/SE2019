@@ -19,12 +19,16 @@ Page({
     startDate: 'x',
     endDate: 'x',
     imgArr: '',
+    currentIndex: 0,
 
     indicatorDots: true,
     vertical: false,
-    autoplay: false,
-    interval: 2000,
+    autoplay: true,
+    circular: true,
+    interval: 3000,
     duration: 500,
+    leftMargin: '50rpx',
+    rightMargin: '50rpx',
 
     iconName: 'like-o',
     iconUnlike: 'like-o',
@@ -40,28 +44,17 @@ Page({
    */
   onLoad: function (options) {
     let resID = options.resID
+
     // 以下通过从本地读取模拟从服务器获得信息
-    console.log(resID)
     let that = this
     let promise = new Promise((resolve, reject) => {
       that.view_res(resID, resolve, reject)
     })
-    // let item = wx.getStorageSync(resID)
-    // this.setData({
-    //   title: item.title,
-    //   content: item.content,
-    //   contact: item.contact,
-    //   telephone: item.telephone,
-    //   email: item.email,
-    //   qualification: item.qualification,
-    //   startDate: item.startDate,
-    //   endDate: item.endDate,
-    //   imageSrc: item.imageSrc,
-    //   resID: item.resID,
-    //   interested: item.interested
-    // })
-    // let res = wx.getStorageSync('res')
-
+    let promiseAvatar = new Promise((resolve, reject) => {
+      let openid = that.data.openid
+      console.log('要发给后端拿头像的openid', openid)
+      that.get_other_avatar(openid, resolve, reject)
+    })
     promise.then(function (res) {
       // let imgArr = res.data.imgArr.map(x => {
       //   return { url: 'http://154.8.172.132' + x, isImage: true, suffix: data.coverImg }
@@ -69,8 +62,7 @@ Page({
       for (var x in res.data.imgArr) {
         res.data.imgArr[x] = 'http://154.8.172.132' + res.data.imgArr[x]
       }
-      console.log('用于渲染详情页的res in onLoad func(从本地获得的):',
-        res)
+      console.log('用于渲染详情页的res', res)
       that.setData({
         title: res.data.title,
         content: res.data.content,
@@ -82,13 +74,27 @@ Page({
         name: res.data.name,
         resID: res.data.resID,
         tagArr: res.data.tagArr,
-        openid: res.data.openid
-      // interested: res.data.interested
-      // startDate: res.data.startDate,
+        openid: res.data.openid,
+        interested: res.data.isInterested
       })
+      console.log('发起人头像链接', openid)
+      return promiseAvatar
+    }).then(function (res) {
+      that.setData({
+        avatarSrc: res.data.avatar_url
+      })
+
     }).catch(function () {
       console.log('reject')
     })
+
+
+    // promiseAvatar.then(function (res) {
+    //   console.log('发起人头像链接', res)
+    //   that.setData({
+    //     avatarSrc: res
+    //   })
+
   },
 
   /**
@@ -175,6 +181,36 @@ Page({
       fail (res) {
         if (reject) { reject() }
       }
+    })
+  },
+
+  get_other_avatar: function (openid, resolve, reject) {
+    var sessionCode
+    sessionCode = wx.getStorageSync('sessionCode')
+    console.log("openid", openid)
+    wx.request({
+      url: 'http://154.8.172.132/get_other_avatar',
+      method: 'POST',
+      data: {
+        sessionCode: sessionCode,
+        openid: openid
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        console.log('get_other_avatar返回值',res)
+        if (resolve) { resolve(res) }
+      },
+      fail(res) {
+        if (reject) { reject() }
+      }
+    })
+  },
+
+  handleChange: function (e) {
+    this.setData({
+      currentIndex: e.detail.current
     })
   }
 })
