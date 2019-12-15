@@ -8,6 +8,11 @@ const activityTypes =
       { text: '转让交易', value: 5 }
     ]
 
+const showActivityTypes = activityTypes.concat({
+  text: '全部', value: -1
+})
+
 export {
-  activityTypes
+  activityTypes,
+  showActivityTypes
 }

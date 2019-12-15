@@ -54,3 +54,48 @@ page{
 /* body{
     top:80rpx;
 } */
+
+.search-nav{
+    background-color: #f2f3f5;
+}
+
+.search-nav .van-dropdown-menu{
+    background: transparent;
+    width: 50vw;
+    height: 40rpx;
+    padding: 0rpx;
+    float: left;
+}
+.search-nav .van-grid-item{
+    background: transparent;
+    width: 50vw;
+    height: 80rpx;
+    padding: 0rpx;
+    float: left;
+}
+
+.search-nav .dropdown{
+    width: 50vw !important; /**/
+    padding: 0rpx;
+    float: left;/*float 设置后Inline blox就会被删调,从而padding可以使用*/
+}
+
+.search-nav .tag-button{
+    /* display: inline-block; */
+    width: 50vw;
+    background-color: transparent;
+    font-size: 27.6rpx;
+    float: left;
+    padding: 0rpx;
+    margin: 0rpx;
+    border: 0rpx;
+
+}
+
+.tag-nav{
+    background-color: transparent!important;
+}
+
+.tag-nav .van-nav-bar{
+    background-color: transparent!important;
+}
