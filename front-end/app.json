@@ -15,8 +15,8 @@
         "pages/resource/detail",
         "pages/resource/add",
         "pages/groups/groups",
-        "pages/group_info/group_info",
-        "pages/group_member_info/group_member_info",
+        "pages/groups/group_info",
+        "pages/groups/group_member_info",
         "pages/plaza/plaza"
     ],
     "window": {

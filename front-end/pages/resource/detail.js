@@ -50,11 +50,12 @@ Page({
     let promise = new Promise((resolve, reject) => {
       that.view_res(resID, resolve, reject)
     })
-    let promiseAvatar = new Promise((resolve, reject) => {
-      let openid = that.data.openid
-      console.log('要发给后端拿头像的openid', openid)
-      that.get_other_avatar(openid, resolve, reject)
-    })
+    // let promiseAvatar = new Promise((resolve, reject) => {
+    //   let openid = that.data.openid
+    //   console.log('要发给后端拿头像的openid', openid)
+    //   that.get_other_avatar(openid, resolve, reject)
+    // })
+
     promise.then(function (res) {
       // let imgArr = res.data.imgArr.map(x => {
       //   return { url: 'http://154.8.172.132' + x, isImage: true, suffix: data.coverImg }
@@ -77,13 +78,16 @@ Page({
         openid: res.data.openid,
         interested: res.data.isInterested
       })
-      console.log('发起人头像链接', openid)
-      return promiseAvatar
+      return new Promise((resolve, reject) => {
+        let openid = that.data.openid
+        console.log('要发给后端拿头像的openid', openid)
+        that.get_other_avatar(openid, resolve, reject)
+     })
     }).then(function (res) {
+      console.log('最后一个then里面', res)
       that.setData({
-        avatarSrc: res.data.avatar_url
+        avatarSrc: 'http://154.8.172.132' + res.data.avatar_url
       })
-
     }).catch(function () {
       console.log('reject')
     })
@@ -187,7 +191,6 @@ Page({
   get_other_avatar: function (openid, resolve, reject) {
     var sessionCode
     sessionCode = wx.getStorageSync('sessionCode')
-    console.log("openid", openid)
     wx.request({
       url: 'http://154.8.172.132/get_other_avatar',
       method: 'POST',
@@ -199,7 +202,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success(res) {
-        console.log('get_other_avatar返回值',res)
         if (resolve) { resolve(res) }
       },
       fail(res) {
