@@ -2,11 +2,13 @@
 import { tags } from '../../data/tags.js'
 import { showActivityTypes } from '../../data/activityTypes.js'
 const app = getApp()
+const baseUrl = 'http://154.8.172.132/'
 Page({
 
   data: {
     baseUrlwithoutTailLine: 'http://154.8.172.132',
     deleteUrl: 'http://154.8.172.132/delete_res',
+    searchCategoryUrl: baseUrl + 'query_res_by_category',
     nameList: [{
       text: '全部资源'
     }, {
@@ -56,17 +58,18 @@ Page({
     })
     that.loadResouceList()
   },
+  listAddImagePrefix: function (list) {
+    // 用于为图片添加前缀
+    for (let i in list) {
+      // 从这里继续
+      if (list[i].coverImg === '') {
+        list[i].coverImg = '/assets/bluelogo.png'
+      } else { list[i].coverImg = this.data.baseUrlwithoutTailLine + list[i].coverImg }
+    }
+    return list
+  },
   onLoad: function () {
     console.log('load resource' + showActivityTypes)
-    // 以下从服务器获取信息
-
-    // 本地储存方法，已废弃
-    // let lists = [0, 0, 0, 0]
-    // lists[0] = wx.getStorageSync('allList')
-    // lists[1] = wx.getStorageSync('allList')
-    // lists[2] = wx.getStorageSync('likeList')
-    // lists[3] = wx.getStorageSync('issueList')
-    // console.log("全部资源：",lists[0])
   },
   onShow: function () {
     let that = this
@@ -417,13 +420,49 @@ Page({
     // no use so fake
   },
 
-  changeType: function (e) {
+  searchType: function (e) {
     console.log(e)
+    let that = this
     let curValue = e.detail
     let match = showActivityTypes.filter(option => option.value === curValue)
     console.log(match)
     this.setData({
       'formData.type': curValue
+    })
+
+    let category = match[0].text
+    console.log(category)
+    let url = that.data.searchCategoryUrl
+    console.log(url)
+    var sessionCode
+    sessionCode = wx.getStorageSync('sessionCode')
+    var openid
+    openid = wx.getStorageSync('openid')
+
+    wx.request({
+      url: url,
+      method: 'POST',
+
+      data: {
+        sessionCode: sessionCode,
+        openid: openid,
+        category: category
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+        console.log('changeType返回值', res)
+        if (res.statusCode === 200) {
+          let arr = res.data.res_list
+          that.setData({
+            showResouceList: that.listAddImagePrefix(arr)
+          })
+        } else {
+          // fail
+        }
+      // allList
+      }
     })
   }
 })

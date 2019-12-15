@@ -14,7 +14,9 @@
       </activity-tags>
 </mp-dialog>
 
-<mp-searchbar placeholder="请输入关键字搜索" 
+<mp-searchbar 
+    wx:if="{{listIndex === 0}}"
+    placeholder="请输入关键字搜索" 
     bindselectresult="selectResult" 
     bindinput="search">
 </mp-searchbar>
@@ -44,10 +46,10 @@
 <!-- 
 <mp-tabbar ext-class="tabbar-item" style="" currentlist="{{searchList}}" bindchange="tabSearchChange"></mp-tabbar> -->
 
-<van-grid column-num="2" class='search-nav' border="{{ false }}">
+<van-grid wx:if="{{listIndex === 0}}"column-num="2" class='search-nav' border="{{ false }}">
   <van-grid-item use-slot>
     <van-dropdown-menu class='dropdown'>
-      <van-dropdown-item title = "类别搜索" value="{{ activityType }}" options="{{ showActivityTypes }}" bind:change="changeType"/>
+      <van-dropdown-item title = "类别搜索" value="{{ activityType }}" options="{{ showActivityTypes }}" bind:change="searchType"/>
     </van-dropdown-menu>
   </van-grid-item>
 
@@ -56,7 +58,7 @@
   </van-grid-item>
 </van-grid>
 
-<view wx:if="{{searchTags.length}}" >
+<view wx:if="{{searchTags.length && listIndex === 0}}" >
   <view style="padding-left:10rpx; padding-right:10rpx;">
     <van-nav-bar right-text="清空" bind:click-right = "clearTags" safe-area-inset-top="{{false}}"  class="tag-nav">
       <!-- <view slot="left">
