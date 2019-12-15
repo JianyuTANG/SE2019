@@ -45,6 +45,10 @@ urlpatterns = [
     path('query_user_by_number', UserSystem.views.query_user_by_num),
     path('view_other', UserSystem.views.query_other),
     path('refresh_group', UserSystem.views.refresh_group),
+    path('search_res', ResourceSystem.views.serch_res),
+    path('query_res_by_openid', ResourceSystem.views.query_res_by_openid),
+    path('query_res_by_tags', ResourceSystem.views.query_res_by_tags),
+    path('query_res_by_category', ResourceSystem.views.query_res_by_category),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
