@@ -15,17 +15,22 @@ Page({
 
   data: {
     uploadUrl: app.globalData.baseUrl + 'upload_user_avatar',
+    viewUserUrl: app.globalData.baseUrl + 'view_user',
     getAvatarUrl: app.globalData.baseUrl + 'get_user_avatar',
     showPlaceholder: true, // 用于头像
     showLoading: false, // 用于头像是否显示加载样式
     avatar: '',
     name: '',
+    identity: 0,
+    stuNumber: 0,
+    advNumber: 0,
     activities: [],
     t: 0 // 用于更新图片的一种办法,每次更新图片时,t++
   },
   onLoad: function () {
     let that = this
     let sessionCode = wx.getStorageSync('sessionCode')
+    let openid = wx.getStorageSync('openid')
     let prefix = app.globalData.baseUrl.substr(0, app.globalData.baseUrl.length - 1)
     wx.request({
       url: that.data.getAvatarUrl,
@@ -41,6 +46,27 @@ Page({
         console.log(res.data)
         that.setData({
           'avatar': prefix + res.data.url
+        })
+      }
+    })
+
+    wx.request({
+      url: that.data.viewUserUrl,
+      method: 'POST',
+      data: {
+        sessionCode: sessionCode,
+        openid: openid
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+        console.log(res)
+        console.log(res.data)
+        that.setData({
+          'stuNumber': res.data.studentArr,
+          'advNumber': res.data.advisorArr,
+          'name': res.data.name
         })
       }
     })

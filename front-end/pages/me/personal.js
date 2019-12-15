@@ -16,7 +16,8 @@ Page({
     fieldList: fieldList,
     basicData: { // 读取的用户的基本数据
       name: '',
-      num: '',
+      stuNum: [],
+      advNum: [],
       identity: '',
       department: ''
     }, // 可以被修改的提交表单的数据
@@ -71,16 +72,16 @@ Page({
   setFormText () {
     let formData = this.data.formData
     let basicData = this.data.basicData
-    let numbers = basicData.num.split(',')
-    let number = numbers[basicData.identity]
+    // let numbers = basicData.num.split(',')
+    // let number = numbers[basicData.identity]
     let city = areaList['city_list'][formData.cityCode] || '请选择'
     let field = fieldList['city_list'][formData.fieldCode] || '请选择'
     let depart = departList[basicData.department]
     this.setData({
       'formText.city': city,
       'formText.field': field,
-      'basicText.department': depart,
-      'basicText.num': number
+      'basicText.department': depart
+      // 'basicText.num': number
     })
   },
   // ---------------------------------------以下是和后端联系的函数--------------------------
@@ -103,7 +104,8 @@ Page({
         console.log(res.data)
         that.setData({
           'basicData.name': res.data.name,
-          'basicData.num': res.data.num,
+          'basicData.stuNum': res.data.studentArr,
+          'basicData.advNum': res.data.advisorArr,
           'basicData.identity': res.data.identity,
           'basicData.department': res.data.department,
           'formData.cityCode': res.data.city,
