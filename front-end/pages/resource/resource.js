@@ -9,6 +9,7 @@ Page({
     baseUrlwithoutTailLine: 'http://154.8.172.132',
     deleteUrl: 'http://154.8.172.132/delete_res',
     searchCategoryUrl: baseUrl + 'query_res_by_category',
+    searchTagsUrl: baseUrl + 'query_res_by_tags',
     queryAllUrl: baseUrl + 'query_res_all',
     nameList: [{
       text: '全部资源'
@@ -25,7 +26,6 @@ Page({
       text: '设置tag'
     }],
     searchTags: [],
-    // searchTags: ['1', '2', '3', '4', '5', '6', '7', '8'],
     resourceList: [],
     showResouceList: [],
     tagList: tags, // 显示已有的tag
@@ -100,6 +100,14 @@ Page({
     console.log('当前类别为', app.globalData.curResourceType)
     if (that.data.listIndex === 0 && app.globalData.curResourceType !== -1) {
       that.searchType(app.globalData.curResourceType)
+    }
+
+    if (app.globalData.curResourceTags.length) {
+      console.log(app.globalData.curResourceTags)
+      that.setData({
+        searchTags: app.globalData.curResourceTags
+      })
+      that.queryTag()
     }
     // let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
   },
@@ -377,11 +385,46 @@ Page({
       showResouceList: items
     })
   },
-  tapButtonTag: function (e) {
+  queryTag: function () {
+    // 后端通讯
+    let that = this
+    let url = that.data.searchTagsUrl
+    console.log(url)
+    var sessionCode
+    sessionCode = wx.getStorageSync('sessionCode')
+    var openid
+    openid = wx.getStorageSync('openid')
+    wx.request({
+      url: url,
+      method: 'POST',
+      data: {
+        sessionCode: sessionCode,
+        openid: openid,
+        tagArr: that.data.searchTags
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+        console.log('changeType返回值', res)
+        if (res.statusCode === 200) {
+          let arr = res.data.res_list
+          that.setData({
+            showResouceList: that.listAddImagePrefix(arr)
+          })
+        } else {
+        }
+      // allList
+      }
+    })
+  },
+
+  onButtonTag: function (e) {
     this.setData({
       'tapButtonTag': false
     })
-    // 后端通讯
+    app.globalData.curResourceTags = this.data.searchTags
+    this.queryTag()
   },
   setTag: function (e) {
     this.setData({
@@ -419,9 +462,11 @@ Page({
     this.closeTag(index)
   },
   clearTags: function (e) {
+    app.globalData.curResourceTags = []
     this.setData({
       'searchTags': []
     })
+    this.queryTag()
   },
   fakeHandle: function (e) {
     // no use so fake

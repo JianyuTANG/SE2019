@@ -3,7 +3,7 @@
   wx:if = "{{tapButtonTag}}"
   title="设置Tag" 
   show="{{tapButtonTag}}" 
-  bindbuttontap="tapButtonTag" 
+  bindbuttontap="onButtonTag" 
   ext-class="set-date-dialog"
   buttons="{{[{text: '确定'}]}}">
       <activity-tags 
