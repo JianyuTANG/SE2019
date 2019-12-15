@@ -323,6 +323,50 @@ def query_res_by_openid(request):
         res_list.append(tmp)
     return JsonResponse({"res_list": res_list})
 
+def query_res_by_tags(request):
+    '''
+    根据tags查看资源
+    :param request:
+    :return:
+    '''
+    post_body = request.body
+    json_request = json.loads(post_body)
+    session_code = json_request['sessionCode']
+    if session_code is None:
+        res = HttpResponse()
+        res.status_code = 404
+        return res
+#    if session_code != administration_config['session_code']:
+#        res = HttpResponse()
+#        res.status_code = 404
+#        return res
+    openid = json_request['openid']
+    target_tags = json_request['tagArr']
+    resources = Resource.objects.filter()
+    res_list = []
+    for e in resources:
+        tags = e.tag_arr.split(",")
+        flag = True
+        for tag in target_tags:
+            if not tag in tags:
+                flag = False
+        if flag:
+            interest_list = e.interest_users.split(",")
+            tmp = {}
+            tmp['title'] = e.title
+            tmp['name'] = e.name
+            tmp['createTime'] = e.c_time
+            tmp['imgUrl'] = e.img_arr.split(",")
+            tmp['coverImg'] = e.cover_img
+            tmp['tags'] = e.tag_arr.split(",")
+            tmp['category'] = e.category
+            tmp['contact'] = e.contact
+            tmp['due'] = e.due
+            tmp['resID'] = e.res_id
+            tmp['interested'] = openid in interest_list
+            res_list.append(tmp)
+    return JsonResponse({"res_list": res_list})
+
 def serch_res(request):
     '''
     搜索资源
