@@ -49,7 +49,7 @@
 <van-grid wx:if="{{listIndex === 0}}"column-num="2" class='search-nav' border="{{ false }}">
   <van-grid-item use-slot>
     <van-dropdown-menu class='dropdown'>
-      <van-dropdown-item title = "类别搜索" value="{{ activityType }}" options="{{ showActivityTypes }}" bind:change="searchType"/>
+      <van-dropdown-item title = "类别搜索" value="{{ activityType }}" options="{{ showActivityTypes }}" bind:change="onSearchType"/>
     </van-dropdown-menu>
   </van-grid-item>
 

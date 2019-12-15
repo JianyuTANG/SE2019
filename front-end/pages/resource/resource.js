@@ -9,6 +9,7 @@ Page({
     baseUrlwithoutTailLine: 'http://154.8.172.132',
     deleteUrl: 'http://154.8.172.132/delete_res',
     searchCategoryUrl: baseUrl + 'query_res_by_category',
+    queryAllUrl: baseUrl + 'query_res_all',
     nameList: [{
       text: '全部资源'
     }, {
@@ -81,6 +82,7 @@ Page({
     })
     let promise = new Promise((resolve, reject) => {
       that.query_res_all(resolve, reject)
+      // that.searchType(that.data.activityType, resolve, reject)
     })
     console.log(promise)
     promise.then(function () {
@@ -94,6 +96,11 @@ Page({
       console.log('promise fail')
       console.log(reason)
     })
+
+    console.log('当前类别为', app.globalData.curResourceType)
+    if (that.data.listIndex === 0 && app.globalData.curResourceType !== -1) {
+      that.searchType(app.globalData.curResourceType)
+    }
     // let lists = [this.data.facultyList, this.data.domesticList, this.data.overseasList, this.data.interestList]
   },
 
@@ -420,16 +427,19 @@ Page({
     // no use so fake
   },
 
-  searchType: function (e) {
+  onSearchType: function (e) {
     console.log(e)
-    let that = this
     let curValue = e.detail
-    let match = showActivityTypes.filter(option => option.value === curValue)
-    console.log(match)
+    this.searchType(curValue)
+  },
+
+  searchType: function (curValue, resolve, reject) {
+    app.globalData.curResourceType = curValue
+    let that = this
     this.setData({
       'formData.type': curValue
     })
-
+    let match = showActivityTypes.filter(option => option.value === curValue)
     let category = match[0].text
     console.log(category)
     let url = that.data.searchCategoryUrl
@@ -438,6 +448,11 @@ Page({
     sessionCode = wx.getStorageSync('sessionCode')
     var openid
     openid = wx.getStorageSync('openid')
+
+    if (curValue === -1) {
+      // -1 是all
+      url = this.data.queryAllUrl
+    }
 
     wx.request({
       url: url,
@@ -458,8 +473,10 @@ Page({
           that.setData({
             showResouceList: that.listAddImagePrefix(arr)
           })
+          if (resolve) { resolve() }
         } else {
           // fail
+          if (reject) { reject() }
         }
       // allList
       }
