@@ -601,7 +601,7 @@ def query_user_by_num(request):
             'openid': advisor_list_id[i],
             'isStudent': 0,
         })
-    res = {'userArr': user_arr}
+    res = {'userArr': user_arr, 'title': group.title, 'description': group.description}
     response = HttpResponse(json.dumps(res), content_type="application/json")
     response.status_code = 200
     return response
@@ -680,7 +680,7 @@ def get_other_avatar(request):
     try:
         json_request = json.loads(post_body)
         user = get_user(json_request['sessionCode'])
-        openid = int(json_request['openid'])
+        openid = json_request['openid']
     except:
         print('json请求解析错误')
         return get404()
@@ -691,7 +691,8 @@ def get_other_avatar(request):
         return get404()
 
     try:
-        userinfo = UserInfo.objects.get(id=openid)
+        user = User.objects.get(openid=openid)
+        userinfo = user.info
     except:
         res = {'error': 'no such user'}
         response = HttpResponse(json.dumps(res), content_type="application/json")

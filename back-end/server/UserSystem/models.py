@@ -46,6 +46,8 @@ class Group_num(models.Model):
     advisor_list_id = models.TextField(default='')
     student_list_name = models.TextField(default='')
     advisor_list_name = models.TextField(default='')
+    title = models.TextField(default='')
+    description = models.TextField(default='')
 
     def __str__(self):
         return str(self.num)

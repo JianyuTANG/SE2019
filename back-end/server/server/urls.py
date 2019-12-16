@@ -52,6 +52,7 @@ urlpatterns = [
     path('query_res_by_category', ResourceSystem.views.query_res_by_category),
     path('query_all_num', UserSystem.views.query_all_num),
     path('query_res_by_category_tags', ResourceSystem.views.query_res_by_category_tags),
+    path('get_other_avatar', UserSystem.views.get_other_avartar),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
