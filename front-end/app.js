@@ -54,15 +54,15 @@ App({
                 wx.setStorageSync('sessionCode', res.data.sessionCode)
                 // wx.setStorageSync('openId', res.data.openId)
 
-                if (res.data.identity !== -1) {
-                  wx.switchTab({
-                    url: '/pages/me/me'
-                  })
-                } else {
-                  wx.switchTab({
-                    url: '/pages/login/login'
-                  })
-                }
+                // if (res.data.identity !== -1) {
+                //   wx.switchTab({
+                //     url: '/pages/me/me'
+                //   })
+                // } else {
+                //   wx.switchTab({
+                //     url: '/pages/login/login'
+                //   })
+                // }
 
                 wx.getStorage({
                   key: 'identity', // 和存储的key值一致；
