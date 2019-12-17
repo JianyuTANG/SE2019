@@ -30,7 +30,7 @@ Page({
 
   memberDetail: function (e) {
     wx.navigateTo({
-      url: '/pages/group_member_info/group_member_info'
+      url: '/pages/groups/group_member_info'
     })
   },
 
