@@ -52,14 +52,14 @@
 		<text class="title">基本资料</text>
     </view>
     <view slot="">
-        <text >{{basicData.stuNum.length? "第" + basicData.stuNum + "期学生":""}}</text>
-        <text >{{basicData.advNum.length? "第" + basicData.advNum + "期辅导员":""}}</text>
+        <text >{{stuNum.length? "第" + stuNum + "期学生":""}}</text>
+        <text >{{advNum.length? "第" + advNum + "期辅导员":""}}</text>
         <text>\n</text>
-        <text >院系:{{basicText.department}}\n</text>
+        <text >院系:{{department}}\n</text>
   
-        <text >城市:{{formText.city}}\n</text>
+        <text >城市:{{city}}\n</text>
         
-        <text >行业领域:{{formText.field}}\n</text>
+        <text >行业领域:{{field}}\n</text>
 
         <text> </text>
     </view>

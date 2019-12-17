@@ -1,33 +1,43 @@
+/* 他人详情页面,传入options中的targetOpenid字段 */
 const app = getApp()
 Page({
   data: {
     baseUrl: app.globalData.baseUrl,
     baseUrlPrefix: app.globalData.baseUrl.substr(0, app.globalData.baseUrl.length - 1),
     queryUrl: app.globalData.baseUrl + 'query_res_by_openid',
-    user: {},
-    repo: [],
-    prs: [],
-    language: [],
+    viewUserUrl: app.globalData.baseUrl + 'view_other',
     activeNames: ['1'],
     avatarUrl: '',
     name: 'test',
     email: 'abc',
+    department: '',
+    city: '',
+    field: '',
     telephone: 123,
     content: '123',
-    showResouceList: []
+    showResouceList: [],
+    tarOpenid: '',
+    stuNum: [],
+    advNum: []
   },
-  onChange (event) {
-    this.setData({
-      activeNames: event.detail
+  onLoad: function (options) {
+    let that = this
+    let tarOpenid = options.targetOpenid
+    that.setData({
+      tarOpenid: tarOpenid
     })
   },
-
   onShow: function () {
     let that = this
-    let promise = new Promise((resolve, reject) => {
+    let promiseRes = new Promise((resolve, reject) => {
       that.query_res(resolve, reject)
     })
-    promise.then((res) => {
+
+    let promiseUser = new Promise((resolve, reject) => {
+      that.query_user(resolve, reject)
+    })
+
+    promiseRes.then((res) => {
       console.log(res)
       let resList = res.data.res_list.filter(d => d).map(item => {
         let x = item
@@ -38,17 +48,63 @@ Page({
       that.setData({
         showResouceList: resList
       })
+    }).catch(res => { console.log(res) })
+
+    promiseUser.then((res) => {
+      console.log('promise user' + res)
+      let resData = res.data
+      resData['avatar_url'] = that.data.baseUrlPrefix + resData['avatar_url']
+      that.setData({
+        name: resData.name,
+        stuNum: resData.studentNum,
+        advNum: resData.advisorNum,
+        department: resData.department,
+        email: resData.email,
+        field: resData.field,
+        telephone: resData.tel,
+        content: resData.selfDiscription,
+        avatarUrl: resData['avatar_url']
+      })
+    }).catch(res => { console.log(res) })
+  },
+
+  query_user: function (resolve, reject) {
+    let that = this
+    let sessionCode = wx.getStorageSync('sessionCode')
+    let tOpenid = that.data.tarOpenid
+    let url = that.data.viewUserUrl
+    console.log('tOpenid' + tOpenid)
+    wx.request({
+      url: url,
+      method: 'POST',
+      data: {
+        sessionCode: sessionCode,
+        openid: tOpenid
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+        console.log('view user返回值', res)
+        if (res.statusCode === 200) {
+          resolve(res)
+        } else {
+          reject(new Error('server rejects'))
+        }
+      // allList
+      },
+      fail: (res) => {
+        reject(new Error('server rejects'))
+      }
     })
   },
 
   query_res: function (resolve, reject) {
-    var sessionCode
-    sessionCode = wx.getStorageSync('sessionCode')
-    var openid
-    openid = wx.getStorageSync('openid')
-    let tOpenid = 'o06Ms5PUJeTEFrMLYnjNf-mM_CAc'
     let that = this
-    let url = this.data.queryUrl
+    let sessionCode = wx.getStorageSync('sessionCode')
+    let openid = wx.getStorageSync('openid')
+    let tOpenid = that.data.tarOpenid
+    let url = that.data.queryUrl
     wx.request({
       url: url,
       method: 'POST',
@@ -62,7 +118,7 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success (res) {
-        console.log('switch_interest返回值', res)
+        console.log('query res返回值', res)
         if (res.statusCode === 200) {
           resolve(res)
         } else {
@@ -84,86 +140,9 @@ Page({
     }
   },
 
-  getYear: function (date) {
-    return new Date(date).getFullYear()
-  },
-
-  computePopularity: function (repo) {
-    return repo.stargazers_count * 2 + parseInt(repo.forks_count)
-  },
-
-  collectPr: function (prs) {
-    prs = prs.reduce(function (p, c) {
-      if (!p[c.repository_url]) {
-        p[c.repository_url] = {
-          popularity: 1
-        }
-      } else {
-        p[c.repository_url].popularity += 1
-      }
-      return p
-    }, {})
-
-    return Object.keys(prs).map(function (v) {
-      return {
-        name: v.replace('https://api.github.com/repos/', ''),
-        popularity: prs[v].popularity
-      }
+  onChange (event) {
+    this.setData({
+      activeNames: event.detail
     })
-  },
-
-  /**
-	 * [{ language }] => [{ xxx: { popularity: xxx }}]
-	 */
-  collectLanguage: function (repo) {
-    var language = {}
-    var total = 0
-    repo.forEach(function (r) {
-      var lang = r.language
-      if (!lang) {
-        return false
-      } else if (!language[lang]) {
-        language[lang] = {
-          popularity: 1
-        }
-      } else {
-        language[lang].popularity += 1
-      }
-      total++
-    })
-
-    return Object.keys(language).map(function (l) {
-      return {
-        name: l,
-        percent: Math.round(language[l].popularity / total * 100),
-        popularity: language[l].popularity
-      }
-    })
-  },
-
-  onLoad: function () {
-    // var detail = wx.getStorageSync(app.storageName) || {}
-    // var repo = detail.repo.filter(function (r) {
-    //   return !r.fork
-    // })
-
-    // var prs = this.collectPr(detail.pr.items)
-
-    // detail.user.year = this.getYear(detail.user.created_at)
-
-    // repo.sort(function (p, c) {
-    //   return (this.computePopularity(p) > this.computePopularity(c))
-    // }).reverse()
-
-    // prs.sort(function (p, c) {
-    //   return p.popularity > c.popularity
-    // }).reverse()
-
-    // this.setData({
-    //   user: detail.user,
-    //   repo: repo.slice(0, 5),
-    //   prs: prs.slice(0, 5),
-    //   language: this.collectLanguage(repo)
-    // })
   }
 })
