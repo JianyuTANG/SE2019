@@ -1,8 +1,8 @@
 <!-- <button class="weui-btn mini-button" type="default">创建新群组</button> -->
-<!-- <mp-searchbar placeholder="请输入关键字搜索" bindselectresult="selectResult" bindinput="search">
+<mp-searchbar placeholder="请输入关键字搜索" bindselectresult="selectResult" bindinput="search">
 </mp-searchbar>
 
-<mp-tabbar ext-class="tabbar-item" style="" list="{{list}}" bindchange="tabChange">
+<!-- <mp-tabbar ext-class="tabbar-item" style="" list="{{list}}" bindchange="tabChange">
 </mp-tabbar>
 
 <view wx:for="{{groupList}}"  class = "group-card">
@@ -53,7 +53,14 @@
       <swiper current='{{currentTab}}' vertical='{{true}}'>
         <!-- catchtouchmove 阻止弹窗后滚动穿透 -->
         <swiper-item id="0" catchtouchmove="false">
-          我加入的
+          <view wx:for="{{groupList}}"  class = "group-card">
+            <group-card catchtap="groupDetail"
+              title="{{item.title}}" 
+              intro="{{item.intro}}"
+              master="{{item.master}}"
+              num="{{item.num}}">
+            </group-card>  
+          </view>
         </swiper-item>
         <swiper-item id="1" catchtouchmove="false">
           每期归属

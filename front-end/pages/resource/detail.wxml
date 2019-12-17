@@ -24,6 +24,7 @@ buttons="{{[{text: '确定'}]}}">
         </view>
     </view>
     <view class="answer-content">
+      <mp-cell show-error title="" ext-class="">
         <image mode='widthFix' src="{{coverImg}}"></image>
         <view wx:if="{{imgArr[0]!=='http://154.8.172.132'}}" class="swipers-container">
           <swiper previous-margin="{{leftMargin}}" next-margin="{{rightMargin}}" indicator-dots="{{indicatorDots}}"
@@ -36,37 +37,54 @@ buttons="{{[{text: '确定'}]}}">
             </block>
           </swiper>
         </view>
-        <text>
-        活动详情：{{content}}
-        已报名人数:{{enrollment}}
-        </text>
-        <mp-cell show-error prop="tag" title="活动tag" ext-class="">
-          <view wx:for="{{tags}}" style="margin-left:20rpx; display: inline-block;">
+      </mp-cell>
+        <mp-cell show-error title="" ext-class="">
+          <text>活动详情：{{content}}</text>
+        </mp-cell>
+        <mp-cell show-error title="" ext-class="">
+          <text>活动tag：</text>
+          <view wx:for="{{tagArr}}" style="margin-left:20rpx; display: inline-block;">
             <van-tag type="primary" data-index="{{index}}">
               <van-tag type="primary" >{{item}}</van-tag>
-              <text>X</text>
             </van-tag>
           </view>
         </mp-cell>
-        <text class="begin-date">发起日期：{{startDate}}</text>
+        <mp-cell show-error title="" ext-class="">
+          <text class="begin-date">发起日期：{{startDate}}
+        
+        
+        
+        </text>
+        </mp-cell>
     </view>
     <view class="answer-footer flex-around">
       <view class="end-date flex-item">
-        <text>截止日期:{{endDate}}</text>
+        <text>截止日期:{{due}}</text>
       </view>
-      <view class="follow flex-item" catch:tap="enroll">
-        <text>十 我要报名</text>
+      <view class="follow flex-item">
+        <!-- <text>十 我要报名</text> -->
+        <van-icon wx:if="{{interested}}" name='like' size="2.5em" bind:click="switch_interest"/>
+        <van-icon wx:else name='like-o' size="2.5em" bind:click="switch_interest"/>
+      </view>
+      <view class="follow flex-item">
+        <van-icon wx:if="{{canChange}}" name='setting' size="2.5em" bind:tap="change"/>
+      </view>
+      <view class="follow flex-item">
+        <van-icon wx:if="{{canChange}}" name="clear" size="2.5em" bind:tap="delete"/>
       </view>
     </view>
   </view>
 
-    <view class="answer-footer flex-around">
+    <!-- <view class="answer-footer flex-around">
       <view class="end-date flex-item">
         <text>截止日期:{{due}}</text>
       </view>
 
       <view class="follow flex-item" catch:tap="enroll">
-        <van-icon name='like-o' size="2.5em"/>
+            <van-icon wx:if="{{interested}}" name='like' size="2.5em" bind:click="switch_interest"/>
+            <van-icon wx:else name='like-o' size="2.5em" bind:click="switch_interest"/>
+            <van-icon wx:if="{{canChange}}" name='setting' size="2.5em" bind:tap="change"/>
+            <van-icon wx:if="{{canChange}}" name="clear" size="2.5em" bind:tap="delete"/>
       </view>
-    </view>
+    </view> -->
 

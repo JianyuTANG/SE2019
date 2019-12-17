@@ -16,9 +16,11 @@ Page({
     telephone: 'x',
     email: 'x',
     qualification: 'x',
-    startDate: 'x',
-    endDate: 'x',
+    startDate: '2019/12/09',
+    due: 'x',
     imgArr: '',
+    resID:'x',
+    interested:'',
     currentIndex: 0,
 
     indicatorDots: true,
@@ -39,66 +41,21 @@ Page({
     tapEnrollment: false
   },
 
+  properties: {
+    canChange: {
+      type: Boolean,
+      value: false
+    }
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let resID = options.resID
-
-    // 以下通过从本地读取模拟从服务器获得信息
     let that = this
-    let promise = new Promise((resolve, reject) => {
-      that.view_res(resID, resolve, reject)
+    that.setData({
+      resID: options.resID
     })
-    // let promiseAvatar = new Promise((resolve, reject) => {
-    //   let openid = that.data.openid
-    //   console.log('要发给后端拿头像的openid', openid)
-    //   that.get_other_avatar(openid, resolve, reject)
-    // })
-
-    promise.then(function (res) {
-      // let imgArr = res.data.imgArr.map(x => {
-      //   return { url: 'http://154.8.172.132' + x, isImage: true, suffix: data.coverImg }
-      // })
-      for (var x in res.data.imgArr) {
-        res.data.imgArr[x] = 'http://154.8.172.132' + res.data.imgArr[x]
-      }
-      console.log('用于渲染详情页的res', res)
-      that.setData({
-        title: res.data.title,
-        content: res.data.content,
-        contact: res.data.contact,
-        category: res.data.category,
-        coverImg: 'http://154.8.172.132' + res.data.coverImg,
-        due: res.data.due,
-        imgArr: res.data.imgArr,
-        name: res.data.name,
-        resID: res.data.resID,
-        tagArr: res.data.tagArr,
-        openid: res.data.openid,
-        interested: res.data.isInterested
-      })
-      return new Promise((resolve, reject) => {
-        let openid = that.data.openid
-        console.log('要发给后端拿头像的openid', openid)
-        that.get_other_avatar(openid, resolve, reject)
-     })
-    }).then(function (res) {
-      console.log('最后一个then里面', res)
-      that.setData({
-        avatarSrc: 'http://154.8.172.132' + res.data.avatar_url
-      })
-    }).catch(function () {
-      console.log('reject')
-    })
-
-
-    // promiseAvatar.then(function (res) {
-    //   console.log('发起人头像链接', res)
-    //   that.setData({
-    //     avatarSrc: res
-    //   })
-
   },
 
   /**
@@ -112,7 +69,56 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
+    let that = this
+    let resID = that.data.resID
+    console.log('resID = ',resID)
+    let promise = new Promise((resolve, reject) => {
+      that.view_res(resID, resolve, reject)
+    })
+    // let promiseAvatar = new Promise((resolve, reject) => {
+    //   let openid = that.data.openid
+    //   console.log('要发给后端拿头像的openid', openid)
+    //   that.get_other_avatar(openid, resolve, reject)
+    // })
+    promise.then(function (res) {
+      // let imgArr = res.data.imgArr.map(x => {
+      //   return { url: 'http://154.8.172.132' + x, isImage: true, suffix: data.coverImg }
+      // })
+      for (var x in res.data.imgArr) {
+        res.data.imgArr[x] = 'http://154.8.172.132' + res.data.imgArr[x]
+      }
+      console.log('用于渲染详情页的res', res)
+      var openidStore
+      openidStore = wx.getStorageSync('openid')
+      that.setData({
+        title: res.data.title,
+        content: res.data.content,
+        contact: res.data.contact,
+        category: res.data.category,
+        coverImg: 'http://154.8.172.132' + res.data.coverImg,
+        due: res.data.due,
+        imgArr: res.data.imgArr,
+        name: res.data.name,
+        resID: res.data.resID,
+        tagArr: res.data.tagArr,
+        openid: res.data.openid,
+        interested: res.data.isInterested,
+        canChange: res.data.openid == openidStore
+      })
+      return new Promise((resolve, reject) => {
+        let openid = that.data.openid
+        console.log('要发给后端拿头像的openid', openid)
+        that.get_other_avatar(openid, resolve, reject)
+      })
+    }).then(function (res) {
+      console.log('最后一个then里面', res)
+      that.setData({
+        avatarSrc: 'http://154.8.172.132' + res.data.avatar_url
+      })
+    }).catch(function () {
+      console.log('reject')
+    })
   },
 
   /**
@@ -208,6 +214,44 @@ Page({
         if (reject) { reject() }
       }
     })
+  },
+
+  switch_interest: function (e) {
+    let that = this
+    var sessionCode
+    sessionCode = wx.getStorageSync('sessionCode')
+    var openid
+    openid = wx.getStorageSync('openid')
+    let resID = that.data.resID
+    let promiseInterest = new Promise((resolve, reject) => {
+      wx.request({
+        url: 'http://154.8.172.132/switch_interest',
+        method: 'POST',
+
+        data: {
+          sessionCode: sessionCode,
+          openid: openid,
+          resID: resID
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success(res) {
+          console.log('switch_interest返回值', res)
+          if (res.statusCode === 200) {
+            resolve()
+          } else {
+            reject(new Error('server rejects'))
+          }
+          // allList
+        }
+      })
+    })
+
+    promiseInterest.then(
+      this.onShow).catch(function (e) {
+        console.log(e)
+      })
   },
 
   handleChange: function (e) {
