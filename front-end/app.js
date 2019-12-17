@@ -72,12 +72,7 @@ App({
                 })
               },
               fail: function () {
-                console.log('index.js wx.request CheckCallUser fail')
-                wx.showToast({
-                  title: '未成功连接到服务器,请检查网络通信状态',
-                  icon: 'loading',
-                  duration: 2000
-                })
+                that.errorConnect()
               },
               complete: function () {
                 // complete
@@ -85,13 +80,12 @@ App({
             })
           },
           fail: res => {
-            wx.showToast({
-              title: '未成功连接到服务器,请检查网络通信状态',
-              icon: 'loading',
-              duration: 2000
-            })
+            that.errorConnect()
           }
         })
+      },
+      fail: res => {
+        that.errorConnect()
       }
     })
     // 获取用户信息
@@ -114,6 +108,14 @@ App({
     console.log('用户未验证，需要验证')
     wx.switchTab({
       url: '/pages/groups/groups'
+    })
+  },
+  errorConnect: function () {
+    console.log('error when connect to server')
+    wx.showToast({
+      title: '未联网',
+      icon: 'loading',
+      duration: 20000
     })
   }
 })
