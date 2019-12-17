@@ -1,7 +1,9 @@
-var app = getApp()
-
+const app = getApp()
 Page({
   data: {
+    baseUrl: app.globalData.baseUrl,
+    baseUrlPrefix: app.globalData.baseUrl.substr(0, app.globalData.baseUrl.length - 1),
+    queryUrl: app.globalData.baseUrl + 'query_res_by_openid',
     user: {},
     repo: [],
     prs: [],
@@ -12,11 +14,65 @@ Page({
     email: 'abc',
     telephone: 123,
     content: '123',
-    showResourceList: []
+    showResouceList: []
   },
   onChange (event) {
     this.setData({
       activeNames: event.detail
+    })
+  },
+
+  onShow: function () {
+    let that = this
+    let promise = new Promise((resolve, reject) => {
+      that.query_res(resolve, reject)
+    })
+    promise.then((res) => {
+      console.log(res)
+      let resList = res.data.res_list.filter(d => d).map(item => {
+        let x = item
+        x['coverImg'] = that.data.baseUrlPrefix + item['coverImg']
+        return x
+      })
+      console.log(resList)
+      that.setData({
+        showResouceList: resList
+      })
+    })
+  },
+
+  query_res: function (resolve, reject) {
+    var sessionCode
+    sessionCode = wx.getStorageSync('sessionCode')
+    var openid
+    openid = wx.getStorageSync('openid')
+    let tOpenid = 'o06Ms5PUJeTEFrMLYnjNf-mM_CAc'
+    let that = this
+    let url = this.data.queryUrl
+    wx.request({
+      url: url,
+      method: 'POST',
+
+      data: {
+        sessionCode: sessionCode,
+        openid: openid,
+        targetOpenid: tOpenid
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+        console.log('switch_interest返回值', res)
+        if (res.statusCode === 200) {
+          resolve(res)
+        } else {
+          reject(new Error('server rejects'))
+        }
+      // allList
+      },
+      fail: (res) => {
+        reject(new Error('server rejects'))
+      }
     })
   },
 

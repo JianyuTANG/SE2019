@@ -10,7 +10,7 @@ module.exports = {
   <van-row >
     <!-- <view bindtap="readmore" >  -->
     <van-col span="9" bindtap="readmore">
-      <image style="width: 200rpx; height: 200rpx;" src="{{coverImg}}" fit="cover" show-error= "true" show-loading= "true"> </image>
+      <image style="width: 150rpx; height: 150rpx;" src="{{coverImg}}" fit="cover" show-error= "true" show-loading= "true"> </image>
     </van-col>
     <!-- </view> -->
     
@@ -48,8 +48,13 @@ module.exports = {
           <view class="info-line">
             <text>是否收藏:{{interested}}
             </text>
+              <view wx:if="{{canLove}}">
               <van-icon wx:if="{{interested}}" name='like' size="2.5em" bind:click="switch_interest"/>
               <van-icon wx:else name='like-o' size="2.5em" bind:click="switch_interest"/>
+              </view>
+              <view wx:else>
+                <van-icon name="play" />
+              </view>
             <van-icon wx:if="{{canChange}}" name='setting' size="2.5em" bind:tap="change"/>
             <van-icon wx:if="{{canChange}}" name="clear" size="2.5em" bind:tap="delete"/>
           </view>

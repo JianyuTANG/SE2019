@@ -84,7 +84,7 @@
 		<text class="title">发布资源</text>
     </view>
     <view slot="">
-        <view wx:for="{{showResouceList}}"  class = "resource-card">
+        <view wx:for="{{showResouceList}}"  class="resource-card">
         <resource-card 
                     data-id="{{item.resID}}"
                     resID="{{item.resID}}"
@@ -100,7 +100,8 @@
                     content="{{item.content}}"
                     startDate="{{item.startDate}}"
                     interested="{{item.interested}}"
-                    canChange="{{canChange}}">
+                    canChange="{{false}}"
+                    canLove="{{false}}">
         </resource-card>
         </view>
     </view>
