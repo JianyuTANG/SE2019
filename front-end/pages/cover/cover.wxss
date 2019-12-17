@@ -1,0 +1,18 @@
+/* pages/cover/cover.wxss */
+.cover{
+    display: flex;
+    position: absolute;
+    margin-top: 30vh;
+    color: #14abba;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.cover-box{
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+}

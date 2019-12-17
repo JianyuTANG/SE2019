@@ -1,0 +1,15 @@
+<!--pages/cover/cover.wxml-->
+<view class="cover-box">
+    <view class="cover">
+        <view style="display:block; text-align:center;">
+            <text>
+            欢迎使用思源人
+            </text>
+        </view>
+        <view>
+            <image src="/assets/bluelogo.png" 
+                mode="aspectFit"
+                style="width:50vw; display:block;"/>
+        </view>
+    </view>
+</view>

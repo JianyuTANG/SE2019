@@ -53,10 +53,14 @@ App({
                 // console.log('啦啦啦', testopenid)
                 wx.setStorageSync('sessionCode', res.data.sessionCode)
                 // wx.setStorageSync('openId', res.data.openId)
-                
+
                 if (res.data.identity !== -1) {
                   wx.switchTab({
                     url: '/pages/me/me'
+                  })
+                } else {
+                  wx.switchTab({
+                    url: '/pages/login/login'
                   })
                 }
 
@@ -69,10 +73,22 @@ App({
               },
               fail: function () {
                 console.log('index.js wx.request CheckCallUser fail')
+                wx.showToast({
+                  title: '未成功连接到服务器,请检查网络通信状态',
+                  icon: 'loading',
+                  duration: 2000
+                })
               },
               complete: function () {
                 // complete
               }
+            })
+          },
+          fail: res => {
+            wx.showToast({
+              title: '未成功连接到服务器,请检查网络通信状态',
+              icon: 'loading',
+              duration: 2000
             })
           }
         })
