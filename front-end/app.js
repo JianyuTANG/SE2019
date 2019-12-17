@@ -53,10 +53,14 @@ App({
                 // console.log('啦啦啦', testopenid)
                 wx.setStorageSync('sessionCode', res.data.sessionCode)
                 // wx.setStorageSync('openId', res.data.openId)
-                
+
                 if (res.data.identity !== -1) {
                   wx.switchTab({
                     url: '/pages/me/me'
+                  })
+                } else {
+                  wx.switchTab({
+                    url: '/pages/login/login'
                   })
                 }
 
@@ -68,14 +72,20 @@ App({
                 })
               },
               fail: function () {
-                console.log('index.js wx.request CheckCallUser fail')
+                that.errorConnect()
               },
               complete: function () {
                 // complete
               }
             })
+          },
+          fail: res => {
+            that.errorConnect()
           }
         })
+      },
+      fail: res => {
+        that.errorConnect()
       }
     })
     // 获取用户信息
@@ -98,6 +108,14 @@ App({
     console.log('用户未验证，需要验证')
     wx.switchTab({
       url: '/pages/groups/groups'
+    })
+  },
+  errorConnect: function () {
+    console.log('error when connect to server')
+    wx.showToast({
+      title: '未联网',
+      icon: 'loading',
+      duration: 20000
     })
   }
 })

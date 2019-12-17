@@ -7,7 +7,7 @@
         "mp-cells": "../../miniprogram_npm/weui-miniprogram/cells/cells"
     },  
     "pages": [
-
+        "pages/cover/cover",
         "pages/login/login",
         "pages/me/me",
         "pages/me/personal",
