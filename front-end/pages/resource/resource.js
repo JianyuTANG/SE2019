@@ -104,7 +104,7 @@ Page({
       that.searchType(app.globalData.curResourceType)
     }
 
-    if (app.globalData.curResourceTags.length) {
+    if (that.data.listIndex === 0 && app.globalData.curResourceTags.length) {
       console.log(app.globalData.curResourceTags)
       that.setData({
         searchTags: app.globalData.curResourceTags
