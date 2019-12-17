@@ -16,6 +16,7 @@ class Resource(models.Model):
     tag_arr = models.TextField(default='')  
     interest_users = models.TextField(default='')
     category = models.CharField(max_length=100, default='')
+    view_num = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title

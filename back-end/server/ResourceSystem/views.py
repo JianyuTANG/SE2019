@@ -193,6 +193,8 @@ def view_res(request):
         res = HttpResponse()
         res.status_code = 404
         return res
+    resource.view_num += 1
+    resource.save()
     isInterested = False
     interest_arr = resource.interest_users.split(",")
     if openid in interest_arr:
@@ -209,7 +211,9 @@ def view_res(request):
     "imgArr": resource.img_arr.split(","),
     "name": resource.name,
     "resID": str(resource.res_id),
-    "isInterested": isInterested})
+    "isInterested": isInterested,
+    'interestNum': str(len(interest_arr)),
+    'viewNum': str(resource.view_num),})
 
 def query_res_all(request):
     '''
