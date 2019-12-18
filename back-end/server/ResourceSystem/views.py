@@ -271,6 +271,52 @@ def query_res_all(request):
     res_list += res_list_overdue
     return JsonResponse({"res_list": res_list})
 
+def recommend_res(request):
+    '''
+    用于用户查看现有的资源
+    :param request:
+    :return:
+    '''
+    post_body = request.body
+    json_request = json.loads(post_body)
+    session_code = json_request['sessionCode']
+    if session_code is None:
+        res = HttpResponse()
+        res.status_code = 404
+        return res
+#    if session_code != administration_config['session_code']:
+#        res = HttpResponse()
+#        res.status_code = 404
+#        return res
+    openid = json_request['openid']
+    resources = Resource.objects.filter()
+    res_list = []
+    res_list_overdue = []
+    cur_time_stamp = int(time.time())
+    for e in resources:
+        interest_list = e.interest_users.split(",")
+        res_time_array = time.strptime(e.due+' 23:59:59', "%Y/%m/%d %H:%M:%S")
+        res_time_stamp = int(time.mktime(res_time_array))
+        tmp = {}
+        tmp['title'] = e.title
+        tmp['name'] = e.name
+        tmp['createTime'] = e.c_time
+        tmp['imgUrl'] = e.img_arr.split(",")
+        tmp['coverImg'] = e.cover_img
+        tmp['tags'] = e.tag_arr.split(",")
+        tmp['category'] = e.category
+        tmp['contact'] = e.contact
+        tmp['due'] = e.due
+        tmp['resID'] = e.res_id
+        tmp['interested'] = openid in interest_list
+        if res_time_stamp<cur_time_stamp:  #已过期
+            res_list_overdue.append(tmp)
+            tmp['overdue'] = True
+        else:
+            res_list.append(tmp)
+            tmp['overdue'] = False
+    res_list += res_list_overdue
+    return JsonResponse({"res_list": res_list})
 
 def query_res_issued(request):
     '''
