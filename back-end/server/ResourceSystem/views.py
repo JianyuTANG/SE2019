@@ -6,6 +6,7 @@ import os
 import time,datetime
 from .config import administration_config
 from utils.get_username import get_username 
+from utils.get_entrynum import get_entrynum
 
 # Create your views here.
 def add_res(request):
@@ -273,7 +274,7 @@ def query_res_all(request):
 
 def recommend_res(request):
     '''
-    用于用户查看现有的资源
+    用于给用户推荐内容
     :param request:
     :return:
     '''
