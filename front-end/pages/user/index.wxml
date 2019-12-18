@@ -55,13 +55,11 @@
         <text >{{stuNum.length? "第" + stuNum + "期学生":""}}</text>
         <text >{{advNum.length? "第" + advNum + "期辅导员":""}}</text>
         <text>\n</text>
-        <text >院系:{{department}}\n</text>
+        <text wx:if="{{department}}">院系:{{department}}\n</text>
   
-        <text >城市:{{city}}\n</text>
+        <text wx:if="{{city}}">城市:{{city}}\n</text>
         
-        <text >行业领域:{{field}}\n</text>
-
-        <text> </text>
+        <text wx:if="{{field}}">行业领域:{{field}}\n</text>
     </view>
   </van-collapse-item>
 
