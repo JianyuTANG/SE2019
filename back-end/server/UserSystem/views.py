@@ -215,6 +215,7 @@ def modify_user(request):
         self_discription = json_request['selfDiscription']
         hobby = json_request['hobby']
         company = json_request['company']
+        interest_list = json_request['interestArr']
     except:
         print('json请求解析错误')
         return get404()
@@ -228,6 +229,8 @@ def modify_user(request):
     userinfo.hobby = hobby
     userinfo.company = company
     userinfo.self_discription = self_discription
+    tempstr = ','
+    userinfo.interest_category = tempstr.join(interest_list)
     userinfo.save()
     user.save()
 
@@ -265,6 +268,10 @@ def query_user(request):
     for i in nums:
         if i != '-1':
             advisorArr.append(i)
+    # interestArr = []
+    interest_category = userinfo.interest_category.split(',')
+    # for interest in interest_category:
+    #     interestArr.append(interest)
     res = {
         'name': userinfo.real_name,
         'studentArr': studentArr,
@@ -279,6 +286,7 @@ def query_user(request):
         'selfDiscription': userinfo.self_discription,
         'company': userinfo.company,
         'hobby': userinfo.hobby,
+        'interestArr': interest_category,
     }
     response = HttpResponse(json.dumps(res), content_type="application/json")
     response.status_code = 200

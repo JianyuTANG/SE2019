@@ -11,18 +11,19 @@ class UserInfo(models.Model):
     # create_time = models.DateTimeField(default=timezone.now())
 
     city = models.CharField(max_length=64, default='')  # 城市 （邮编码）
-    field = models.CharField(max_length=64, default='')  # 领域 （数字编码）
+    field = models.CharField(max_length=64, default='', blank=True)  # 领域 （数字编码）
     department = models.CharField(max_length=64, default='')  # 院系 （学校官方数字编码）
-    wechatid = models.CharField(max_length=64, default='')  # 微信号（手机号）
-    tel = models.CharField(max_length=20, default='')  # 电话
-    email = models.CharField(max_length=64, default='')  # 邮箱
-    self_discription = models.CharField(max_length=600, default='')  # 自我介绍
-    company = models.CharField(max_length=100, default='')  # 公司
-    hobby = models.CharField(max_length=100, default='')  # 爱好
+    wechatid = models.CharField(max_length=64, default='', blank=True)  # 微信号（手机号）
+    tel = models.CharField(max_length=20, default='', blank=True)  # 电话
+    email = models.CharField(max_length=64, default='', blank=True)  # 邮箱
+    self_discription = models.CharField(max_length=600, default='', blank=True)  # 自我介绍
+    company = models.CharField(max_length=100, default='', blank=True)  # 公司
+    hobby = models.CharField(max_length=100, default='', blank=True)  # 爱好
     avatar_url = models.CharField(max_length=100,
                                   default='/media/user_avatar/default/default.jpg')  # 头像
     is_connected = models.IntegerField(default=0)
     is_in_group = models.IntegerField(default=0)
+    interest_category = models.TextField(default='', blank=True)
 
     def __str__(self):
         return self.real_name
