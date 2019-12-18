@@ -39,34 +39,29 @@
   </li>
 </span>
 
-<div class="jumbotron">
-    <h1 class="display-4">Hello, world!</h1>
-    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to
-        featured content or information.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-</div>
-
-<div class="row">
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-header">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-dark">Go somewhere</a>
-            </div>
-        </div>
+<!-- 修改密码 -->
+<form style="margin-left:50px;margin-top:20px" method="post" action="" οnsubmit="return">
+    <div class="form-group">
+        <label for="old_password" stype="display:inline;">原密码：</label>
+        <input type="text" class="form-control" id="old_password" name="old_password" style="display:inline;width:200px;"
+               autocomplete="off"/>
     </div>
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-header">Special title treatment</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-dark">Go somewhere</a>
-            </div>
-        </div>
+    <div class="form-group">
+        <label for="password" stype="display:inline;">新密码：</label>
+        <input type="text" class="form-control" id="password" name="password" style="display:inline;width:200px;"
+               autocomplete="off"/>
     </div>
-</div>
+    <div class="form-group">
+        <label for="confirm_password" style="display:inline;">确认新密码：</label>
+        <input type="text" class="form-control" id="confirm_password" name="confirm_password" style="display:inline;width:200px;"
+               autocomplete="off"/>
+    </div>
+    <div class="help-block" color="red"
+         style="font-size: x-small;color: indianred;align-content: center">{{ hintmessage }}</div>
+    <div>
+        <button style="margin-left:87px" type="submit" class="btn btn-dark" name="login">确认修改</button>
+    </div>
+</form>
 
 </body>
 </html>

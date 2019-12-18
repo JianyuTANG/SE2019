@@ -53,7 +53,8 @@ urlpatterns = [
     path('query_all_num', UserSystem.views.query_all_num),
     path('query_res_by_category_tags', ResourceSystem.views.query_res_by_category_tags),
     path('get_other_avatar', UserSystem.views.get_other_avatar),
-
-
+    path('admin', AdminSystem.views.homepage_request),
+    path('admin_login', AdminSystem.views.login_page),
+    path('infopage', AdminSystem.views.userinfo_page),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
