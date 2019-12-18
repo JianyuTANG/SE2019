@@ -7,7 +7,6 @@ import time,datetime
 from .config import administration_config
 from utils.get_username import get_username 
 
-
 # Create your views here.
 def add_res(request):
     '''
@@ -529,6 +528,7 @@ def query_res_by_tags(request):
                 tmp['overdue'] = False
     res_list += res_list_overdue
     return JsonResponse({"res_list": res_list})
+
 
 def serch_res(request):
     '''
