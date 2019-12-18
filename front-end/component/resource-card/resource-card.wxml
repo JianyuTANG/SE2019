@@ -6,7 +6,7 @@ module.exports = {
   tostr: tostr,
 }
 </wxs>
-<view class='background'>
+<view class='background' bind:tap="readmore">
     <image
     style="width:30vw; height:400rpx; padding:10rpx;"
     src="{{coverImg}}"
@@ -54,10 +54,10 @@ module.exports = {
 
     <view style="height: 100rpx;" class="icon-box">
       <view  style="width: 170rpx; height:100rpx;">
-        <van-icon wx:if="{{canChange}}" name='setting' size="2.5em" bind:tap="change"/>
+        <van-icon wx:if="{{canChange}}" name='setting' size="2.5em" catch:tap="change"/>
       </view>
       <view style="width: 170rpx; height:100rpx;">
-      <van-icon wx:if="{{canChange}}" name="clear" size="2.5em" bind:tap="delete"/>
+      <van-icon wx:if="{{canChange}}" name="clear" size="2.5em" catch:tap="delete"/>
       </view>
         <view wx:if="{{canLove}}">
           <van-icon 
@@ -65,13 +65,13 @@ module.exports = {
           name='like' 
           size="2.5em"
           style="display:flex;"
-          bind:click="switch_interest"/>
+          catch:tap="switch_interest"/>
           <van-icon 
           wx:else 
           name='like-o' 
           size="2.5em" 
           style="display:flex;"
-          bind:click="switch_interest"/>
+          catch:tap="switch_interest"/>
         </view>
         <view wx:else>
           <van-icon 
