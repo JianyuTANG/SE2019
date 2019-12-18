@@ -5,6 +5,7 @@
     flex-direction: row;
     align-items: flex-start;
     overflow-wrap: break-word;
+    position: relative;
 }
 
 .info-box{
