@@ -4,3 +4,4 @@ front-end/miniprogram_npm/
 *.vscode
 *.idea
 *.pyc
+*.sqlite3

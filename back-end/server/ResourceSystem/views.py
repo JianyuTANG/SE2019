@@ -7,6 +7,7 @@ import time,datetime
 from .config import administration_config
 from utils.get_username import get_username 
 
+
 # Create your views here.
 def add_res(request):
     '''
@@ -203,7 +204,7 @@ def view_res(request):
     if openid in interest_arr:
         isInterested = True
     tss1 = resource.due + ' 23:59:59'
-    res_time_array = time.strptime(tss1, "%Y-%m-%d %H:%M:%S")
+    res_time_array = time.strptime(tss1, "%Y/%m/%d %H:%M:%S")
     res_time_stamp = int(time.mktime(res_time_array))
     cur_time_stamp = int(time.time())
     return JsonResponse({
@@ -248,7 +249,7 @@ def query_res_all(request):
     cur_time_stamp = int(time.time())
     for e in resources:
         interest_list = e.interest_users.split(",")
-        res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+        res_time_array = time.strptime(e.due+' 23:59:59', "%Y/%m/%d %H:%M:%S")
         res_time_stamp = int(time.mktime(res_time_array))
         tmp = {}
         tmp['title'] = e.title
@@ -296,7 +297,7 @@ def query_res_issued(request):
     cur_time_stamp = int(time.time())
     for e in resources:
         interest_list = e.interest_users.split(",")
-        res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+        res_time_array = time.strptime(e.due+' 23:59:59', "%Y/%m/%d %H:%M:%S")
         res_time_stamp = int(time.mktime(res_time_array))
         tmp = {}
         tmp['title'] = e.title
@@ -345,7 +346,7 @@ def query_res_by_openid(request):
     cur_time_stamp = int(time.time())
     for e in resources:
         interest_list = e.interest_users.split(",")
-        res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+        res_time_array = time.strptime(e.due+' 23:59:59', "%Y/%m/%d %H:%M:%S")
         res_time_stamp = int(time.mktime(res_time_array))
         tmp = {}
         tmp['title'] = e.title
@@ -404,7 +405,7 @@ def query_res_by_category_tags(request):
                 flag = False
         if flag:
             interest_list = e.interest_users.split(",")
-            res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+            res_time_array = time.strptime(e.due+' 23:59:59', "%Y/%m/%d %H:%M:%S")
             res_time_stamp = int(time.mktime(res_time_array))
             tmp = {}
             tmp['title'] = e.title
@@ -452,7 +453,7 @@ def query_res_by_category(request):
     cur_time_stamp = int(time.time())
     for e in resources:
         interest_list = e.interest_users.split(",")
-        res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+        res_time_array = time.strptime(e.due+' 23:59:59', "%Y/%m/%d %H:%M:%S")
         res_time_stamp = int(time.mktime(res_time_array))
         tmp = {}
         tmp['title'] = e.title
@@ -506,7 +507,7 @@ def query_res_by_tags(request):
                 flag = False
         if flag:
             interest_list = e.interest_users.split(",")
-            res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+            res_time_array = time.strptime(e.due+' 23:59:59', "%Y/%m/%d %H:%M:%S")
             res_time_stamp = int(time.mktime(res_time_array))
             tmp = {}
             tmp['title'] = e.title
@@ -555,7 +556,7 @@ def serch_res(request):
     for e in resources:
         if search_content in e.title or search_content in e.content:
             interest_list = e.interest_users.split(",")
-            res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+            res_time_array = time.strptime(e.due+' 23:59:59', "%Y/%m/%d %H:%M:%S")
             res_time_stamp = int(time.mktime(res_time_array))
             tmp = {}
             tmp['title'] = e.title
@@ -603,7 +604,7 @@ def query_res_interested(request):
     for e in resources:
         interest_list = e.interest_users.split(",")
         if openid in interest_list:
-            res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+            res_time_array = time.strptime(e.due+' 23:59:59', "%Y/%m/%d %H:%M:%S")
             res_time_stamp = int(time.mktime(res_time_array))
             tmp = {}
             tmp['title'] = e.title
