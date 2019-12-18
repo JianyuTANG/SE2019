@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>database</title>
+    <title>人员管理</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
@@ -43,11 +43,10 @@
 <div class="jumbotron" style="margin-top:0px">
     <input type="checkbox" style="margin-left:13px;" id="checkAll">全选</input>
     <button type="button" class="btn btn-dark" style="margin-left:15px" id="mydelete">删除选中用户</button>
-    <a class="nav-link " href="/infopage/adduser" id="logout">
-        <button type="button" class="btn btn-dark" style="margin-left:15px" id="myadd">
-            增加用户
-        </button>
-    </a>
+    <button type="button" class="btn btn-dark" style="margin-left:15px" id="myadd"
+                onclick="location.href='/infopage/adduser'">
+        增加用户
+    </button>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -99,7 +98,7 @@
 <script>
     $(document).ready(function () {
         $("#logout").click(function () {
-            $.get("logout/", function () {
+            $.get("/admin_logout", function () {
                 window.location.href = "http://127.0.0.1:8000/admin_login"
             })
         }),

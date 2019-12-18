@@ -154,7 +154,7 @@ def management_page(request):
 
 def logout_request(request):
     logout(request)
-    return redirect("admin_login")
+    return redirect("/admin_login")
 
 
 def login_check(request):
