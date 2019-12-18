@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>资源管理</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+<span class="nav nav-tabs pull-right" style="margin-top: 10px">
+  <li class="nav-item">
+    <a class="nav-link disabled pull-right" tabindex="-1" style="alignment: right">欢迎， <b>{{ username }}</b></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/admin">主页</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="/user_management">人员管理</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="/res_management">资源管理</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="#" id="logout">注销</a>
+  </li>
+</span>
+
+<div class="jumbotron" style="margin-top:0px">
+    <input type="checkbox" style="margin-left:13px;" id="checkAll">全选</input>
+    <button type="button" class="btn btn-dark" style="margin-left:15px" id="mydelete">删除选中资源</button>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">编号</th>
+            <th scope="col">标题</th>
+            <th scope="col">发起人姓名</th>
+        </tr>
+        </thead>
+        <tbody> {% for each in page_list %}
+            <tr>
+                <th><input type="checkbox" name="checkId" value="{{ each.res_id }}"/></th>
+                <td>{{ each.res_id }}</td>
+                <td>
+                    <a class="nav-link" href="res_infopage/{{ each.res_id }}">
+                        {{ each.title }}
+                    </a>
+                </td>
+                <td>{{ each.name }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <ul class="pagination">
+        <span class="">
+            {% if second_list_obj.has_previous %}
+                <a href="?id={{ id }}&page={{ second_list_obj.previous_page_number }}&hostlist_search_q={{ hostlist_search_q }}">上一页</a>
+            {% endif %}
+        </span>
+        <span class=" "
+              style="alignment: center"><span>第{{ second_list_obj.number }}页 | 共{{ p.num_pages }}页</span></span>
+        <span class="">
+            {% if second_list_obj.has_next %}
+                <a href="?id={{ id }}&page={{ second_list_obj.next_page_number }}&hostlist_search_q={{ hostlist_search_q }}">下一页</a>
+            {% endif %}
+        </span>
+    </ul>
+</div>
+
+</body>
+</html>
+
+<script>
+    $(document).ready(function () {
+        $("#logout").click(function () {
+            $.get("/admin_logout", function () {
+                window.location.href = "http://127.0.0.1:8000/admin_login"
+            })
+        }),
+        $("#checkAll").change(function () {
+            var checkAll_tag = document.getElementById("checkAll")
+            if (checkAll_tag.checked) {
+                var checkobj = document.getElementsByName("checkId")
+                for (k in checkobj) {
+                    checkobj[k].checked = true
+                }
+            } else {
+                var checkobj = document.getElementsByName("checkId")
+                for (k in checkobj) {
+                    checkobj[k].checked = false
+                }
+            }
+        }),
+        $("#mydelete").click(function () {
+            var checkobj = document.getElementsByName("checkId")
+            rtn_id_list = []
+            for (k in checkobj) {
+                if (checkobj[k].checked) {
+                    console.log(checkobj[k].value)
+                    rtn_id_list.push(checkobj[k].value)
+                }
+            }
+            console.log(rtn_id_list)
+            $.ajax({
+                'url': '/admin_delete_res',
+                'type': 'post',
+                'data': {"id_list": rtn_id_list},
+                'content/type': "application/json",
+                'success': function (rtn) {
+                    console.log("deleteOver")
+                    window.location.reload()
+                }
+            })
+        });
+    });
+</script>
+
+<style>
+    .img-thumbnail {
+        max-width: 50%;
+    }
+
+    th, td {
+        width: 15%;
+        text-align: center
+    }
+</style>

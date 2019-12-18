@@ -1,0 +1,8 @@
+front-end/node_modules/
+front-end/miniprogram_npm/
+
+*.vscode
+*.idea
+*.pyc
+*.sqlite3
+back-end/server/db.sqlite3

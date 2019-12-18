@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>资源信息</title>
+    <meta charset="utf-8">
+    <!-- 新 Bootstrap4 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<span class="nav nav-tabs pull-right" style="margin-top: 10px">
+  <li class="nav-item">
+    <a class="nav-link disabled pull-right" tabindex="-1" style="alignment: right">欢迎， <b>{{ username }}</b></a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="/admin">主页</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="/user_management">人员管理</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="/res_management">资源管理</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link " href="#" id="logout">注销</a>
+  </li>
+</span>
+
+<!-- 登录表单 -->
+<form style="margin-left:50px;margin-top:20px" method="post" action="" οnsubmit="return">
+    <div class="form-group">
+        <label for="realname" style="display:inline;">标题：</label>
+        <input type="text" class="form-control" id="realname" name="realname" style="display:inline;width:200px;" readonly="readonly"
+               value={{ resinfo.title }} >
+    </div>
+    <div class="form-group">
+        <label for="num" style="display:inline;">发起人：</label>
+        <input type="text" class="form-control" id="num" name="num" style="display:inline;width:200px;" readonly="readonly"
+               value={{ resinfo.name }} >
+    </div>
+    <div class="form-group">
+        <label for="department" style="display:inline;">截止日期：</label>
+        <input type="text" class="form-control" id="department" name="department" style="display:inline;width:200px;" readonly="readonly"
+               value={{ resinfo.due }} >
+    </div>
+    <div class="form-group">
+        <label for="city" style="display:inline;">正文：</label>
+        <textarea class="form-control" id="city" readonly="readonly" >{{ resinfo.content }}</textarea>
+    </div>
+</form>
+</body>
+</html>
+<script>
+    //这里是关键点 .ready 函数好像监听器。
+    $(document).ready(function () {
+//jq的处理函数，当点击提交按钮时执行。
+        $("#logout").click(function () {
+//得到页面中id为a和b两个标签的值
+//向服务器发送get请求，请求地址为demo_add
+            $.get("/admin_logout", function () {
+//请求结果为ret，将请求结果赋值给id为result的节点
+                window.location.href = "http://127.0.0.1:8000/admin_login"
+            })
+        });
+    });
+</script>
