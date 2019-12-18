@@ -94,43 +94,42 @@
                 window.location.href = "http://127.0.0.1:8000/register/"
             })
         }),
-            $("#checkAll").change(function () {
-                var checkAll_tag = document.getElementById("checkAll")
-                if (checkAll_tag.checked) {
-                    var checkobj = document.getElementsByName("checkId")
-                    for (k in checkobj) {
-                        checkobj[k].checked = true
-                    }
-                } else {
-                    var checkobj = document.getElementsByName("checkId")
-                    for (k in checkobj) {
-                        checkobj[k].checked = false
-                    }
-                }
-            }),
-            $("#mydelete").click(function () {
+        $("#checkAll").change(function () {
+            var checkAll_tag = document.getElementById("checkAll")
+            if (checkAll_tag.checked) {
                 var checkobj = document.getElementsByName("checkId")
-                rtn_id_list = []
                 for (k in checkobj) {
-                    if (checkobj[k].checked) {
-                        console.log(checkobj[k].value)
-                        rtn_id_list.push(checkobj[k].value)
-                    }
+                    checkobj[k].checked = true
                 }
-                console.log(rtn_id_list)
-                $.ajax({
-                    'url': '/database/delete',
-                    'type': 'post',
-                    'data': {"id_list": rtn_id_list},
-                    'content/type': "application/json",
-                    'success': function (rtn) {
-                        console.log("deleteOver")
-                        window.location.reload()
-                    }
-                })
-            });
+            } else {
+                var checkobj = document.getElementsByName("checkId")
+                for (k in checkobj) {
+                    checkobj[k].checked = false
+                }
+            }
+        }),
+        $("#mydelete").click(function () {
+            var checkobj = document.getElementsByName("checkId")
+            rtn_id_list = []
+            for (k in checkobj) {
+                if (checkobj[k].checked) {
+                    console.log(checkobj[k].value)
+                    rtn_id_list.push(checkobj[k].value)
+                }
+            }
+            console.log(rtn_id_list)
+            $.ajax({
+                'url': '/database/delete',
+                'type': 'post',
+                'data': {"id_list": rtn_id_list},
+                'content/type': "application/json",
+                'success': function (rtn) {
+                    console.log("deleteOver")
+                    window.location.reload()
+                }
+            })
+        });
     });
-
 </script>
 
 <style>

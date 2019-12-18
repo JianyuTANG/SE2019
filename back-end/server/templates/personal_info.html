@@ -36,26 +36,26 @@
 </span>
 
 <!-- 登录表单 -->
-<form style="margin-left:500px;margin-top:200px" method="post" action="" οnsubmit="return">
+<form style="margin-left:50px;margin-top:20px" method="post" action="" οnsubmit="return">
     <div class="form-group">
         <label for="realname" stype="display:inline;">姓名：</label>
-        <input type="text" class="form-control" id="realname" name="realname" style="display:inline;width:200px;"
+        <input type="text" class="form-control" id="realname" name="realname" style="display:inline;width:200px;" value={{ userinfo.realname }}
                autocomplete="off"/>
 
     </div>
     <div class="form-group">
         <label for="num" style="display:inline;">期数：</label>
-        <input type="text" class="form-control" id="num" name="num" style="display:inline;width:200px;"
+        <input type="text" class="form-control" id="num" name="num" style="display:inline;width:200px;" value={{ userinfo.num }}
                autocomplete="off"/>
     </div>
     <div class="form-group">
         <label for="department" style="display:inline;">院系：</label>
-        <input type="text" class="form-control" id="department" name="department" style="display:inline;width:200px;"
+        <input type="text" class="form-control" id="department" name="department" style="display:inline;width:200px;" value={{ userinfo.department }}
                autocomplete="off"/>
     </div>
     <div class="form-group">
         <label for="city" style="display:inline;">城市：</label>
-        <input type="text" class="form-control" id="city" name="city" style="display:inline;width:200px;"
+        <input type="text" class="form-control" id="city" name="city" style="display:inline;width:200px;" value={{ userinfo.city }}
                autocomplete="off"/>
     </div>
     <div class="help-block" color="red"
