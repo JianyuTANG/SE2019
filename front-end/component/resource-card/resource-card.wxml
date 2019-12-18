@@ -7,67 +7,76 @@ module.exports = {
 }
 </wxs>
 <view class='background'>
-  <van-row >
-    <!-- <view bindtap="readmore" >  -->
-    <van-col span="9" bindtap="readmore">
-      <view style="width: 150rpx; height: 150rpx; position:relative"> 
-      <image style="width: 150rpx; height: 150rpx;" src="{{coverImg}}" fit="cover" show-error= "true" show-loading= "true"> </image>
-       <image wx:if="{{expired}}" style="position:absolute; top:0px; left:0px; width: 150rpx; height: 150rpx;" src="/assets/expired.png" fit="cover" show-error= "true" show-loading= "true"> </image>
+    <image
+    style="width:30vw; height:400rpx; padding:10rpx;"
+    src="{{coverImg}}"
+    fit="cover"
+    mode="aspectFit"
+    show-error="true"
+    show-loading= "true"/>
+
+ <view  class="info-box" style="width:70vw; height:400rpx">
+    <view style="height: 100rpx;">
+      <view class="title-container">
+         <text class="title-line">
+            {{title.length > 8 ? foo.tostr(title)+'...': title}} 
+          </text>
       </view>
-    </van-col>
-    <!-- </view> -->
-    
-    <van-col span="15">
-      <van-row span="10" bindtap="readmore">
-          <view class="title-container">
-            <text class="title-line"> {{title.length > 8 ? foo.tostr(title)+'...': title}} </text>
+    </view>
 
-          </view>
-      </van-row>
+    <view style="height: 100rpx;" class="text-box">
+      <view style="width: 50vw;">
+        <text class="title-text">发起人:</text>
+        <text>
+            {{name.length > 8 ? foo.tostr(name)+'...': name}} 
+        </text>
+      </view>
+      <view style="width: 50vw;">
+        <text class="title-text">联系方式:</text>
+        <text>
+          {{contact.length > 8 ? foo.tostr(contact)+'...': contact}} 
+        </text>
+      </view>
 
-      <van-row span="7">
-          <van-col span="12">
-            <view class="info-line">
-              <text>发起人:
-              {{name}} </text>
-            </view>
-          </van-col>
-          <van-col span="12">
-            <view class="info-line">
-              <text>联系方式:
-              {{contact}} </text>
-            </view>
-          </van-col>
-      </van-row>
+    </view>
 
-      <van-row span="7">
-        
-        <van-col span="12">
-          <view class="info-line">
-            <text>截止时间:
-            {{due}} </text>
-          </view>
-        </van-col>
-        <van-col span="12">
-          <view class="info-line">
-            <text>是否收藏:{{interested}}
-            </text>
-              <view wx:if="{{canLove}}">
-              <van-icon wx:if="{{interested}}" name='like' size="2.5em" bind:click="switch_interest"/>
-              <van-icon wx:else name='like-o' size="2.5em" bind:click="switch_interest"/>
-              </view>
-              <view wx:else>
-                <van-icon name="play" />
-              </view>
-            <van-icon wx:if="{{canChange}}" name='setting' size="2.5em" bind:tap="change"/>
-            <van-icon wx:if="{{canChange}}" name="clear" size="2.5em" bind:tap="delete"/>
-          </view>
-        </van-col>
-          <!-- <view class='image-container' bindtap="readmore">
-            <image src="/assets/unlike.png" fit="fill" show-error= "true" show-loading= "true"> </image>
-          </view> -->
-      </van-row>
+    <view style="height:100rpx;" class="text-box">
+        <view style="width: 50vw;">
+        <text class="title-text">截止日期:</text>
+        <text> {{due}} </text>
+      </view>
+      <view style="width: 50vw;">
+        <text class="title-text">类别:</text>
+        <text> {{category}} </text>
+      </view>
 
-    </van-col>
-  </van-row>
+    </view>
+
+    <view style="height: 100rpx;" class="icon-box">
+      <view  style="width: 170rpx; height:100rpx;">
+        <van-icon wx:if="{{canChange}}" name='setting' size="2.5em" bind:tap="change"/>
+      </view>
+      <view style="width: 170rpx; height:100rpx;">
+      <van-icon wx:if="{{canChange}}" name="clear" size="2.5em" bind:tap="delete"/>
+      </view>
+        <view wx:if="{{canLove}}">
+          <van-icon 
+          wx:if="{{interested}}" 
+          name='like' 
+          size="2.5em"
+          style="display:flex;"
+          bind:click="switch_interest"/>
+          <van-icon 
+          wx:else 
+          name='like-o' 
+          size="2.5em" 
+          style="display:flex;"
+          bind:click="switch_interest"/>
+        </view>
+        <view wx:else>
+          <van-icon 
+          name="play" />
+        </view>
+    </view> 
+</view>
 </view>

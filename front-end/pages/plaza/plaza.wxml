@@ -34,6 +34,7 @@
     content="{{item.content}}"
     startDate="{{item.startDate}}"
     interested="{{item.interested}}"
-    expired="{{item.overdue}}">
+    expired="{{item.overdue}}"
+    category="{{item.category}}">
 </resource-card>
 </view>

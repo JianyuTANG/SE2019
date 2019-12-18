@@ -41,6 +41,10 @@ Component({
     expired: {
       type: Boolean,
       value: true
+    },
+    category: {
+      type: String,
+      value: ''
     }
   },
   data: {

@@ -110,6 +110,7 @@
             startDate="{{item.startDate}}"
             interested="{{item.interested}}"
             expired="{{item.overdue}}"
-            canChange="{{canChange}}">
+            canChange="{{canChange}}"
+            category="{{item.category}}">
 </resource-card>
 </view>
