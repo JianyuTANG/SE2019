@@ -730,9 +730,9 @@ def query_all_num(request):
         item['num'] = group.num
         item['title'] = group.title
         item['description'] = group.description
-        studentlist = group.student_list_name.split(',')
+        studentlist = group.student_list_name.split(',')[:-1]
         item['length'] = len(studentlist)
-        advisorlist = group.advisor_list_name.split(',')
+        advisorlist = group.advisor_list_name.split(',')[:-1]
         item['advisorArr'] = advisorlist
         arr.append(item)
     arr.sort(key=lambda x: x['num'])
@@ -742,7 +742,7 @@ def query_all_num(request):
 
 
 def query_all_fields(request):
-    print('/query_all_fields')
+    print('/query_group_field')
     post_body = request.body
     try:
         json_request = json.loads(post_body)
@@ -763,9 +763,9 @@ def query_all_fields(request):
         item['num'] = group.num
         item['title'] = group.title
         item['description'] = group.description
-        studentlist = group.student_list_name.split(',')
+        studentlist = group.student_list_name.split(',')[:-1]
         item['length'] = len(studentlist)
-        advisorlist = group.advisor_list_name.split(',')
+        advisorlist = group.advisor_list_name.split(',')[:-1]
         item['advisorArr'] = advisorlist
         arr.append(item)
     arr.sort(key=lambda x: x['num'])
@@ -815,7 +815,7 @@ def query_my_groups(request):
             item['title'] = group.title
             item['description'] = group.description
             item['length'] = len(studentlist)
-            advisorlist = group.advisor_list_name.split(',')
+            advisorlist = group.advisor_list_name.split(',')[:-1]
             item['advisorArr'] = advisorlist
             arr.append(item)
     return JsonResponse({
