@@ -1,4 +1,19 @@
 <!--WXML示例代码-->
+<mp-dialog 
+  wx:if = "{{tapButtonTag}}"
+  title="设置Tag" 
+  show="{{tapButtonTag}}" 
+  bindbuttontap="onButtonTag" 
+  ext-class="set-date-dialog"
+  buttons="{{[{text: '确定'}]}}">
+      <activity-tags 
+      tagList="{{prefabTagList}}" 
+      curTags="{{interestTags}}" 
+      bind:addTag = "onAddTag" 
+      bind:closeTag="onCloseTag">
+      </activity-tags>
+</mp-dialog>
+
 <mp-toptips msg="{{error}}" type="error" show="{{error}}"></mp-toptips>
 
 <mp-halfScreenDialog 
@@ -34,6 +49,18 @@
             </mp-cells>
 
             <mp-cells title = "可填项">
+                <mp-cell prop="interest" title="兴趣" ext-class="weui-cell_label-block">
+                    <view wx:if="{{interestTags.length}}" >
+                        <view style="padding-left:10rpx; padding-right:10rpx;">
+                            <view wx:for="{{searchTags}}" style="margin-left:20rpx; display: inline-block;">
+                                <van-tag type="primary"  data-index="{{index}}">
+                                    {{item}}
+                                </van-tag>
+                            </view>
+                        </view>
+                    </view>
+                </mp-cell>
+
                <mp-cell show-error prop="telephone" title="电话" ext-class="">
                     <input bindinput="formInputChange" data-field="telephone" class="weui-input" placeholder="请输入联系电话" value="{{ formData.telephone }}"/>
                 </mp-cell>

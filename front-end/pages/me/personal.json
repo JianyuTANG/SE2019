@@ -12,6 +12,9 @@
     "van-area": "../../miniprogram_npm/vant-weapp/area/index",
     "mp-halfScreenDialog": "../../miniprogram_npm/weui-miniprogram/half-screen-dialog/half-screen-dialog",
     "mp-loading":"../../miniprogram_npm/weui-miniprogram/loading/loading",
-    "van-divider": "../../miniprogram_npm/vant-weapp/divider/index"
+    "van-divider": "../../miniprogram_npm/vant-weapp/divider/index",
+    "activity-tags": "/component/activity-tags/activity-tags",
+    "van-tag": "../../miniprogram_npm/vant-weapp/tag/index"
+  
   }
 }

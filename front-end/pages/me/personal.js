@@ -2,6 +2,7 @@
 import { areaList } from '../../data/area.js'// 城市的表
 import { fieldList } from '../../data/field.js'// 工作领域的表
 import { departList } from '../../data/department.js'
+import { interestTags } from '../../data/tags.js'
 const app = getApp()
 // const sessionCode = wx.getStorageSync('sessionCode') // 假如我们有一个sessionCode
 Page({
@@ -14,6 +15,9 @@ Page({
     areaList: areaList,
     areaPlaceholder: ['请选择', '请选择', '请选择'],
     fieldList: fieldList,
+    interestTags: ['1', '2', '3', '4'],
+    prefabTagList: interestTags,
+    tapButtonTag: true,
     basicData: { // 读取的用户的基本数据
       name: '',
       stuNum: [],
