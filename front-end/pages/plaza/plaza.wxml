@@ -7,22 +7,25 @@
   current="{{currentIndex}}"
   bindchange="handleChange">
   <block wx:for="{{imgArr}}">
-    <swiper-item>
-      <!-- <text>{{item}}</text> -->
-      <image class="slide-image {{currentIndex == index ? 'active': ''}}"
-       src="{{item}}" mode='scaleToFill' lazy-load="true" />
+    <swiper-item  style="background-color:white;"> 
+      <view>
+        <image class="slide-image {{currentIndex == index ? 'active': ''}}"
+        src="{{item}}" mode="aspectFit" lazy-load="true" />
+       </view>
     </swiper-item>
   </block>
 </swiper>
 
-<view wx:for="{{showResouceList}}"  class = "resource-card">
+<view slot="title">
+<text class="title">官方推荐</text>
+</view>
+
+<view wx:for="{{showResourceList}}"  class = "resource-card">
 <resource-card 
     data-id="{{item.resID}}"
     resID="{{item.resID}}"
     bind:readmore="readmore"
     bind:switch_interest="switch_interest"
-    bind:change="changeResource"
-    bind:delete="deleteResource"
     coverImg="{{item.coverImg}}"
     title="{{item.title}}" 
     name="{{item.name}}"
