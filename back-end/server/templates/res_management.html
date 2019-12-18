@@ -33,7 +33,7 @@
     <a class="nav-link " href="/user_management">人员管理</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link " href="/database">资源管理</a>
+    <a class="nav-link " href="/res_management">资源管理</a>
   </li>
   <li class="nav-item">
     <a class="nav-link " href="#" id="logout">注销</a>
@@ -54,7 +54,7 @@
         </thead>
         <tbody> {% for each in page_list %}
             <tr>
-                <th><input type="checkbox" name="checkId" value="{{ each.res_id }}"/></th>
+                <th><input type="checkbox" name="checkId" value="{{ each.id }}"/></th>
                 <td>{{ each.id }}</td>
                 <td>
                     <a class="nav-link" href="infopage/{{ each.res_id }}">
@@ -62,11 +62,6 @@
                     </a>
                 </td>
                 <td>{{ each.name }}</td>
-                {% if each.is_connected == 1 %}
-                    <td>是</td>
-                {% else %}
-                    <td>否</td>
-                {% endif %}
             </tr>
         {% endfor %}
         </tbody>

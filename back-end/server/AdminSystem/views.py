@@ -125,15 +125,15 @@ def res_infopage(request, id):
     if not login_check(request):
         return redirect("/admin_login")
     try:
-        userinfo = Resource.objects.get(res_id=id)
+        resinfo = Resource.objects.get(res_id=id)
     except:
-        return redirect("/user_management")
+        return redirect("/res_management")
     username = '管理员'
     info = {}
-    info['title'] = userinfo.real_name
-    info['name'] = userinfo.number_of_entry
-    info['due'] = userinfo.department
-    info['content'] = userinfo.city
+    info['title'] = resinfo.title
+    info['name'] = resinfo.name
+    info['due'] = resinfo.due
+    info['content'] = resinfo.content
     return render(request, 'res_info.html', {"username": username, 'resinfo': info})
 
 
@@ -161,6 +161,38 @@ def management_page(request):
         page_list = page1.object_list
 
     return render(request, 'user_management.html',
+                  {
+                      'username': username,
+                      'page_list': page_list,
+                      'second_list_obj': a_a,
+                      'p': p,
+                  })
+
+
+def res_management_page(request):
+    if not login_check(request):
+        return redirect("admin_login")
+    username = '管理员'
+    p = Paginator(Resource.objects.all().order_by('-res_id'), 20)
+    page = request.GET.get('page')  # 获取页码
+    if page:
+        pass
+    else:
+        page = 1
+    try:
+        a_a = p.page(page)  # 获取某页对应的记录
+        page1 = p.page(page)
+        page_list = page1.object_list
+    except PageNotAnInteger:  # 如果页码不是个整数
+        a_a = p.page(1)  # 取第一页的记录
+        page1 = p.page(1)
+        page_list = page1.object_list
+    except EmptyPage:  # 如果页码太大，没有相应的记录
+        a_a = p.page(p.num_pages)  # 取最后一页的记录
+        page1 = p.page(p.num_pages)
+        page_list = page1.object_list
+
+    return render(request, 'res_management.html',
                   {
                       'username': username,
                       'page_list': page_list,
