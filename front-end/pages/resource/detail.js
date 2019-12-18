@@ -331,5 +331,11 @@ Page({
     wx.switchTab({
       url: '/pages/resource/resource'
     })
+  },
+
+  onHome: function (e) {
+    wx.switchTab({
+      url: '/pages/plaza/plaza'
+    })
   }
 })

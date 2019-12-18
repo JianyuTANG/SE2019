@@ -74,6 +74,8 @@ buttons="{{[{text: '确定'}]}}">
         </mp-cell>
     </view>
     <view class="answer-footer flex-around">
+      <van-icon name="wap-home" size="2em" bind:tap="onHome"/>
+
       <view class="end-date flex-item">
         <text>截止日期:{{due}}</text>
       </view>
