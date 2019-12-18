@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User as Superuser
 from django.contrib.sessions.models import Session
 from UserSystem.models import UserInfo
+from ResourceSystem.models import Resource
 
 import os
 import json
@@ -118,6 +119,22 @@ def add_user(request):
         userinfo.city = city
         userinfo.save()
     return render(request, 'personal_info.html', {"username": username, 'userinfo': info})
+
+
+def res_infopage(request, id):
+    if not login_check(request):
+        return redirect("/admin_login")
+    try:
+        userinfo = Resource.objects.get(res_id=id)
+    except:
+        return redirect("/user_management")
+    username = '管理员'
+    info = {}
+    info['title'] = userinfo.real_name
+    info['name'] = userinfo.number_of_entry
+    info['due'] = userinfo.department
+    info['content'] = userinfo.city
+    return render(request, 'res_info.html', {"username": username, 'resinfo': info})
 
 
 def management_page(request):

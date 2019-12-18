@@ -60,5 +60,6 @@ urlpatterns = [
     path('infopage/adduser', AdminSystem.views.add_user),
     path('delete_user', AdminSystem.views.delete_record),
     path('admin_logout', AdminSystem.views.logout_request),
+    path('res_infopage/<int:id>', AdminSystem.views.)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
