@@ -202,6 +202,10 @@ def view_res(request):
     resource.save()
     isInterested = False
     interest_arr = resource.interest_users.split(",")
+    if resource.interest_users == '':
+        interest_num = 0
+    else:
+        interest_num = len(interest_arr)
     if openid in interest_arr:
         isInterested = True
     tss1 = resource.due + ' 23:59:59'
@@ -221,7 +225,7 @@ def view_res(request):
     "name": resource.name,
     "resID": str(resource.res_id),
     "isInterested": isInterested,
-    'interestNum': str(len(interest_arr)),
+    'interestNum': str(interest_num),
     'viewNum': str(resource.view_num),
     'overdue': cur_time_stamp>res_time_stamp})
 
