@@ -51,6 +51,11 @@ swiper{
     line-height: 48rpx;
 }
 
+.view-info{
+  font-size: 20rpx;
+  margin-left: 10vw;
+}
+
 .category-title{
   font-size: 28rpx;
 }

@@ -1,6 +1,6 @@
 // pages/resource/detail.js
 Page({
-  onShareAppMessage() {
+  onShareAppMessage () {
     return {
       title: 'swiper',
       path: '../../miniprogram_npm/weui-miniprogram/swiper/swiper'
@@ -19,8 +19,8 @@ Page({
     startDate: '2019/12/09',
     due: 'x',
     imgArr: '',
-    resID:'x',
-    interested:'',
+    resID: 'x',
+    interested: '',
     currentIndex: 0,
     openid: '',
 
@@ -40,6 +40,8 @@ Page({
     deleteUrl: 'http://154.8.172.132/delete_res',
     enrollment: 0,
 
+    viewNum: 0,
+    interestNum: 0,
     tapEnrollment: false
   },
 
@@ -71,10 +73,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
     let that = this
     let resID = that.data.resID
-    console.log('resID = ',resID)
+    console.log('resID = ', resID)
     let promise = new Promise((resolve, reject) => {
       that.view_res(resID, resolve, reject)
     })
@@ -106,7 +107,9 @@ Page({
         tagArr: res.data.tagArr,
         openid: res.data.openid,
         interested: res.data.isInterested,
-        canChange: res.data.openid == openidStore
+        canChange: res.data.openid === openidStore,
+        interestNum: res.data.interestNum,
+        viewNum: res.data.viewNum
       })
       return new Promise((resolve, reject) => {
         let openid = that.data.openid
@@ -210,10 +213,10 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success(res) {
+      success (res) {
         if (resolve) { resolve(res) }
       },
-      fail(res) {
+      fail (res) {
         if (reject) { reject() }
       }
     })
@@ -221,7 +224,6 @@ Page({
 
   visit_other: function (e) {
     let that = this
-
   },
 
   switch_interest: function (e) {
@@ -244,7 +246,7 @@ Page({
         header: {
           'content-type': 'application/json' // 默认值
         },
-        success(res) {
+        success (res) {
           console.log('switch_interest返回值', res)
           if (res.statusCode === 200) {
             resolve()
@@ -258,8 +260,8 @@ Page({
 
     promiseInterest.then(
       this.onShow).catch(function (e) {
-        console.log(e)
-      })
+      console.log(e)
+    })
   },
 
   changeResource: function (e) {
@@ -278,7 +280,7 @@ Page({
     let openid
     openid = wx.getStorageSync('openid')
     let resID = that.data.resID
-    
+
     let promise = new Promise((resolve, reject) => {
       wx.request({
         url: that.data.deleteUrl,
@@ -292,7 +294,7 @@ Page({
         header: {
           'content-type': 'application/json' // 默认值
         },
-        success(res) {
+        success (res) {
           console.log('switch_interest返回值', res)
           if (res.statusCode === 200) {
             resolve()
@@ -315,7 +317,7 @@ Page({
 
   backNavigate: function (e) {
     wx.switchTab({
-      url: "/pages/resource/resource",
+      url: '/pages/resource/resource'
     })
-  },
+  }
 })
