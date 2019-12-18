@@ -3,6 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from .models import Resource
 import json
 import os
+import time,datetime
 from .config import administration_config
 from utils.get_username import get_username 
 
@@ -57,6 +58,7 @@ def add_res(request):
     res = HttpResponse()
     res.status_code = 200
     return res
+
 
 def delete_res(request):
     '''
@@ -167,6 +169,7 @@ def modify_res(request):
     res.status_code = 200
     return res
 
+
 def view_res(request):
     '''
     用于用户查看现有的资源
@@ -199,6 +202,10 @@ def view_res(request):
     interest_arr = resource.interest_users.split(",")
     if openid in interest_arr:
         isInterested = True
+    tss1 = resource.due + ' 23:59:59'
+    res_time_array = time.strptime(tss1, "%Y-%m-%d %H:%M:%S")
+    res_time_stamp = int(time.mktime(res_time_array))
+    cur_time_stamp = int(time.time())
     return JsonResponse({
     "openid": str(resource.openid),
     "title": str(resource.title),
@@ -213,7 +220,9 @@ def view_res(request):
     "resID": str(resource.res_id),
     "isInterested": isInterested,
     'interestNum': str(len(interest_arr)),
-    'viewNum': str(resource.view_num),})
+    'viewNum': str(resource.view_num),
+    'overdue': cur_time_stamp>res_time_stamp})
+
 
 def query_res_all(request):
     '''
@@ -235,8 +244,12 @@ def query_res_all(request):
     openid = json_request['openid']
     resources = Resource.objects.filter()
     res_list = []
+    res_list_overdue = []
+    cur_time_stamp = int(time.time())
     for e in resources:
         interest_list = e.interest_users.split(",")
+        res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+        res_time_stamp = int(time.mktime(res_time_array))
         tmp = {}
         tmp['title'] = e.title
         tmp['name'] = e.name
@@ -249,8 +262,15 @@ def query_res_all(request):
         tmp['due'] = e.due
         tmp['resID'] = e.res_id
         tmp['interested'] = openid in interest_list
-        res_list.append(tmp)
+        if res_time_stamp<cur_time_stamp:  #已过期
+            res_list_overdue.append(tmp)
+            tmp['overdue'] = True
+        else:
+            res_list.append(tmp)
+            tmp['overdue'] = False
+    res_list += res_list_overdue
     return JsonResponse({"res_list": res_list})
+
 
 def query_res_issued(request):
     '''
@@ -272,8 +292,12 @@ def query_res_issued(request):
     openid = json_request['openid']
     resources = Resource.objects.filter(openid=openid)
     res_list = []
+    res_list_overdue = []
+    cur_time_stamp = int(time.time())
     for e in resources:
         interest_list = e.interest_users.split(",")
+        res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+        res_time_stamp = int(time.mktime(res_time_array))
         tmp = {}
         tmp['title'] = e.title
         tmp['name'] = e.name
@@ -286,9 +310,16 @@ def query_res_issued(request):
         tmp['due'] = e.due
         tmp['resID'] = e.res_id
         tmp['interested'] = openid in interest_list
-        res_list.append(tmp)
+        if res_time_stamp<cur_time_stamp:  #已过期
+            res_list_overdue.append(tmp)
+            tmp['overdue'] = True
+        else:
+            res_list.append(tmp)
+            tmp['overdue'] = False
+    res_list += res_list_overdue
     return JsonResponse({"res_list": res_list})
     
+
 def query_res_by_openid(request):
     '''
     根据target_openid查看资源
@@ -310,8 +341,12 @@ def query_res_by_openid(request):
     target_openid = json_request['targetOpenid']
     resources = Resource.objects.filter(openid=target_openid)
     res_list = []
+    res_list_overdue = []
+    cur_time_stamp = int(time.time())
     for e in resources:
         interest_list = e.interest_users.split(",")
+        res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+        res_time_stamp = int(time.mktime(res_time_array))
         tmp = {}
         tmp['title'] = e.title
         tmp['name'] = e.name
@@ -324,8 +359,15 @@ def query_res_by_openid(request):
         tmp['due'] = e.due
         tmp['resID'] = e.res_id
         tmp['interested'] = openid in interest_list
-        res_list.append(tmp)
+        if res_time_stamp<cur_time_stamp:  #已过期
+            res_list_overdue.append(tmp)
+            tmp['overdue'] = True
+        else:
+            res_list.append(tmp)
+            tmp['overdue'] = False
+    res_list += res_list_overdue
     return JsonResponse({"res_list": res_list})
+
 
 def query_res_by_category_tags(request):
     '''
@@ -352,6 +394,8 @@ def query_res_by_category_tags(request):
     else:
         resources = Resource.objects.filter(category=category)
     res_list = []
+    res_list_overdue = []
+    cur_time_stamp = int(time.time())
     for e in resources:
         tags = e.tag_arr.split(",")
         flag = True
@@ -360,6 +404,8 @@ def query_res_by_category_tags(request):
                 flag = False
         if flag:
             interest_list = e.interest_users.split(",")
+            res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+            res_time_stamp = int(time.mktime(res_time_array))
             tmp = {}
             tmp['title'] = e.title
             tmp['name'] = e.name
@@ -372,7 +418,13 @@ def query_res_by_category_tags(request):
             tmp['due'] = e.due
             tmp['resID'] = e.res_id
             tmp['interested'] = openid in interest_list
-            res_list.append(tmp)
+            if res_time_stamp<cur_time_stamp:  #已过期
+                res_list_overdue.append(tmp)
+                tmp['overdue'] = True
+            else:
+                res_list.append(tmp)
+                tmp['overdue'] = False
+    res_list += res_list_overdue
     return JsonResponse({"res_list": res_list})
 
 def query_res_by_category(request):
@@ -396,8 +448,12 @@ def query_res_by_category(request):
     category = json_request['category']
     resources = Resource.objects.filter(category=category)
     res_list = []
+    res_list_overdue = []
+    cur_time_stamp = int(time.time())
     for e in resources:
         interest_list = e.interest_users.split(",")
+        res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+        res_time_stamp = int(time.mktime(res_time_array))
         tmp = {}
         tmp['title'] = e.title
         tmp['name'] = e.name
@@ -410,7 +466,13 @@ def query_res_by_category(request):
         tmp['due'] = e.due
         tmp['resID'] = e.res_id
         tmp['interested'] = openid in interest_list
-        res_list.append(tmp)
+        if res_time_stamp<cur_time_stamp:  #已过期
+            res_list_overdue.append(tmp)
+            tmp['overdue'] = True
+        else:
+            res_list.append(tmp)
+            tmp['overdue'] = False
+    res_list += res_list_overdue
     return JsonResponse({"res_list": res_list})
 
 def query_res_by_tags(request):
@@ -434,6 +496,8 @@ def query_res_by_tags(request):
     target_tags = json_request['tagArr']
     resources = Resource.objects.filter()
     res_list = []
+    res_list_overdue = []
+    cur_time_stamp = int(time.time())
     for e in resources:
         tags = e.tag_arr.split(",")
         flag = True
@@ -442,6 +506,8 @@ def query_res_by_tags(request):
                 flag = False
         if flag:
             interest_list = e.interest_users.split(",")
+            res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+            res_time_stamp = int(time.mktime(res_time_array))
             tmp = {}
             tmp['title'] = e.title
             tmp['name'] = e.name
@@ -454,7 +520,13 @@ def query_res_by_tags(request):
             tmp['due'] = e.due
             tmp['resID'] = e.res_id
             tmp['interested'] = openid in interest_list
-            res_list.append(tmp)
+            if res_time_stamp<cur_time_stamp:  #已过期
+                res_list_overdue.append(tmp)
+                tmp['overdue'] = True
+            else:
+                res_list.append(tmp)
+                tmp['overdue'] = False
+    res_list += res_list_overdue
     return JsonResponse({"res_list": res_list})
 
 def serch_res(request):
@@ -478,9 +550,13 @@ def serch_res(request):
     search_content = json_request['content'].strip()
     resources = Resource.objects.filter()
     res_list = []
+    res_list_overdue = []
+    cur_time_stamp = int(time.time())
     for e in resources:
         if search_content in e.title or search_content in e.content:
             interest_list = e.interest_users.split(",")
+            res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+            res_time_stamp = int(time.mktime(res_time_array))
             tmp = {}
             tmp['title'] = e.title
             tmp['name'] = e.name
@@ -493,7 +569,13 @@ def serch_res(request):
             tmp['due'] = e.due
             tmp['resID'] = e.res_id
             tmp['interested'] = openid in interest_list
-            res_list.append(tmp)
+            if res_time_stamp<cur_time_stamp:  #已过期
+                res_list_overdue.append(tmp)
+                tmp['overdue'] = True
+            else:
+                res_list.append(tmp)
+                tmp['overdue'] = False
+    res_list += res_list_overdue
     return JsonResponse({"res_list": res_list})
 
 def query_res_interested(request):
@@ -516,9 +598,13 @@ def query_res_interested(request):
     openid = json_request['openid']
     resources = Resource.objects.filter()
     res_list = []
+    res_list_overdue = []
+    cur_time_stamp = int(time.time())
     for e in resources:
         interest_list = e.interest_users.split(",")
         if openid in interest_list:
+            res_time_array = time.strptime(e.due+' 23:59:59', "%Y-%m-%d %H:%M:%S")
+            res_time_stamp = int(time.mktime(res_time_array))
             tmp = {}
             tmp['title'] = e.title
             tmp['name'] = e.name
@@ -531,7 +617,13 @@ def query_res_interested(request):
             tmp['due'] = e.due
             tmp['resID'] = e.res_id
             tmp['interested'] = True
-            res_list.append(tmp)
+            if res_time_stamp<cur_time_stamp:  #已过期
+                res_list_overdue.append(tmp)
+                tmp['overdue'] = True
+            else:
+                res_list.append(tmp)
+                tmp['overdue'] = False
+    res_list += res_list_overdue
     return JsonResponse({"res_list": res_list})
 
 def switch_interest(request):
