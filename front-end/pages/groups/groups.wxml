@@ -61,7 +61,8 @@
         <!-- catchtouchmove 阻止弹窗后滚动穿透 -->
         <swiper-item id="0" catchtouchmove="false" style="overflow:scroll">
           <view wx:for="{{myList}}"  class = "group-card">
-            <group-card catchtap="groupDetail"
+            <group-card catchtap="readmore"
+              data-id="{{item.num}}"
               title="{{item.title}}" 
               description="{{item.description}}"
               advisorArr="{{item.advisorArr}}"
@@ -71,7 +72,8 @@
         </swiper-item>
         <swiper-item id="1" catchtouchmove="false" style="overflow:scroll">
           <view wx:for="{{numList}}"  class = "group-card">
-            <group-card catchtap="groupDetail"
+            <group-card catchtap="readmore"
+              data-id="{{item.num}}"
               title="{{item.title}}" 
               description="{{item.description}}"
               advisorArr="{{item.advisorArr}}"
@@ -80,12 +82,13 @@
           </view>
         </swiper-item>
         <swiper-item id="2" catchtouchmove="false">
-          <view wx:for="{{otherList}}"  class = "group-card">
-            <group-card catchtap="groupDetail"
+          <view wx:for="{{fieldList}}"  class = "group-card">
+            <group-card catchtap="readmore"
+              data-id="{{item.num}}"
               title="{{item.title}}" 
               description="{{item.description}}"
               advisorArr="{{item.advisorArr}}"
-              num="{{item.num}}">
+              length="{{item.length}}">
             </group-card>  
           </view>
         </swiper-item>

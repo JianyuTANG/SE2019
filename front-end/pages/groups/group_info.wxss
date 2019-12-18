@@ -1,3 +1,35 @@
+.background{
+    background-color: white !important;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    /* background-color:red; */
+    padding: 20rpx;
+    margin: 0;
+    border: 0;
+    height: 100%;
+    background-color: white !important;
+    margin-left: 50rpx;
+    margin-right: 50rpx;
+}
+
+.title-line{
+    font-size: 40rpx !important;
+    font-weight: bold;
+    margin-left:6rpx;
+    margin-bottom: 10rpx;
+}
+
+.introduction{
+    font-size: 32rpx !important;
+    margin-left:6rpx;
+    margin-bottom: 10rpx;
+}
+
 .tabbar{
     position:absolute;
     top:0;

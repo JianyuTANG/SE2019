@@ -3,7 +3,11 @@
   flex-direction: row;
   font-family: "Microsoft YaHei"
 }
+
+van-search{
+}
 .left{
+  
   width: 25%;
   font-size: 30rpx;
   background-color: #f4f4f4;
@@ -15,9 +19,9 @@
 }
 .selected{
   background-color: #fff;
-  border-left: 2px solid #E54847;
+  border-left: 2px solid rgb(35, 46, 145);
   font-weight: bold;
-  color: #E54847;
+  color: rgb(35, 46, 145);
 }
 .normal{
   background-color: #f4f4f4;
@@ -28,17 +32,11 @@
   margin: 0;
 }
 .type{
-  height: 1000rpx
+  height: 1300rpx
 }
 swiper{
   height: 100%;
 }
-
-
-
-
-
-
 
 .tabbar{
     position:absolute;

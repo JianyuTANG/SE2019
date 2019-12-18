@@ -73,11 +73,11 @@ Page({
   },
 
   onShow: function () {
-    this.setData({ // TODO 从服务器得到头像
-      // avatar: wx.getStorageSync('avatar') || 'https://yunlaiwu0.cn-bj.ufileos.com/teacher_avatar.png',
-      name: wx.getStorageSync('name') || ''
-    })
-    // this.testActivities()
+    // this.setData({ // TODO 从服务器得到头像
+    //   // avatar: wx.getStorageSync('avatar') || 'https://yunlaiwu0.cn-bj.ufileos.com/teacher_avatar.png',
+    //   name: wx.getStorageSync('name') || ''
+    // })
+    // // this.testActivities()
   },
 
   // 用于处理点击头像事件

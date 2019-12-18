@@ -7,7 +7,7 @@ module.exports = {
 }
 </wxs>
 
-<view class='background'>
+<view class='background' bindtap="readmore">
   <view class="container">
       <text class="title-line"> {{title}} </text>
       
