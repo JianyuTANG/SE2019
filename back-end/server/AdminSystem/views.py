@@ -253,11 +253,6 @@ def delete_res(request):
             res = HttpResponse()
             res.status_code = 404
             return res
-        if not resource.openid == openid:
-            res = HttpResponse()
-            res.status_code = 404
-            print("error: user invalid!")
-            return res
         try:
             res_imgs = resource.img_arr.split(',')
             if os.path.exists(resource.cover_img):
@@ -266,9 +261,7 @@ def delete_res(request):
                 if os.path.exists(item):
                     os.remove(str(item)[1:])
             resource.delete()
-            res = HttpResponse()
-            res.status_code = 200
-            return res
+            return HttpResponse("ok")
         except Exception as e:
             print(e)
             return HttpResponse("fail")
