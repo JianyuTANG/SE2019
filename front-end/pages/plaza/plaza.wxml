@@ -1,42 +1,30 @@
-<van-search
-  value="{{ searchValue }}"
-  placeholder="请输入搜索关键词"
-  use-action-slot
-  bind:change="onSearchChange"
-  bind:search="onSearch"
->
-  <view slot="action" bind:tap="onSearch">搜索</view>
-</van-search>
-
-<mp-cell show-error title="" ext-class="">
-  <view wx:if="{{imgArr[0]!=='http://154.8.172.132'}}" class="swipers-container">
-    <swiper previous-margin="{{leftMargin}}" next-margin="{{rightMargin}}" indicator-dots="{{indicatorDots}}"
-      autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{current}}"bindchange="handleChange">
-      <block wx:for="{{res.data.res_list}}" wx:key="*this">
-        <swiper-item>
-          <!-- <text>{{item}}</text> -->
-          <image class="slide-image {{currentIndex == index ? 'active': ''}}" src="{{item.coverImg}}" mode='scaleToFill' lazy-load="true" />
-        </swiper-item>
-      </block>
-    </swiper>
-  </view>
-</mp-cell>
-
-<mp-tabbar ext-class="tabbar-item" style="" list="{{list}}" bindchange="tabChange"></mp-tabbar>
+<!--广场用于展示官方信息 -->
+<swiper previous-margin="{{leftMargin}}" next-margin="{{rightMargin}}" indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{current}}"bindchange="handleChange">
+  <block wx:for="{{imgArr}}" wx:key="*this">
+    <swiper-item>
+      <!-- <text>{{item}}</text> -->
+      <image class="slide-image {{currentIndex == index ? 'active': ''}}" src="{{item}}" mode='scaleToFill' lazy-load="true" />
+    </swiper-item>
+  </block>
+</swiper>
 
 <view wx:for="{{showResouceList}}"  class = "resource-card">
 <resource-card 
-            data-id="{{item.resID}}"
-            resID="{{item.resID}}"
-            bind:readmore="readmore"
-            bind:switch_interest="switch_interest"
-            coverImg="{{item.coverImg}}"
-            title="{{item.title}}" 
-            name="{{item.name}}"
-            contact="{{item.contact}}"
-            due="{{item.due}}"
-            content="{{item.content}}"
-            startDate="{{item.startDate}}"
-            interested="{{item.interested}}">
-            </resource-card>
+    data-id="{{item.resID}}"
+    resID="{{item.resID}}"
+    bind:readmore="readmore"
+    bind:switch_interest="switch_interest"
+    bind:change="changeResource"
+    bind:delete="deleteResource"
+    coverImg="{{item.coverImg}}"
+    title="{{item.title}}" 
+    name="{{item.name}}"
+    contact="{{item.contact}}"
+    due="{{item.due}}"
+    content="{{item.content}}"
+    startDate="{{item.startDate}}"
+    interested="{{item.interested}}"
+    expired="{{item.overdue}}">
+</resource-card>
 </view>
