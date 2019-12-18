@@ -45,6 +45,7 @@ urlpatterns = [
     path('switch_interest', ResourceSystem.views.switch_interest),
     path('query_user_by_number', UserSystem.views.query_user_by_num),
     path('view_other', UserSystem.views.query_other),
+    path('view_other_by_openid', UserSystem.views.query_other_by_openid),
     path('refresh_group', UserSystem.views.refresh_group),
     path('search_res', ResourceSystem.views.serch_res),
     path('query_res_by_openid', ResourceSystem.views.query_res_by_openid),
