@@ -66,17 +66,7 @@
   </van-collapse-item>
 
     <van-collapse-item name="2">
-        <view slot="title">
-            <text class="title">个人介绍</text>
-        </view>
-        <view slot="">
-            <textarea id="editor"  
-            style="height:120px;width:100%;" 
-            class="ql-container weui-input" 
-            bindinput = "formTextareaInput"
-            placeholder="请输入个人介绍(最多140字)"
-            value="{{ content }}"/>
-        </view>
+        <text >{{content}}</text>
     </van-collapse-item>
 
   <van-collapse-item  name="3">
