@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User as Superuser
 from django.contrib.sessions.models import Session
 from UserSystem.models import UserInfo
+
 import os
 import json
 import datetime
@@ -49,7 +50,7 @@ def login_page(request):
 def homepage_request(request):
     print(request.user.username)
     if not login_check(request):
-        return redirect("admin_login")
+        return redirect("/admin_login")
     username = '管理员'
     hint_message = ''
     if request.method == 'POST':
@@ -71,11 +72,11 @@ def homepage_request(request):
 
 def userinfo_page(request, id):
     if not login_check(request):
-        return redirect("admin_login")
+        return redirect("/admin_login")
     try:
         userinfo = UserInfo.objects.get(id=id)
     except:
-        return redirect("user_management")
+        return redirect("/user_management")
 
     if request.method == 'POST':
         realname = request.POST.get('realname', '')
@@ -99,7 +100,7 @@ def management_page(request):
     if not login_check(request):
         return redirect("admin_login")
     username = '管理员'
-    p = Paginator(UserInfo.objects.filter(owner=request.user).order_by('-id'), 20)
+    p = Paginator(UserInfo.objects.all().order_by('-id'), 20)
     page = request.GET.get('page')  # 获取页码
     if page:
         pass
