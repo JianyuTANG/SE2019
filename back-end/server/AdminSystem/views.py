@@ -246,4 +246,30 @@ def delete_res(request):
     print(id_list)
 
     for res_id in id_list:
-        pass
+        try:
+            resource = Resource.objects.filter(res_id=res_id)[0]
+        except Exception as e:
+            print(e)
+            res = HttpResponse()
+            res.status_code = 404
+            return res
+        if not resource.openid == openid:
+            res = HttpResponse()
+            res.status_code = 404
+            print("error: user invalid!")
+            return res
+        try:
+            res_imgs = resource.img_arr.split(',')
+            if os.path.exists(resource.cover_img):
+                os.remove(str(resource.cover_img)[1:])
+            for item in res_imgs:
+                if os.path.exists(item):
+                    os.remove(str(item)[1:])
+            resource.delete()
+            res = HttpResponse()
+            res.status_code = 200
+            return res
+        except Exception as e:
+            print(e)
+            return HttpResponse("fail")
+    return HttpResponse("ok")
