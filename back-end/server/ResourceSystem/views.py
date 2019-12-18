@@ -296,6 +296,7 @@ def recommend_res(request):
     res_list = []
     res_list_overdue = []
     cur_time_stamp = int(time.time())
+    resources = Resource.objects.filter()
     for e in resources:
         if e.category in interest_category:
             interest_list = e.interest_users.split(",")
