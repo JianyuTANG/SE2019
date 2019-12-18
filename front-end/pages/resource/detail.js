@@ -37,6 +37,7 @@ Page({
     iconUnlike: 'like-o',
     iconLike: 'like',
     avatarSrc: '/assets/member.jpg',
+    deleteUrl: 'http://154.8.172.132/delete_res',
     enrollment: 0,
 
     tapEnrollment: false
@@ -218,6 +219,11 @@ Page({
     })
   },
 
+  visit_other: function (e) {
+    let that = this
+
+  },
+
   switch_interest: function (e) {
     let that = this
     var sessionCode
@@ -256,9 +262,60 @@ Page({
       })
   },
 
+  changeResource: function (e) {
+    let that = this
+    console.log(e)
+    let resID = that.data.resID
+    wx.navigateTo({
+      url: '/pages/resource/add?resID=' + resID
+    })
+  },
+
+  deleteResource: function (e) {
+    let that = this
+    let sessionCode
+    sessionCode = wx.getStorageSync('sessionCode')
+    let openid
+    openid = wx.getStorageSync('openid')
+    let resID = that.data.resID
+    
+    let promise = new Promise((resolve, reject) => {
+      wx.request({
+        url: that.data.deleteUrl,
+        method: 'POST',
+
+        data: {
+          sessionCode: sessionCode,
+          openid: openid,
+          resID: resID
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success(res) {
+          console.log('switch_interest返回值', res)
+          if (res.statusCode === 200) {
+            resolve()
+          } else {
+            reject(new Error('server rejects'))
+          }
+          // allList
+        }
+      })
+    })
+
+    promise.then(that.backNavigate).catch(function (e) { console.log(e) })
+  },
+
   handleChange: function (e) {
     this.setData({
       currentIndex: e.detail.current
     })
-  }
+  },
+
+  backNavigate: function (e) {
+    wx.switchTab({
+      url: "/pages/resource/resource",
+    })
+  },
 })

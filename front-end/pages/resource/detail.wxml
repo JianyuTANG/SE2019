@@ -13,7 +13,7 @@ buttons="{{[{text: '确定'}]}}">
     <view class="answerer-wrp">
         <view class="bg-half"></view>
         <view class="answerer flex-wrp">
-            <view class="avatar flex-item">
+            <view class="avatar flex-item" bindtap="visit_other">
                 <image src="{{avatarSrc}}"></image>
             </view>
             <view class="answerer-info flex-item">
@@ -67,10 +67,10 @@ buttons="{{[{text: '确定'}]}}">
         <van-icon wx:else name='like-o' size="2.5em" bind:click="switch_interest"/>
       </view>
       <view class="follow flex-item">
-        <van-icon wx:if="{{canChange}}" name='setting' size="2.5em" bind:tap="change"/>
+        <van-icon wx:if="{{canChange}}" name='setting' size="2.5em" bind:tap="changeResource"/>
       </view>
       <view class="follow flex-item">
-        <van-icon wx:if="{{canChange}}" name="clear" size="2.5em" bind:tap="delete"/>
+        <van-icon wx:if="{{canChange}}" name="clear" size="2.5em" bind:tap="deleteResource"/>
       </view>
     </view>
   </view>
