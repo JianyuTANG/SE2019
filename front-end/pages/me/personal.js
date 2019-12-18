@@ -15,9 +15,9 @@ Page({
     areaList: areaList,
     areaPlaceholder: ['请选择', '请选择', '请选择'],
     fieldList: fieldList,
-    interestTags: ['1', '2', '3', '4'],
+    interestTags: [],
     prefabTagList: interestTags,
-    tapButtonTag: true,
+    tapButtonTag: false,
     basicData: { // 读取的用户的基本数据
       name: '',
       stuNum: [],
@@ -42,22 +42,23 @@ Page({
       field: '请选择'
     },
     // 规则中暂时只有手机号码,email, 城市, 和 行业领域必填
-    rules: [
-      {
-        name: 'telephone',
-        rules: [{ required: true, message: '电话必填' }, { mobile: true, message: '电话应该有正确格式' }]
-      },
-      {
-        name: 'email',
-        rules: [{ required: true, message: '邮箱必填' }, { email: true, message: '邮箱应该有正确格式' }]
-      },
-      {
-        name: 'cityCode',
-        rules: { required: true, message: '城市是必填项' }
-      }, {
-        name: 'fieldCode',
-        rules: { required: true, message: '行业领域是必填项' }
-      }]
+    rules: []
+    // rules: [
+    //   {
+    //     name: 'telephone',
+    //     rules: [{ required: true, message: '电话必填' }, { mobile: true, message: '电话应该有正确格式' }]
+    //   },
+    //   {
+    //     name: 'email',
+    //     rules: [{ required: true, message: '邮箱必填' }, { email: true, message: '邮箱应该有正确格式' }]
+    //   },
+    //   {
+    //     name: 'cityCode',
+    //     rules: { required: true, message: '城市是必填项' }
+    //   }, {
+    //     name: 'fieldCode',
+    //     rules: { required: true, message: '行业领域是必填项' }
+    //   }]
   },
   onLoad () {
     console.log(this.data.areaList)
@@ -106,6 +107,10 @@ Page({
       success (res) {
         console.log(res)
         console.log(res.data)
+        let arr = []
+        if (res.data.interestArr.length) {
+          arr = res.data.interestArr.filter(p => p)
+        }
         that.setData({
           'basicData.name': res.data.name,
           'basicData.stuNum': res.data.studentArr,
@@ -116,7 +121,8 @@ Page({
           'formData.fieldCode': res.data.field,
           'formData.telephone': res.data.tel,
           'formData.email': res.data.email,
-          'formData.content': res.data.selfDiscription
+          'formData.content': res.data.selfDiscription,
+          'interestTags': arr
         })
         that.setInfo()
       }
@@ -140,6 +146,7 @@ Page({
         selfDiscription: formData.content,
         city: formData.cityCode,
         field: formData.fieldCode,
+        interestArr: that.data.interestTags,
         wechatId: '',
         company: '',
         hobby: ''
@@ -223,5 +230,41 @@ Page({
   // },
   submitCancel: function () {
     wx.navigateBack()
+  },
+  setTag: function (e) {
+    this.setData({
+      'tapButtonTag': true
+    })
+  },
+  onAddTag: function (e) {
+    console.log(e)
+    let name = e.detail.name
+    let curTags = this.data.interestTags
+    let match = curTags.filter(item => item === name)
+    console.log(match)
+    if (match.length === 0) {
+      curTags.push(name)
+    }
+    console.log(curTags)
+    this.setData({
+      'interestTags': curTags
+    })
+  },
+  closeTag: function (index) {
+    let tags = this.data.interestTags
+    tags.splice(index, 1)
+    this.setData({
+      'interestTags': tags
+    })
+  },
+  onCloseTag: function (e) {
+    console.log(e)
+    let index = e.detail.index
+    this.closeTag(index)
+  },
+  onButtonTag: function (e) {
+    this.setData({
+      'tapButtonTag': false
+    })
   }
 })

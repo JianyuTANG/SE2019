@@ -49,10 +49,13 @@
             </mp-cells>
 
             <mp-cells title = "可填项">
-                <mp-cell prop="interest" title="兴趣" ext-class="weui-cell_label-block">
+                <mp-cell prop="interest" title="兴趣" 
+                footer="设置"
+                bind:tap="setTag"
+                ext-class="weui-cell_label-block">
                     <view wx:if="{{interestTags.length}}" >
                         <view style="padding-left:10rpx; padding-right:10rpx;">
-                            <view wx:for="{{searchTags}}" style="margin-left:20rpx; display: inline-block;">
+                            <view wx:for="{{interestTags}}" style="margin-left:20rpx; display: inline-block;">
                                 <van-tag type="primary"  data-index="{{index}}">
                                     {{item}}
                                 </van-tag>
