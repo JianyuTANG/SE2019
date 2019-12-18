@@ -644,12 +644,14 @@ def query_user_by_num(request):
     group = Group_num.objects.get(num=num)
     student_list_id = group.student_list_id.split(',')[:-1]
     user_avatar = []
+    department_list = []
     for studentid in student_list_id:
 
         try:
             studentid = int(studentid)
             userinfo = UserInfo.objects.get(id=studentid)
             user_avatar.append(userinfo.avatar_url)
+            department_list.append(userinfo.department)
         except:
             print('except')
     student_list_name = group.student_list_name.split(',')[:-1]
@@ -659,17 +661,20 @@ def query_user_by_num(request):
             'name': student_list_name[i],
             'openid': student_list_id[i],
             'avatarUrl': user_avatar[i],
+            'department': department_list[i],
             'isStudent': 1,
         })
 
     advisor_list_id = group.advisor_list_id.split(',')[:-1]
     user_avatar = []
+    department_list = []
     for studentid in student_list_id:
 
         try:
             studentid = int(studentid)
             userinfo = UserInfo.objects.get(id=studentid)
             user_avatar.append(userinfo.avatar_url)
+            department_list.append(userinfo.department)
         except:
             print('except')
     advisor_list_name = group.advisor_list_name.split(',')[:-1]
@@ -679,6 +684,7 @@ def query_user_by_num(request):
             'name': advisor_list_name[i],
             'openid': advisor_list_id[i],
             'avatarUrl': user_avatar[i],
+            'department': department_list[i],
             'isStudent': 0,
         })
     res = {'userArr': user_arr, 'title': group.title, 'description': group.description}
