@@ -639,7 +639,7 @@ def query_user_by_num(request):
     except:
         print('缺失请求参数')
         return get404()
-
+    print('99999')
     user_arr = []
     group = Group_num.objects.filter(num=num)
     student_list_id = group.student_list_id.split(',')[:-1]
