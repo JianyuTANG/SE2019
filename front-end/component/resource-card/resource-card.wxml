@@ -7,13 +7,24 @@ module.exports = {
 }
 </wxs>
 <view class='background' bind:tap="readmore">
+  <view style="width:225rpx; height:400rpx; padding:10rpx;">
     <image
-    style="width:30vw; height:400rpx; padding:10rpx;"
+    style="width:225rpx; height:400rpx;"
     src="{{coverImg}}"
     fit="cover"
     mode="aspectFit"
     show-error="true"
     show-loading= "true"/>
+  </view>
+  <view style="width:225rpx; height:400rpx; padding:10rpx; position:absolute; top:0px; left:0px;">
+    <image wx:if="{{expired}}"
+    style="width:225rpx; height:400rpx;"
+    src="/assets/expired.png"
+    fit="cover"
+    mode="aspectFit"
+    show-error= "true"
+    show-loading= "true"> </image>
+  </view>
 
  <view  class="info-box" style="width:70vw; height:400rpx">
     <view style="height: 100rpx;">
