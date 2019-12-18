@@ -668,7 +668,7 @@ def query_user_by_num(request):
     advisor_list_id = group.advisor_list_id.split(',')[:-1]
     user_avatar = []
     department_list = []
-    for studentid in student_list_id:
+    for studentid in advisor_list_id:
 
         try:
             studentid = int(studentid)
