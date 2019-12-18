@@ -16,7 +16,7 @@ class UserInfo(models.Model):
     wechatid = models.CharField(max_length=64, default='', blank=True)  # 微信号（手机号）
     tel = models.CharField(max_length=20, default='', blank=True)  # 电话
     email = models.CharField(max_length=64, default='', blank=True)  # 邮箱
-    self_discription = models.CharField(max_length=600, default='', blank=True)  # 自我介绍
+    self_discription = models.CharField(max_length=600, default='这个人行胜于言，什么都没有写。', blank=True)  # 自我介绍
     company = models.CharField(max_length=100, default='', blank=True)  # 公司
     hobby = models.CharField(max_length=100, default='', blank=True)  # 爱好
     avatar_url = models.CharField(max_length=100,
