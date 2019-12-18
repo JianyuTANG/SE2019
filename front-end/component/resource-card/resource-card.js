@@ -37,6 +37,10 @@ Component({
     canLove: {
       type: Boolean,
       value: true
+    },
+    expired: {
+      type: Boolean,
+      value: true
     }
   },
   data: {

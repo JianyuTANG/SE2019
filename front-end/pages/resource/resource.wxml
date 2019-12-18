@@ -109,6 +109,7 @@
             content="{{item.content}}"
             startDate="{{item.startDate}}"
             interested="{{item.interested}}"
+            expired="{{item.overdue}}"
             canChange="{{canChange}}">
 </resource-card>
 </view>
