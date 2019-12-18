@@ -1,0 +1,98 @@
+<!-- <button class="weui-btn mini-button" type="default">创建新群组</button> -->
+<van-search
+  value="{{ searchValue }}"
+  placeholder="请输入搜索关键词"
+  use-action-slot
+  bind:change="onSearchChange"
+  bind:search="onSearch"
+>
+  <view slot="action" bind:tap="onSearch">搜索</view>
+</van-search>
+
+<!-- <mp-tabbar ext-class="tabbar-item" style="" list="{{list}}" bindchange="tabChange">
+</mp-tabbar>
+
+<view wx:for="{{groupList}}"  class = "group-card">
+  <group-card catchtap="groupDetail"
+    title="{{item.title}}" 
+    intro="{{item.intro}}"
+    advisorArr="{{item.advisorArr}}"
+    num="{{item.num}}">
+  </group-card>  
+</view>
+
+<van-sidebar active-key="{{ activeKey }}" bind:change="onChange" wx:for="{{showGroupList}}">
+  <van-sidebar-item title="{{item.title}}" info="我的" />
+</van-sidebar>
+
+<view wx:for="{{showResouceList}}"  class = "resource-card">
+<group-card 
+            data-id="{{item.resID}}"
+            resID="{{item.resID}}"
+            bind:readmore="readmore"
+            bind:switch_interest="switch_interest"
+            bind:change="changeResource"
+            bind:delete="deleteResource"
+            coverImg="{{item.coverImg}}"
+            title="{{item.title}}" 
+            name="{{item.name}}"
+            contact="{{item.contact}}"
+            due="{{item.due}}"
+            content="{{item.content}}"
+            startDate="{{item.startDate}}"
+            interested="{{item.interested}}"
+            canChange="{{canChange}}">
+</group-card>
+</view> -->
+
+<view class='productNav'>
+  <!-- 左侧 -->
+  <view class='left'>
+    <view class="{{active==0?'selected':'normal'}}" id="0" bindtap='switchNav'>我加入的</view>
+    <view class="{{active==1?'selected':'normal'}}" id="1" bindtap='switchNav'>每期归属</view>
+    <view class="{{active==2?'selected':'normal'}}" id="2" bindtap='switchNav'>行业归属</view>
+  </view>
+  <!-- 右侧 -->
+  <view class='right'>
+    <view class='type' >
+      <!-- current:当前所在滑块的 index -->
+      <!-- vertical:滑动方向是否为纵向 -->
+      <swiper current='{{currentTab}}' vertical='{{true}}' style="overflow:scroll, circular: true">
+        <!-- catchtouchmove 阻止弹窗后滚动穿透 -->
+        <swiper-item id="0" catchtouchmove="false" style="overflow:scroll">
+          <view wx:for="{{myList}}"  class = "group-card">
+            <group-card catchtap="readmore"
+              data-id="{{item.num}}"
+              title="{{item.title}}" 
+              description="{{item.description}}"
+              advisorArr="{{item.advisorArr}}"
+              length="{{item.length}}">
+            </group-card>  
+          </view>
+        </swiper-item>
+        <swiper-item id="1" catchtouchmove="false" style="overflow:scroll">
+          <view wx:for="{{numList}}"  class = "group-card">
+            <group-card catchtap="readmore"
+              data-id="{{item.num}}"
+              title="{{item.title}}" 
+              description="{{item.description}}"
+              advisorArr="{{item.advisorArr}}"
+              length="{{item.length}}">
+            </group-card>  
+          </view>
+        </swiper-item>
+        <swiper-item id="2" catchtouchmove="false">
+          <view wx:for="{{fieldList}}"  class = "group-card">
+            <group-card catchtap="readmore"
+              data-id="{{item.num}}"
+              title="{{item.title}}" 
+              description="{{item.description}}"
+              advisorArr="{{item.advisorArr}}"
+              length="{{item.length}}">
+            </group-card>  
+          </view>
+        </swiper-item>
+      </swiper> 
+    </view>
+  </view>
+</view>

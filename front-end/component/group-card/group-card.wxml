@@ -1,0 +1,27 @@
+<wxs module="foo">
+var tostr = function(value){
+  return value.substring(0,8)
+}
+module.exports = {
+  tostr: tostr,
+}
+</wxs>
+
+<view class='background' bindtap="readmore">
+  <view class="container">
+      <text class="title-line"> {{title}} </text>
+      
+      <text class="introduction">{{description}}</text>
+      
+      <view class="icon-line">
+      <image src="{{masterIcon}}" />
+      <text>负责人:{{advisorArr}} </text>
+      </view>
+
+      <view class="icon-line">
+      <image src="{{memberIcon}}" />
+      <text>现有成员:{{length}} 人</text>
+      </view>
+
+  </view>
+</view>

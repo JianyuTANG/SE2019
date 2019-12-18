@@ -1,0 +1,64 @@
+{
+    "usingComponents": {
+        "info-card": "/component/info-card/info-card",
+        "mp-dialog": "../../miniprogram_npm/weui-miniprogram/dialog/dialog",
+        "mp-badge": "../../miniprogram_npm/weui-miniprogram/badge/badge",
+        "mp-cell": "../../miniprogram_npm/weui-miniprogram/cell/cell",
+        "mp-cells": "../../miniprogram_npm/weui-miniprogram/cells/cells"
+    },  
+    "pages": [
+
+        "pages/cover/cover",
+        "pages/login/login",
+        "pages/me/me",
+        "pages/me/personal",
+        "pages/user/index",
+        "pages/resource/resource",
+        "pages/resource/detail",
+        "pages/resource/add",
+        "pages/groups/groups",
+        "pages/groups/group_info",
+        "pages/groups/group_member_info",
+        "pages/plaza/plaza"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "WeChat",
+        "navigationBarTextStyle": "black"
+    },
+    "tabBar": {
+        "color": "#9B9B9B",
+        "selectedColor": "#7ED321",
+        "backgroundColor": "#F8F8F8",
+        "borderStyle": "black",
+        "list": [
+            {
+                "pagePath": "pages/plaza/plaza",
+                "text": "官方推荐",
+                "iconPath": "assets/activity.png",
+                "selectedIconPath": "assets/activity-active.png"
+            },
+            {
+                "pagePath": "pages/resource/resource",
+                "text": "资源",
+                "iconPath": "assets/resource.png",
+                "selectedIconPath": "assets/resource-active.png"
+            },
+            {
+              "pagePath": "pages/groups/groups",
+              "text": "归属",
+              "iconPath": "assets/square.png",
+              "selectedIconPath": "assets/square-active.png"
+            },
+            {
+                "pagePath": "pages/me/me",
+                "text": "我的",
+                "iconPath": "assets/me.png",
+                "selectedIconPath": "assets/me-active.png"
+            }
+        ]
+    },
+
+    "sitemapLocation": "sitemap7.json"
+}

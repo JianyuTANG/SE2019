@@ -1,0 +1,116 @@
+
+<mp-dialog 
+  wx:if = "{{tapButtonTag}}"
+  title="设置Tag" 
+  show="{{tapButtonTag}}" 
+  bindbuttontap="onButtonTag" 
+  ext-class="set-date-dialog"
+  buttons="{{[{text: '确定'}]}}">
+      <activity-tags 
+      tagList="{{tagList}}" 
+      curTags="{{searchTags}}" 
+      bind:addTag = "onAddTag" 
+      bind:closeTag="onCloseTag">
+      </activity-tags>
+</mp-dialog>
+
+<van-search
+  wx:if="{{listIndex === 0}}"
+  value="{{ searchValue }}"
+  placeholder="请输入搜索关键词"
+  use-action-slot
+  bind:change="onSearchChange"
+  bind:search="onSearch"
+>
+  <view slot="action" bind:tap="onSearch">搜索</view>
+</van-search>
+<!-- <mp-searchbar 
+    wx:if="{{listIndex === 0}}"
+    placeholder="请输入关键字搜索" 
+    bindselectresult="selectResult" 
+    bindinput="search">
+</mp-searchbar> -->
+
+
+<mp-tabbar ext-class="tabbar-item" style="" list="{{nameList}}" bindchange="tabChange"></mp-tabbar>
+
+<!-- <van-tabs v-model="active" animated sticky>
+  <van-tab title="全部资源"></van-tab>
+  <van-tab title="精选推荐"></van-tab>
+  <van-tab title="我中意的"></van-tab>
+  <van-tab title="我发布的"></van-tab>
+</van-tabs> -->
+
+  <!-- <button class="tag-button">
+    <text >设置tag</text>
+  </button> -->
+<!-- <view class="search-nav">
+  <van-dropdown-menu class='dropdown'>
+    <van-dropdown-item title = "设置" value="{{ formData.type }}" options="{{ formData.activityTypes }}" bind:change="changeType"/>
+  </van-dropdown-menu>
+
+  <view class="tag-button">
+    <text >设置tag</text>
+  </view>
+</view> --> <!-- 自己写这种东西实在是太难受叾-->
+<!-- 
+<mp-tabbar ext-class="tabbar-item" style="" currentlist="{{searchList}}" bindchange="tabSearchChange"></mp-tabbar> -->
+
+<van-grid wx:if="{{listIndex === 0}}"column-num="2" class='search-nav' border="{{ false }}">
+  <van-grid-item use-slot>
+    <van-dropdown-menu class='dropdown'>
+      <van-dropdown-item title = "类别搜索" value="{{ activityType }}" options="{{ showActivityTypes }}" bind:change="onSearchType"/>
+    </van-dropdown-menu>
+  </van-grid-item>
+
+  <van-grid-item use-slot>
+<van-button bind:tap="setTag" type="default">tag搜索</van-button>
+  </van-grid-item>
+</van-grid>
+
+<view wx:if="{{searchTags.length && listIndex === 0}}" >
+  <view style="padding-left:10rpx; padding-right:10rpx;">
+    <van-nav-bar right-text="清空" bind:click-right = "clearTags" safe-area-inset-top="{{false}}"  class="tag-nav">
+      <!-- <view slot="left">
+        <text >tags</text>
+      </view> -->
+
+      <view name="search" slot="title" style="overflow-x: scroll;">
+        <view wx:for="{{searchTags}}" style="margin-left:20rpx; display: inline-block;">
+        <van-tag type="primary"  data-index="{{index}}">
+            <van-tag type="primary" catch:tap="fakeHandle">{{item}}</van-tag>
+            <!-- <text>X</text> -->
+            </van-tag>
+        </view>
+      </view>
+    </van-nav-bar>
+  </view>
+</view>
+
+<button class="add-button" catchtap="addResource">
+    <view style="display:flex; align-items: center; justify-content: center; height:100%">
+    <text>+</text>
+    </view>
+</button>
+
+<view wx:for="{{showResouceList}}"  class = "resource-card">
+<resource-card 
+            data-id="{{item.resID}}"
+            resID="{{item.resID}}"
+            bind:readmore="readmore"
+            bind:switch_interest="switch_interest"
+            bind:change="changeResource"
+            bind:delete="deleteResource"
+            coverImg="{{item.coverImg}}"
+            title="{{item.title}}" 
+            name="{{item.name}}"
+            contact="{{item.contact}}"
+            due="{{item.due}}"
+            content="{{item.content}}"
+            startDate="{{item.startDate}}"
+            interested="{{item.interested}}"
+            expired="{{item.overdue}}"
+            canChange="{{canChange}}"
+            category="{{item.category}}">
+</resource-card>
+</view>

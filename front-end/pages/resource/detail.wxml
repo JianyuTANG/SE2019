@@ -1,0 +1,106 @@
+<mp-dialog title="已报名"    
+show="{{tapEnrollment}}" 
+bindbuttontap="tapDialogButton" 
+buttons="{{[{text: '确定'}]}}">
+</mp-dialog>
+
+<view class="container">
+  <view class="question" bindtap="toQuestion">
+    <view style="flex-direction:row; display:flex;">
+        <view style="max-width:60vw;">
+          <text class="question-title">{{title}}
+          </text>
+          <text class="category-title">类型：{{category}}</text>
+        </view>
+        <view class="view-info">
+          <view>
+            <van-icon name="eye" color="white" style="display:inline-block;"/>
+            <text style="margin-left:10rpx;" >浏览: {{viewNum}}次</text>
+          </view>
+          <view>
+            <van-icon name="like" color="white" style="display:inline-block;"/>
+            <text style="margin-left:10rpx;">被关注: {{interestNum}}次</text>
+          </view>
+        </view>
+    </view>
+  </view>
+    <view class="answerer-wrp">
+        <view class="bg-half"></view>
+        <view class="answerer flex-wrp">
+            <view class="avatar flex-item" bindtap="visit_other">
+                <image src="{{avatarSrc}}"></image>
+            </view>
+            <view class="answerer-info flex-item">
+                <text class="answerer-name">发起人：{{name}}</text>
+                <text class="answerer-des">联系方式：{{contact}}</text>
+            </view>
+            <button open-type="share" bind:tap="onShare"
+            style="display:flex; justify-content:center; align-content:center;"
+            ><van-icon name="share" size="30rpx" /></button>
+        </view>
+    </view>
+    <view class="answer-content">
+      <mp-cell show-error title="" ext-class="">
+        <image mode='widthFix' src="{{coverImg}}"></image>
+        <view wx:if="{{imgArr[0]!=='http://154.8.172.132'}}" class="swipers-container">
+          <swiper previous-margin="{{leftMargin}}" next-margin="{{rightMargin}}" indicator-dots="{{indicatorDots}}"
+            autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{current}}"bindchange="handleChange">
+            <block wx:for="{{imgArr}}" wx:key="*this">
+              <swiper-item>
+                <!-- <text>{{item}}</text> -->
+                <image class="slide-image {{currentIndex == index ? 'active': ''}}" src="{{item}}" mode='scaleToFill' lazy-load="true" />
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
+      </mp-cell>
+        <mp-cell show-error title="" ext-class="">
+          <text>活动详情：{{content}}</text>
+        </mp-cell>
+        <mp-cell show-error title="" ext-class="">
+          <text>活动tag：</text>
+          <view wx:for="{{tagArr}}" style="margin-left:20rpx; display: inline-block;">
+            <van-tag type="primary" data-index="{{index}}">
+              <van-tag type="primary" >{{item}}</van-tag>
+            </van-tag>
+          </view>
+        </mp-cell>
+        <mp-cell show-error title="" ext-class="">
+          <text class="begin-date">发起日期：{{startDate}}
+        
+        
+        
+        </text>
+        </mp-cell>
+    </view>
+    <view class="answer-footer flex-around">
+      <view class="end-date flex-item">
+        <text>截止日期:{{due}}</text>
+      </view>
+      <view class="follow flex-item">
+        <!-- <text>十 我要报名</text> -->
+        <van-icon wx:if="{{interested}}" name='like' size="2.5em" bind:click="switch_interest"/>
+        <van-icon wx:else name='like-o' size="2.5em" bind:click="switch_interest"/>
+      </view>
+      <view class="follow flex-item">
+        <van-icon wx:if="{{canChange}}" name='setting' size="2.5em" bind:tap="changeResource"/>
+      </view>
+      <view class="follow flex-item">
+        <van-icon wx:if="{{canChange}}" name="clear" size="2.5em" bind:tap="deleteResource"/>
+      </view>
+    </view>
+  </view>
+
+    <!-- <view class="answer-footer flex-around">
+      <view class="end-date flex-item">
+        <text>截止日期:{{due}}</text>
+      </view>
+
+      <view class="follow flex-item" catch:tap="enroll">
+            <van-icon wx:if="{{interested}}" name='like' size="2.5em" bind:click="switch_interest"/>
+            <van-icon wx:else name='like-o' size="2.5em" bind:click="switch_interest"/>
+            <van-icon wx:if="{{canChange}}" name='setting' size="2.5em" bind:tap="change"/>
+            <van-icon wx:if="{{canChange}}" name="clear" size="2.5em" bind:tap="delete"/>
+      </view>
+    </view> -->
+

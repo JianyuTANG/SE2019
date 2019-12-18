@@ -1,0 +1,82 @@
+<wxs module="foo">
+var tostr = function(value){
+  return value.substring(0,8)
+}
+module.exports = {
+  tostr: tostr,
+}
+</wxs>
+<view class='background' bind:tap="readmore">
+    <image
+    style="width:30vw; height:400rpx; padding:10rpx;"
+    src="{{coverImg}}"
+    fit="cover"
+    mode="aspectFit"
+    show-error="true"
+    show-loading= "true"/>
+
+ <view  class="info-box" style="width:70vw; height:400rpx">
+    <view style="height: 100rpx;">
+      <view class="title-container">
+         <text class="title-line">
+            {{title.length > 8 ? foo.tostr(title)+'...': title}} 
+          </text>
+      </view>
+    </view>
+
+    <view style="height: 100rpx;" class="text-box">
+      <view style="width: 50vw;">
+        <text class="title-text">发起人:</text>
+        <text>
+            {{name.length > 8 ? foo.tostr(name)+'...': name}} 
+        </text>
+      </view>
+      <view style="width: 50vw;">
+        <text class="title-text">联系方式:</text>
+        <text>
+          {{contact.length > 8 ? foo.tostr(contact)+'...': contact}} 
+        </text>
+      </view>
+
+    </view>
+
+    <view style="height:100rpx;" class="text-box">
+        <view style="width: 50vw;">
+        <text class="title-text">截止日期:</text>
+        <text> {{due}} </text>
+      </view>
+      <view style="width: 50vw;">
+        <text class="title-text">类别:</text>
+        <text> {{category}} </text>
+      </view>
+
+    </view>
+
+    <view style="height: 100rpx;" class="icon-box">
+      <view  style="width: 170rpx; height:100rpx;">
+        <van-icon wx:if="{{canChange}}" name='setting' size="2.5em" catch:tap="change"/>
+      </view>
+      <view style="width: 170rpx; height:100rpx;">
+      <van-icon wx:if="{{canChange}}" name="clear" size="2.5em" catch:tap="delete"/>
+      </view>
+        <view wx:if="{{canLove}}">
+          <van-icon 
+          wx:if="{{interested}}" 
+          name='like' 
+          size="2.5em"
+          style="display:flex;"
+          catch:tap="switch_interest"/>
+          <van-icon 
+          wx:else 
+          name='like-o' 
+          size="2.5em" 
+          style="display:flex;"
+          catch:tap="switch_interest"/>
+        </view>
+        <view wx:else>
+          <van-icon 
+          name="play" />
+        </view>
+    </view> 
+</view>
+</view>

@@ -1,0 +1,40 @@
+<!--广场用于展示官方信息 -->
+<swiper
+  indicator-dots="{{true}}"
+  autoplay="{{true}}"
+  interval="{{3000}}"
+  duration="{{500}}"
+  current="{{currentIndex}}"
+  bindchange="handleChange">
+  <block wx:for="{{imgArr}}">
+    <swiper-item  style="background-color:white;"> 
+      <view>
+        <image class="slide-image {{currentIndex == index ? 'active': ''}}"
+        src="{{item}}" mode="aspectFit" lazy-load="true" />
+       </view>
+    </swiper-item>
+  </block>
+</swiper>
+
+<view slot="title">
+<text class="title">官方推荐</text>
+</view>
+
+<view wx:for="{{showResourceList}}"  class = "resource-card">
+<resource-card 
+    data-id="{{item.resID}}"
+    resID="{{item.resID}}"
+    bind:readmore="readmore"
+    bind:switch_interest="switch_interest"
+    coverImg="{{item.coverImg}}"
+    title="{{item.title}}" 
+    name="{{item.name}}"
+    contact="{{item.contact}}"
+    due="{{item.due}}"
+    content="{{item.content}}"
+    startDate="{{item.startDate}}"
+    interested="{{item.interested}}"
+    expired="{{item.overdue}}"
+    category="{{item.category}}">
+</resource-card>
+</view>
