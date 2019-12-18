@@ -34,7 +34,9 @@ buttons="{{[{text: '确定'}]}}">
                 <text class="answerer-name">发起人：{{name}}</text>
                 <text class="answerer-des">联系方式：{{contact}}</text>
             </view>
-
+            <button open-type="share" bind:tap="onShare"
+            style="display:flex; justify-content:center; align-content:center;"
+            ><van-icon name="share" size="30rpx" /></button>
         </view>
     </view>
     <view class="answer-content">

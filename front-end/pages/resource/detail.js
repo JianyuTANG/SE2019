@@ -1,11 +1,11 @@
 // pages/resource/detail.js
 Page({
-  onShareAppMessage () {
-    return {
-      title: 'swiper',
-      path: '../../miniprogram_npm/weui-miniprogram/swiper/swiper'
-    }
-  },
+  // onShareAppMessage () {
+  //   return {
+  //     title: 'swiper',
+  //     path: '../../miniprogram_npm/weui-miniprogram/swiper/swiper'
+  //   }
+  // },
   /**
    * 页面的初始数据
    */
@@ -158,7 +158,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    let that = this
+    return { title: that.data.title,
+      imageUrl: that.data.coverImg, // 图片 URL
+      query: `resID=${that.data.resID}`
+    }
   },
 
   enroll: function (e) {
@@ -171,6 +175,14 @@ Page({
   tapDialogButton: function (e) {
     this.setData({
       tapEnrollment: false
+    })
+  },
+
+  onShare: function (e) {
+    let that = this
+    console.log(e)
+    wx.showShareMenu({
+      withShareTicket: true
     })
   },
 
