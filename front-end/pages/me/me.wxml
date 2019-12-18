@@ -32,7 +32,7 @@
     </mp-cell>
     
     <!-- 姓名、期数【链接】、modify【电话、邮箱、行业、工作单位】 -->
-    <mp-cell  bindtap="navToDetailPage"  value="个人卡片" data-field="personal">
+    <mp-cell  bindtap="navToDetailPage"  value="个人资料" data-field="personal">
 
       <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>

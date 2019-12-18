@@ -57,9 +57,12 @@
     <view class='type' >
       <!-- current:当前所在滑块的 index -->
       <!-- vertical:滑动方向是否为纵向 -->
-      <swiper current='{{currentTab}}' vertical='{{true}}' style="overflow:scroll, circular: true">
+      <swiper current='{{currentTab}}' vertical='{{true}}'>
         <!-- catchtouchmove 阻止弹窗后滚动穿透 -->
-        <swiper-item id="0" catchtouchmove="false" style="overflow:scroll">
+        <swiper-item id="0" catchtouchmove="false">
+          <scroll-view  
+          scroll-y="true"
+          style="height:100vh;">
           <view wx:for="{{myList}}"  class = "group-card">
             <group-card catchtap="readmore"
               data-id="{{item.num}}"
@@ -69,8 +72,12 @@
               length="{{item.length}}">
             </group-card>  
           </view>
+          </scroll-view>  
         </swiper-item>
-        <swiper-item id="1" catchtouchmove="false" style="overflow:scroll">
+        <swiper-item id="1" catchtouchmove="false">
+          <scroll-view  
+          scroll-y="true"
+          style="height:100vh;">
           <view wx:for="{{numList}}"  class = "group-card">
             <group-card catchtap="readmore"
               data-id="{{item.num}}"
@@ -80,8 +87,12 @@
               length="{{item.length}}">
             </group-card>  
           </view>
+          </scroll-view>
         </swiper-item>
         <swiper-item id="2" catchtouchmove="false">
+          <scroll-view  
+          scroll-y="true"
+          style="height:100vh;">
           <view wx:for="{{fieldList}}"  class = "group-card">
             <group-card catchtap="readmore"
               data-id="{{item.num}}"
@@ -91,6 +102,7 @@
               length="{{item.length}}">
             </group-card>  
           </view>
+         </scroll-view>
         </swiper-item>
       </swiper> 
     </view>
