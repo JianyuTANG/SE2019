@@ -273,7 +273,7 @@ def query_res_all(request):
     res_list += res_list_overdue
     return JsonResponse({"res_list": res_list})
 
-def query_official(request):
+def query_res_official(request):
     '''
     用于返回官方发布的资源
     :param request:
