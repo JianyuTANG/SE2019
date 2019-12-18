@@ -5,3 +5,4 @@ front-end/miniprogram_npm/
 *.idea
 *.pyc
 *.sqlite3
+back-end/server/db.sqlite3
