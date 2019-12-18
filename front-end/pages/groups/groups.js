@@ -15,6 +15,7 @@ Page({
         active: 0,
         currentTab: 0,
         activeKey: 0,
+        num : 0,
 
         inputShowed: false,
         inputVal: "",
@@ -30,35 +31,10 @@ Page({
         }],
 
         groupList: [],
-        myList: [{
-            title: '思源17期',
-            description: '思源17期',
-            advisorArr: '高一凡',
-            length: '37'
-        }, {
-            title: '信息技术导师学员团12期',
-            description: '信息技术导师学员团12期',
-            advisorArr: '李竹',
-            length: '22'
-        }],
+        myList: [],
         numList: [],
-        otherList: [{
-            title: '思源足球爱好者组织',
-            description: '爱好足球的伙伴请加入我们',
-            advisorArr: '高一凡',
-            length: '99'
-        }, {
-            title: '信息技术导师学员团12期',
-            description: '信息技术导师学员团12期',
-            advisorArr: '李竹',
-            length: '22'
-        }]
-    },
-
-    groupDetail: function(e) {
-        wx.navigateTo({
-            url: '/pages/groups/group_info'
-        })
+        fieldList: [],
+        otherList: []
     },
 
     showInput: function() {
@@ -86,6 +62,8 @@ Page({
     onShow: function() {
         let that = this
         that.query_all_num()
+        that.query_group_field()
+        that.query_group_mine()
         // that.query_res_all(resolve, reject)
         // console.log(promise)
         // promise.then(function() {
@@ -129,6 +107,62 @@ Page({
                 // if (reject) { reject('no ') }
             }
         })
+    },
+
+    query_group_field: function (e) {
+      let that = this
+      var sessionCode
+      sessionCode = wx.getStorageSync('sessionCode')
+      wx.request({
+        url: 'http://154.8.172.132/query_group_field',
+        method: 'POST',
+
+        data: {
+          sessionCode: sessionCode
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success(res) {
+          console.log('query_group_field返回', res)
+          that.setData({
+            'fieldList': res.data.arr
+          })
+          console.log('fieldList', that.data.fieldList)
+          // if (resolve) { resolve() }
+        },
+        fail(res) {
+          // if (reject) { reject('no ') }
+        }
+      })
+    },
+
+    query_group_mine: function (e) {
+      let that = this
+      var sessionCode
+      sessionCode = wx.getStorageSync('sessionCode')
+      wx.request({
+        url: 'http://154.8.172.132/query_group_mine',
+        method: 'POST',
+
+        data: {
+          sessionCode: sessionCode
+        },
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        success(res) {
+          console.log('query_group_mine返回', res)
+          that.setData({
+            'myList': res.data.arr
+          })
+          console.log('myList', that.data.myList)
+          // if (resolve) { resolve() }
+        },
+        fail(res) {
+          // if (reject) { reject('no ') }
+        }
+      })
     },
 
     switchNav: function(e) {
@@ -208,5 +242,14 @@ Page({
       this.setData({
           showResouceList: this.data.resourceList
       })
+  },
+
+  readmore: function (e) {
+    console.log('e.currentTarget:', e.currentTarget)
+    
+    let num = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '/pages/groups/group_info?num=' + num
+    })
   },
 })

@@ -26,7 +26,7 @@ Component({
 
   methods: {
     readmore: function () {
-      console.log('readmore')
+      console.log('readGroup')
       this.triggerEvent('readmore')
     }
   }
