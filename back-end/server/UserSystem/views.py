@@ -646,8 +646,11 @@ def query_user_by_num(request):
     user_avatar = []
     for studentid in student_list_id:
         studentid = int(studentid)
-        userinfo = UserInfo.objects.get(id=studentid)
-        user_avatar.append(userinfo.avatar_url)
+        try:
+            userinfo = UserInfo.objects.get(id=studentid)
+            user_avatar.append(userinfo.avatar_url)
+        except:
+            print('except')
     student_list_name = group.student_list_name.split(',')[:-1]
     l = len(student_list_id)
     for i in range(l):
@@ -662,8 +665,11 @@ def query_user_by_num(request):
     user_avatar = []
     for studentid in student_list_id:
         studentid = int(studentid)
-        userinfo = UserInfo.objects.get(id=studentid)
-        user_avatar.append(userinfo.avatar_url)
+        try:
+            userinfo = UserInfo.objects.get(id=studentid)
+            user_avatar.append(userinfo.avatar_url)
+        except:
+            print('except')
     advisor_list_name = group.advisor_list_name.split(',')[:-1]
     l = len(advisor_list_id)
     for i in range(l):
