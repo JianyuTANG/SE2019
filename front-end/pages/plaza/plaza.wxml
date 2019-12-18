@@ -1,10 +1,16 @@
 <!--广场用于展示官方信息 -->
-<swiper previous-margin="{{leftMargin}}" next-margin="{{rightMargin}}" indicator-dots="{{indicatorDots}}"
-  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{current}}"bindchange="handleChange">
-  <block wx:for="{{imgArr}}" wx:key="*this">
+<swiper
+  indicator-dots="{{true}}"
+  autoplay="{{true}}"
+  interval="{{3000}}"
+  duration="{{500}}"
+  current="{{currentIndex}}"
+  bindchange="handleChange">
+  <block wx:for="{{imgArr}}">
     <swiper-item>
       <!-- <text>{{item}}</text> -->
-      <image class="slide-image {{currentIndex == index ? 'active': ''}}" src="{{item}}" mode='scaleToFill' lazy-load="true" />
+      <image class="slide-image {{currentIndex == index ? 'active': ''}}"
+       src="{{item}}" mode='scaleToFill' lazy-load="true" />
     </swiper-item>
   </block>
 </swiper>

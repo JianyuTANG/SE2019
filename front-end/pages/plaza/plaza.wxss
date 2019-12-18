@@ -1,56 +1,8 @@
-.tabbar{
-    position:absolute;
-    top:0;
-    width:100%;
-    left:0;
-    right:0;
-    padding:0;
-    margin:0;
-    height:60rpx;
-}
-
-.tabbar-item{
-    /* height: 0rpx; */
-    font-size: 40rpx;
-    height: 100%;
-}
-
-.tabbar-item image{
-    display: none;
-}
-
-.add-button{
-    position: fixed;
-    bottom: 50rpx;
-    right: 50rpx;
-    height: 100rpx;
-    width: 100rpx;
-    padding: 0;
-
-    background-color: rgb(19, 34, 122)!important;
-    border-radius: 50%;
-
-    font-size: 60rpx;
-    color: white;
-    text-align: center;
-
-}
-
-
-page{
-    background: #eef1f9;
-}
-
-.resource-background{
-    /* background-color: rgb(206, 206, 206)!important; */
-    min-height: 100%;
-}
-
-.resource-card{
-    margin-top:30rpx;
-    border-radius:2em;
-
-}
-/* body{
-    top:80rpx;
-} */
+.active {
+    opacity: 1;
+    z-index: 10;
+    height: 400rpx;
+    width: 570rpx;
+    top: 7%;
+    transition: all 0.2s ease-in 0s;
+  }

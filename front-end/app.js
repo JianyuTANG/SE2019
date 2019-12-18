@@ -59,7 +59,7 @@ App({
                     url: '/pages/me/me'
                   })
                 } else {
-                  wx.switchTab({
+                  wx.redirectTo({
                     url: '/pages/login/login'
                   })
                 }
@@ -115,7 +115,7 @@ App({
     wx.showToast({
       title: '未联网',
       icon: 'loading',
-      duration: 20000
+      duration: 5000
     })
   }
 })
