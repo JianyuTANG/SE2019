@@ -26,6 +26,7 @@
     height: 100rpx;
     width: 100rpx;
     padding: 0;
+    z-index: 100000;
 
     background-color: rgb(19, 34, 122)!important;
     border-radius: 50%;
