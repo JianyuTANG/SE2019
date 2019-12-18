@@ -74,7 +74,7 @@
         </view>
     </van-collapse-item>
 
-  <van-collapse-item  name="3">
+  <!-- <van-collapse-item  name="3">
     <view slot="title">
 		<text class="title">发布资源</text>
     </view>
@@ -100,7 +100,7 @@
         </resource-card>
         </view>
     </view>
-  </van-collapse-item>
+  </van-collapse-item> -->
 </van-collapse>
 
 </view>

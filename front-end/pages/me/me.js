@@ -21,7 +21,7 @@ Page({
     showLoading: false, // 用于头像是否显示加载样式
     avatar: '',
     name: '',
-    selfDescription: '',
+    selfDiscription: '',
     identity: 0,
     stuNumber: 0,
     advNumber: 0,

@@ -9,7 +9,7 @@ Page({
     baseUrlPrefix: app.globalData.baseUrl.substr(0, app.globalData.baseUrl.length - 1),
     queryUrl: app.globalData.baseUrl + 'query_res_by_openid',
     viewUserUrl: app.globalData.baseUrl + 'view_other',
-    activeNames: ['1'],
+    activeNames: ['1', '2'],
     avatarUrl: '',
     name: '',
     email: '',
@@ -91,7 +91,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success(res) {
+      success (res) {
         console.log('view user返回值', res)
         if (res.statusCode === 200) {
           resolve(res)
@@ -124,7 +124,7 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success(res) {
+      success (res) {
         console.log('query res返回值', res)
         if (res.statusCode === 200) {
           resolve(res)
@@ -147,7 +147,7 @@ Page({
     }
   },
 
-  onChange(event) {
+  onChange (event) {
     this.setData({
       activeNames: event.detail
     })
@@ -162,14 +162,12 @@ Page({
   }
 })
 
-
 // // pages/groups/groups.js
 // Page({
 
 //   data: {
-    
-//   },
 
+//   },
 
 //   onShow: function () {
 //     this.setData({
