@@ -43,7 +43,7 @@ urlpatterns = [
     path('query_res_issued', ResourceSystem.views.query_res_issued),
     path('query_res_interested', ResourceSystem.views.query_res_interested),
     path('switch_interest', ResourceSystem.views.switch_interest),
-    path('query_user_by_number', UserSystem.views.query_user_by_num),
+    path('query_user_by_num', UserSystem.views.query_user_by_num),
     path('view_other', UserSystem.views.query_other),
     path('view_other_by_openid', UserSystem.views.query_other_by_openid),
     path('refresh_group', UserSystem.views.refresh_group),
