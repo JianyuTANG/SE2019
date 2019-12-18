@@ -3,19 +3,19 @@ Component({
   properties: {
     title: {
       type: String,
-      value: '一号中队'
+      value: '厚德载物小分队'
     },
-    intro: {
+    description: {
       type: String,
-      value: '一个神秘的组织'
+      value: '一个优秀的组织'
     },
-    master: {
+    advisorArr: {
       type: String,
-      value: 'You Know Who'
+      value: '辅导员'
     },
-    num: {
+    length: {
       type: String,
-      value: '1'
+      value: 0
     }
   },
 

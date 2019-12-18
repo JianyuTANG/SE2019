@@ -27,9 +27,13 @@
   width:75%;
   margin: 0;
 }
-swiper{
-  height: 500px;
+.type{
+  height: 1000rpx
 }
+swiper{
+  height: 100%;
+}
+
 
 
 

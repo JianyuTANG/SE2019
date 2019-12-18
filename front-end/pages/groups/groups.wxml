@@ -16,7 +16,7 @@
   <group-card catchtap="groupDetail"
     title="{{item.title}}" 
     intro="{{item.intro}}"
-    master="{{item.master}}"
+    advisorArr="{{item.advisorArr}}"
     num="{{item.num}}">
   </group-card>  
 </view>
@@ -54,26 +54,40 @@
   </view>
   <!-- 右侧 -->
   <view class='right'>
-    <view class='type'>
+    <view class='type' >
       <!-- current:当前所在滑块的 index -->
       <!-- vertical:滑动方向是否为纵向 -->
-      <swiper current='{{currentTab}}' vertical='{{true}}'>
+      <swiper current='{{currentTab}}' vertical='{{true}}' style="overflow:scroll, circular: true">
         <!-- catchtouchmove 阻止弹窗后滚动穿透 -->
-        <swiper-item id="0" catchtouchmove="false">
-          <view wx:for="{{groupList}}"  class = "group-card">
+        <swiper-item id="0" catchtouchmove="false" style="overflow:scroll">
+          <view wx:for="{{myList}}"  class = "group-card">
             <group-card catchtap="groupDetail"
               title="{{item.title}}" 
-              intro="{{item.intro}}"
-              master="{{item.master}}"
-              num="{{item.num}}">
+              description="{{item.description}}"
+              advisorArr="{{item.advisorArr}}"
+              length="{{item.length}}">
             </group-card>  
           </view>
         </swiper-item>
-        <swiper-item id="1" catchtouchmove="false">
-          每期归属
+        <swiper-item id="1" catchtouchmove="false" style="overflow:scroll">
+          <view wx:for="{{numList}}"  class = "group-card">
+            <group-card catchtap="groupDetail"
+              title="{{item.title}}" 
+              description="{{item.description}}"
+              advisorArr="{{item.advisorArr}}"
+              length="{{item.length}}">
+            </group-card>  
+          </view>
         </swiper-item>
         <swiper-item id="2" catchtouchmove="false">
-          行业归属
+          <view wx:for="{{otherList}}"  class = "group-card">
+            <group-card catchtap="groupDetail"
+              title="{{item.title}}" 
+              description="{{item.description}}"
+              advisorArr="{{item.advisorArr}}"
+              num="{{item.num}}">
+            </group-card>  
+          </view>
         </swiper-item>
       </swiper> 
     </view>
