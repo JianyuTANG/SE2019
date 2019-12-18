@@ -788,14 +788,27 @@ def query_my_groups(request):
         # 用户不存在 （sessionCode有误） 直接404
         print('sessionCode有误')
         return get404()
+
     userinfo = user.info
+    if userinfo is None:
+        print('未验证')
+    else:
+        print('已验证')
     id = str(userinfo.id)
     grouplist = Group_num.objects.filter(student_list_id__contains=id)
-    grouplist += Group_num.objects.filter(advisor_list_id__contains=id)
+    grouplist2 = Group_num.objects.filter(advisor_list_id__contains=id)
+    temp = []
+    for group in grouplist:
+        if group not in temp:
+            temp.append(group)
+    for group in grouplist2:
+        if group not in temp:
+            temp.append(group)
+    grouplist = temp
     arr = []
     for group in grouplist:
-        studentlist = group.student_list_id.split(',')
-        studentlist += group.advisor_list_id.split(',')
+        studentlist = group.student_list_id.split(',')[:-1]
+        studentlist += group.advisor_list_id.split(',')[:-1]
         if id in studentlist:
             item = {}
             item['num'] = group.num
