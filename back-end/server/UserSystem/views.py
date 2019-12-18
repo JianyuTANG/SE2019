@@ -774,6 +774,42 @@ def query_all_fields(request):
     })
 
 
+def query_my_groups(request):
+    print('/query_group_mine')
+    post_body = request.body
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
+    if user is None:
+        # 用户不存在 （sessionCode有误） 直接404
+        print('sessionCode有误')
+        return get404()
+    userinfo = user.info
+    id = str(userinfo.id)
+    grouplist = Group_num.objects.filter(student_list_id__contains=id)
+    grouplist += Group_num.objects.filter(advisor_list_id__contains=id)
+    arr = []
+    for group in grouplist:
+        studentlist = group.student_list_id.split(',')
+        studentlist += group.advisor_list_id.split(',')
+        if id in studentlist:
+            item = {}
+            item['num'] = group.num
+            item['title'] = group.title
+            item['description'] = group.description
+            item['length'] = len(studentlist)
+            advisorlist = group.advisor_list_name.split(',')
+            item['advisorArr'] = advisorlist
+            arr.append(item)
+    return JsonResponse({
+        'arr': arr,
+    })
+
+
 def get_other_avatar(request):
     print('/get_other_avatar')
     post_body = request.body
