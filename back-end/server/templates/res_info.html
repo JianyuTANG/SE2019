@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>成员信息</title>
+    <title>资源信息</title>
     <meta charset="utf-8">
     <!-- 新 Bootstrap4 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -38,29 +38,23 @@
 <!-- 登录表单 -->
 <form style="margin-left:50px;margin-top:20px" method="post" action="" οnsubmit="return">
     <div class="form-group">
-        <label for="realname" style="display:inline;">姓名：</label>
-        <input type="text" class="form-control" id="realname" name="realname" style="display:inline;width:200px;"
-               value={{ userinfo.realname }} >
+        <label for="realname" style="display:inline;">标题：</label>
+        <input type="text" class="form-control" id="realname" name="realname" style="display:inline;width:200px;" readonly="readonly"
+               value={{ resinfo.title }} >
     </div>
     <div class="form-group">
-        <label for="num" style="display:inline;">期数：</label>
-        <input type="text" class="form-control" id="num" name="num" style="display:inline;width:200px;"
-               value={{ userinfo.num }} >
+        <label for="num" style="display:inline;">发起人：</label>
+        <input type="text" class="form-control" id="num" name="num" style="display:inline;width:200px;" readonly="readonly"
+               value={{ resinfo.name }} >
     </div>
     <div class="form-group">
-        <label for="department" style="display:inline;">院系：</label>
-        <input type="text" class="form-control" id="department" name="department" style="display:inline;width:200px;"
-               value={{ userinfo.department }} >
+        <label for="department" style="display:inline;">截止日期：</label>
+        <input type="text" class="form-control" id="department" name="department" style="display:inline;width:200px;" readonly="readonly"
+               value={{ resinfo.due }} >
     </div>
     <div class="form-group">
-        <label for="city" style="display:inline;">城市：</label>
-        <input type="text" class="form-control" id="city" name="city" style="display:inline;width:200px;"
-               value={{ userinfo.city }} >
-    </div>
-    <div class="help-block" color="red"
-         style="font-size: x-small;color: indianred;align-content: center">{{ hintmessage }}</div>
-    <div>
-        <button style="margin-left:87px" type="submit" class="btn btn-dark" name="login">提交</button>
+        <label for="city" style="display:inline;">正文：</label>
+        <textarea class="form-control" id="city" readonly="readonly" >{{ resinfo.content }}</textarea>
     </div>
 </form>
 </body>

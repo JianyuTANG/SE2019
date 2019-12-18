@@ -59,5 +59,14 @@ urlpatterns = [
     path('recommend_res', ResourceSystem.views.recommend_res),
     path('query_res_official', ResourceSystem.views.query_res_official),
 
+    path('admin', AdminSystem.views.homepage_request),
+    path('admin_login', AdminSystem.views.login_page),
+    path('user_management', AdminSystem.views.management_page),
+    path('infopage/<int:id>', AdminSystem.views.userinfo_page),
+    path('infopage/adduser', AdminSystem.views.add_user),
+    path('delete_user', AdminSystem.views.delete_record),
+    path('admin_logout', AdminSystem.views.logout_request),
+    path('res_infopage/<int:id>', AdminSystem.views.res_infopage),
+    path('res_management', AdminSystem.views.res_management_page),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
