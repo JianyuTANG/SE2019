@@ -631,19 +631,7 @@ def query_user_by_num(request):
     except:
         print('缺失请求参数')
         return get404()
-    # classmates = UserInfo.objects.filter(number_of_entry__contains=num)
-    # user_arr = []
-    # for classmate in classmates:
-    #     num_entry = classmate.number_of_entry.split(',')
-    #     if num_entry[0] == num:
-    #         isStudent = 1
-    #     else:
-    #         isStudent = 0
-    #     user_arr.append({
-    #         'name': classmate.real_name,
-    #         'isStudent': isStudent,
-    #         'openid': classmate.id,
-    #     })
+
     user_arr = []
     group = Group_num.objects.filter(num=num)
     student_list_id = group.student_list_id.split(',')
@@ -730,7 +718,15 @@ def query_all_num(request):
     groups = Group_num.objects.all()
     arr = []
     for group in groups:
-        arr.append(group.num)
+        item = {}
+        item['num'] = group.num
+        item['title'] = group.title
+        item['description'] = group.description
+        studentlist = group.student_list_name.split(',')
+        item['length'] = len(studentlist)
+        advisorlist = group.advisor_list_name.split(',')
+        item['advisorArr'] = advisorlist
+        arr.append(item)
     arr.sort()
     return JsonResponse({
         'arr': arr,

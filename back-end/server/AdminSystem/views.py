@@ -5,7 +5,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User as Superuser
 from django.contrib.sessions.models import Session
-from .models import myrecord
 import os
 import json
 import datetime
