@@ -1,22 +1,45 @@
 .background{
-    height:320rpx;
+    height:400rpx;
     background-color: white !important;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    overflow-wrap: break-word;
+}
+
+.info-box{
+    display: flex;
+    flex-direction: column;
+}
+
+.title-text{
+    color: #666;
+	font-size: 12px;
 }
 
 .tiny-image-container{
   height:80px;
   width:80px; 
   display:flex;
+  flex-direction: row;
 }
 
-.image-container image{
+.text-box{
+    display: flex;
+    flex-direction: row;
+    padding-left: 10rpx;
+}
+
+.icon-box{
+    display: flex;
+    flex-direction: row;
+}
+
+/* .image-container image{
     width: 100%;
     height: 100%;
     display:flex;
-}
+} */
 
 .container{
     display: flex;

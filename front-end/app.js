@@ -56,7 +56,7 @@ App({
 
                 if (res.data.identity !== -1) {
                   wx.switchTab({
-                    url: '/pages/me/me'
+                    url: '/pages/plaza/plaza'
                   })
                 } else {
                   wx.redirectTo({
