@@ -642,22 +642,35 @@ def query_user_by_num(request):
 
     user_arr = []
     group = Group_num.objects.filter(num=num)
-    student_list_id = group.student_list_id.split(',')
-    student_list_name = group.student_list_name.split(',')
+    student_list_id = group.student_list_id.split(',')[:-1]
+    user_avatar = []
+    for studentid in student_list_id:
+        studentid = int(studentid)
+        userinfo = UserInfo.objects.get(id=studentid)
+        user_avatar.append(userinfo.avatar_url)
+    student_list_name = group.student_list_name.split(',')[:-1]
     l = len(student_list_id)
-    for i in range(l - 1):
+    for i in range(l):
         user_arr.append({
             'name': student_list_name[i],
             'openid': student_list_id[i],
+            'avatarUrl': user_avatar[i],
             'isStudent': 1,
         })
-    advisor_list_id = group.advisor_list_id.split(',')
-    advisor_list_name = group.advisor_list_name.split(',')
+
+    advisor_list_id = group.advisor_list_id.split(',')[:-1]
+    user_avatar = []
+    for studentid in student_list_id:
+        studentid = int(studentid)
+        userinfo = UserInfo.objects.get(id=studentid)
+        user_avatar.append(userinfo.avatar_url)
+    advisor_list_name = group.advisor_list_name.split(',')[:-1]
     l = len(advisor_list_id)
-    for i in range(l - 1):
+    for i in range(l):
         user_arr.append({
             'name': advisor_list_name[i],
             'openid': advisor_list_id[i],
+            'avatarUrl': user_avatar[i],
             'isStudent': 0,
         })
     res = {'userArr': user_arr, 'title': group.title, 'description': group.description}
