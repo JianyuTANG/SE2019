@@ -33,6 +33,10 @@ Component({
     canChange: {
       type: Boolean,
       value: false
+    },
+    canLove: {
+      type: Boolean,
+      value: true
     }
   },
   data: {
