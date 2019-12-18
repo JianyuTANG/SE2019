@@ -27,10 +27,10 @@
     <a class="nav-link disabled pull-right" tabindex="-1" style="alignment: right">欢迎， <b>{{ username }}</b></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/register/homepage">主页</a>
+    <a class="nav-link" href="/admin">主页</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link " href="/database">人员管理</a>
+    <a class="nav-link " href="/user_management">人员管理</a>
   </li>
   <li class="nav-item">
     <a class="nav-link " href="/database">资源管理</a>
@@ -57,9 +57,13 @@
             <tr>
                 <th><input type="checkbox" name="checkId" value="{{ each.id }}"/></th>
                 <td>{{ each.id }}</td>
-                <td>{{ each.name }}</td>
-                <td>{{ each.num }}</td>
-                {% if each.is_connected %}
+                <td>
+                    <a class="nav-link" href="userinfo_page/{{ each.id }}">
+                        {{ each.real_name }}
+                    </a>
+                </td>
+                <td>{{ each.number_of_entry }}</td>
+                {% if each.is_connected == 1 %}
                     <td>是</td>
                 {% else %}
                     <td>否</td>

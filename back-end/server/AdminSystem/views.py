@@ -16,7 +16,7 @@ import random
 
 def login_page(request):
     print('superuser login')
-    hint_message = '登录故障'
+    hint_message = ''
     if request.method == 'POST':
         print('POST')
         username = request.POST.get('username', '')
@@ -36,15 +36,12 @@ def login_page(request):
                     if request.user.username == username:
                         # 同一个用户
                         hint_message = "已登录"
-                        # return render(request, 'login&logon.html', {"hintmessage": hint_message})
                         return redirect("homepage")
-                        # 已登录情况下，该浏览器不会再出现homepage页面
                     else:
                         logout(request)
-                        # 强制前一用户下线
                 # 建立session记录
                 login(request, user)
-                response = HttpResponseRedirect("homepage")
+                response = HttpResponseRedirect("admin")
                 return response
     return render(request, 'login&logon.html', {"hintmessage": hint_message})
 
@@ -52,7 +49,7 @@ def login_page(request):
 def homepage_request(request):
     print(request.user.username)
     if not login_check(request):
-        return redirect("http://127.0.0.1:8000/admin_login")
+        return redirect("admin_login")
     username = '管理员'
     hint_message = ''
     if request.method == 'POST':
@@ -72,14 +69,13 @@ def homepage_request(request):
     return render(request, 'homepage.html', {"username": username, "hintmessage": hint_message})
 
 
-def userinfo_page(request):
+def userinfo_page(request, id):
     if not login_check(request):
-        return redirect("http://127.0.0.1:8000/admin_login")
-    id = 0
+        return redirect("admin_login")
     try:
         userinfo = UserInfo.objects.get(id=id)
     except:
-        return redirect("http://127.0.0.1:8000/user_management")
+        return redirect("user_management")
 
     if request.method == 'POST':
         realname = request.POST.get('realname', '')
@@ -101,10 +97,10 @@ def userinfo_page(request):
 
 def management_page(request):
     if not login_check(request):
-        return redirect("http://127.0.0.1:8000/admin_login")
+        return redirect("admin_login")
+    username = '管理员'
     p = Paginator(UserInfo.objects.filter(owner=request.user).order_by('-id'), 20)
     page = request.GET.get('page')  # 获取页码
-
     if page:
         pass
     else:
@@ -124,6 +120,7 @@ def management_page(request):
 
     return render(request, 'user_management.html',
                   {
+                      'username': username,
                       'page_list': page_list,
                       'second_list_obj': a_a,
                       'p': p,
@@ -132,7 +129,7 @@ def management_page(request):
 
 def logout_request(request):
     logout(request)
-    return redirect("http://127.0.0.1:8000/admin_login")
+    return redirect("admin_login")
 
 
 def login_check(request):
@@ -162,5 +159,5 @@ def delete_record(request):
             UserInfo.objects.get(id=each).delete()
         except:
             return HttpResponse("fail")
-        #删除记录
+
     return HttpResponse("ok")

@@ -26,10 +26,10 @@
     <a class="nav-link disabled pull-right" tabindex="-1" style="alignment: right">欢迎， <b>{{ username }}</b></a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="/register/homepage">主页</a>
+    <a class="nav-link" href="/admin">主页</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link " href="/database">人员管理</a>
+    <a class="nav-link " href="/user_management">人员管理</a>
   </li>
   <li class="nav-item">
     <a class="nav-link " href="/database">资源管理</a>
@@ -42,12 +42,12 @@
 <!-- 修改密码 -->
 <form style="margin-left:50px;margin-top:20px" method="post" action="" οnsubmit="return">
     <div class="form-group">
-        <label for="old_password" stype="display:inline;">原密码：</label>
+        <label for="old_password" stype="display:inline;">原密码：  </label>
         <input type="text" class="form-control" id="old_password" name="old_password" style="display:inline;width:200px;"
                autocomplete="off"/>
     </div>
     <div class="form-group">
-        <label for="password" stype="display:inline;">新密码：</label>
+        <label for="password" stype="display:inline;">新密码：  </label>
         <input type="text" class="form-control" id="password" name="password" style="display:inline;width:200px;"
                autocomplete="off"/>
     </div>
@@ -57,7 +57,8 @@
                autocomplete="off"/>
     </div>
     <div class="help-block" color="red"
-         style="font-size: x-small;color: indianred;align-content: center">{{ hintmessage }}</div>
+         style="font-size: x-small;color: indianred;align-content: center">{{ hintmessage }}
+    </div>
     <div>
         <button style="margin-left:87px" type="submit" class="btn btn-dark" name="login">确认修改</button>
     </div>
