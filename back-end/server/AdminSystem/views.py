@@ -238,3 +238,12 @@ def delete_record(request):
             return HttpResponse("fail")
 
     return HttpResponse("ok")
+
+
+def delete_res(request):
+    id_list = request.POST.getlist('id_list[]')
+    print(request.POST)
+    print(id_list)
+
+    for res_id in id_list:
+        pass

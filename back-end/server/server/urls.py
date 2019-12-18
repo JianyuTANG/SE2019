@@ -58,7 +58,6 @@ urlpatterns = [
     path('get_other_avatar', UserSystem.views.get_other_avatar),
     path('recommend_res', ResourceSystem.views.recommend_res),
     path('query_res_official', ResourceSystem.views.query_res_official),
-
     path('admin', AdminSystem.views.homepage_request),
     path('admin_login', AdminSystem.views.login_page),
     path('user_management', AdminSystem.views.management_page),
@@ -68,5 +67,5 @@ urlpatterns = [
     path('admin_logout', AdminSystem.views.logout_request),
     path('res_infopage/<int:id>', AdminSystem.views.res_infopage),
     path('res_management', AdminSystem.views.res_management_page),
+    path('admin_delete_res', AdminSystem.views.delete_res),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
