@@ -7,12 +7,12 @@
         "mp-cells": "../../miniprogram_npm/weui-miniprogram/cells/cells"
     },  
     "pages": [
-
+        "pages/user/index",
         "pages/cover/cover",
         "pages/login/login",
         "pages/me/me",
         "pages/me/personal",
-        "pages/user/index",
+
         "pages/resource/resource",
         "pages/resource/detail",
         "pages/resource/add",

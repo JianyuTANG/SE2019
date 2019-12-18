@@ -60,6 +60,8 @@
         <text wx:if="{{city}}">城市:{{city}}\n</text>
         
         <text wx:if="{{field}}">行业领域:{{field}}\n</text>
+
+        <text> </text>
     </view>
   </van-collapse-item>
 
@@ -86,7 +88,7 @@
         <resource-card 
                     data-id="{{item.resID}}"
                     resID="{{item.resID}}"
-                    bind:readmore="readmore"
+                    bind:readmore="onReadmore"
                     bind:switch_interest="switch_interest"
                     bind:change="changeResource"
                     bind:delete="deleteResource"
