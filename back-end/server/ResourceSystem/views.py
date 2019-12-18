@@ -174,7 +174,7 @@ def modify_res(request):
 
 def view_res(request):
     '''
-    用于用户查看现有的资源
+    用于用户查看资源详情
     :param request:
     :return:
     '''
@@ -228,7 +228,7 @@ def view_res(request):
 
 def query_res_all(request):
     '''
-    用于用户查看现有的资源
+    用于用户查看所有发布资源
     :param request:
     :return:
     '''
@@ -324,7 +324,7 @@ def recommend_res(request):
 
 def query_res_issued(request):
     '''
-    用于用户查看现有的资源
+    用于用户查看自己发布的资源
     :param request:
     :return:
     '''
@@ -582,7 +582,7 @@ def query_res_by_tags(request):
 
 def serch_res(request):
     '''
-    搜索资源
+    根据关键词搜索资源
     :param request:
     :return:
     '''
@@ -679,7 +679,7 @@ def query_res_interested(request):
 
 def switch_interest(request):
     '''
-    用于用户切换是否喜爱
+    用于用户切换感兴趣状态
     :param request:
     :return:
     '''
