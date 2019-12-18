@@ -22,13 +22,11 @@
             </view>
           </view>
 
-
-
-      <van-collapse value="{{ activeNames }}" bind:change="onChange">
-        <van-collapse-item  name="1">
-          <view slot="title">
-          <text class="title">辅导员</text>
-          </view>
+          <van-collapse value="{{ activeNames }}" bind:change="onChange">
+            <van-collapse-item  name="1">
+              <view slot="title">
+              <text class="title">负责人：</text>
+              </view>
               <view wx:for="{{userArr}}">
                   <view class="weui-cell" wx:if="{{item.isStudent !== 1}}">
                       <view class="weui-cell__hd" style="position: relative;margin-right:10px;" catchtap="visitUser" data-id="{{item.openid}}" >
@@ -40,25 +38,25 @@
                       </view>
                   </view>
               </view>
-        </van-collapse-item>
+            </van-collapse-item>
 
-          <van-collapse-item name="2">
-              <view slot="title">
-                  <text class="title">其他学员一览</text>
-              </view>
-              <view wx:for="{{userArr}}">
-                  <view class="weui-cell" wx:if="{{item.isStudent !== 0}}">
-                      <view class="weui-cell__hd" style="position: relative;margin-right:10px;" catchtap="visitUser" data-id="{{item.openid}}" >
-                          <image src="{{item.avatarUrl}}" style="width: 50px; height: 50px;display: block" fit="cover"/>
-                      </view>
-                      <view class="weui-cell__bd">
-                        <view style="font-size: 36rpx;color: black;">{{item.name}}</view>
-                        <view style="font-size: 30rpx;color: #888888;">{{item.department}}</view>
-                      </view>
-                  </view>
-              </view>
-          </van-collapse-item>
-      </van-collapse>
+            <van-collapse-item name="2">
+                <view slot="title">
+                    <text class="title">其他学员一览</text>
+                </view>
+                <view wx:for="{{userArr}}">
+                    <view class="weui-cell" wx:if="{{item.isStudent !== 0}}">
+                        <view class="weui-cell__hd" style="position: relative;margin-right:10px;" catchtap="visitUser" data-id="{{item.openid}}" >
+                            <image src="{{item.avatarUrl}}" style="width: 50px; height: 50px;display: block" fit="cover"/>
+                        </view>
+                        <view class="weui-cell__bd">
+                          <view style="font-size: 36rpx;color: black;">{{item.name}}</view>
+                          <view style="font-size: 30rpx;color: #888888;">{{item.department}}</view>
+                        </view>
+                    </view>
+                </view>
+            </van-collapse-item>
+          </van-collapse>
 
         </view>
     </view>

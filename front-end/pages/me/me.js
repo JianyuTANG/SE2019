@@ -21,6 +21,7 @@ Page({
     showLoading: false, // 用于头像是否显示加载样式
     avatar: '',
     name: '',
+    selfDescription: '',
     identity: 0,
     stuNumber: 0,
     advNumber: 0,
@@ -66,8 +67,10 @@ Page({
         that.setData({
           'stuNumber': res.data.studentArr,
           'advNumber': res.data.advisorArr,
+          'selfDiscription': res.data.selfDiscription,
           'name': res.data.name
         })
+        console.log('冲压', that.data.selfDiscription)
       }
     })
   },
@@ -116,6 +119,7 @@ Page({
       wx.uploadFile({
         url: that.data.uploadUrl,
         filePath: filePath,
+
         name: filePath,
         header: {
           sessionCode: sessionCode
