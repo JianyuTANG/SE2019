@@ -9,7 +9,7 @@ Page({
     baseUrlPrefix: app.globalData.baseUrl.substr(0, app.globalData.baseUrl.length - 1),
     queryUrl: app.globalData.baseUrl + 'query_res_by_openid',
     viewUserUrl: app.globalData.baseUrl + 'view_other_by_openid',
-    activeNames: ['1'],
+    activeNames: ['1', '2'],
     avatarUrl: '',
     name: '',
     email: '',

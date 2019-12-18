@@ -30,7 +30,7 @@ buttons="{{[{text: '确定'}]}}">
             <view class="avatar flex-item" bindtap="visit_other">
                 <image src="{{avatarSrc}}"></image>
             </view>
-            <view class="answerer-info flex-item">
+            <view class="answerer-info flex-item"  bindtap="visit_other">
                 <text class="answerer-name">发起人：{{name}}</text>
                 <text class="answerer-des">联系方式：{{contact}}</text>
             </view>

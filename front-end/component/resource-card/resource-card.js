@@ -40,7 +40,7 @@ Component({
     },
     expired: {
       type: Boolean,
-      value: true
+      value: false
     },
     category: {
       type: String,

@@ -337,5 +337,11 @@ Page({
     wx.switchTab({
       url: '/pages/plaza/plaza'
     })
+  },
+
+  visit_other: function (e) {
+    wx.redirectTo({
+      url: '/pages/user/index?targetOpenid=' + this.data.openid
+    })
   }
 })
