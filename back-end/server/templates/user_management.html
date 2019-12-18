@@ -42,7 +42,12 @@
 
 <div class="jumbotron" style="margin-top:0px">
     <input type="checkbox" style="margin-left:13px;" id="checkAll">全选</input>
-    <button type="button" class="btn btn-dark" style="margin-left:15px" id="mydelete">删除选中记录</button>
+    <button type="button" class="btn btn-dark" style="margin-left:15px" id="mydelete">删除选中用户</button>
+    <a class="nav-link " href="/infopage/adduser" id="logout">
+        <button type="button" class="btn btn-dark" style="margin-left:15px" id="myadd">
+            增加用户
+        </button>
+    </a>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -58,7 +63,7 @@
                 <th><input type="checkbox" name="checkId" value="{{ each.id }}"/></th>
                 <td>{{ each.id }}</td>
                 <td>
-                    <a class="nav-link" href="userinfo_page/{{ each.id }}">
+                    <a class="nav-link" href="infopage/{{ each.id }}">
                         {{ each.real_name }}
                     </a>
                 </td>
@@ -95,7 +100,7 @@
     $(document).ready(function () {
         $("#logout").click(function () {
             $.get("logout/", function () {
-                window.location.href = "http://127.0.0.1:8000/register/"
+                window.location.href = "http://127.0.0.1:8000/admin_login"
             })
         }),
         $("#checkAll").change(function () {
@@ -123,7 +128,7 @@
             }
             console.log(rtn_id_list)
             $.ajax({
-                'url': '/database/delete',
+                'url': '/delete_user',
                 'type': 'post',
                 'data': {"id_list": rtn_id_list},
                 'content/type': "application/json",

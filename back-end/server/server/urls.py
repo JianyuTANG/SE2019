@@ -57,5 +57,7 @@ urlpatterns = [
     path('admin_login', AdminSystem.views.login_page),
     path('user_management', AdminSystem.views.management_page),
     path('infopage/<int:id>', AdminSystem.views.userinfo_page),
+    path('infopage/adduser', AdminSystem.views.add_user),
+    path('delete_user', AdminSystem.views.delete_record),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

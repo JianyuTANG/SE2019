@@ -78,6 +78,7 @@ def userinfo_page(request, id):
     except:
         return redirect("/user_management")
 
+    username = '管理员'
     if request.method == 'POST':
         realname = request.POST.get('realname', '')
         num = request.POST.get('num', '')
@@ -93,7 +94,30 @@ def userinfo_page(request, id):
     info['num'] = userinfo.number_of_entry
     info['department'] = userinfo.department
     info['city'] = userinfo.city
-    return render(request, 'personal_info.html', {'userinfo': info})
+    return render(request, 'personal_info.html', {"username": username, 'userinfo': info})
+
+
+def add_user(request):
+    if not login_check(request):
+        return redirect("/admin_login")
+    username = '管理员'
+    info = {}
+    info['realname'] = ''
+    info['num'] = ''
+    info['department'] = ''
+    info['city'] = ''
+    if request.method == 'POST':
+        realname = request.POST.get('realname', '')
+        num = request.POST.get('num', '')
+        department = request.POST.get('department', '')
+        city = request.POST.get('city', '')
+        userinfo = UserInfo.objects.create()
+        userinfo.real_name = realname
+        userinfo.department = department
+        userinfo.number_of_entry = num
+        userinfo.city = city
+        userinfo.save()
+    return render(request, 'personal_info.html', {"username": username, 'userinfo': info})
 
 
 def management_page(request):
