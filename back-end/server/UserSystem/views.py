@@ -6,6 +6,7 @@ import json
 import time
 import os
 from .config import administration_config
+from ResourceSystem.models import Resource
 
 
 def login(request):
@@ -337,6 +338,68 @@ def query_other(request):
     response.status_code = 200
     return response
 
+
+def query_other_by_openid(request):
+    print('/view_other_by_openid')
+    post_body = request.body
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+        openid = json_request['openid']
+    except:
+        print('json请求解析错误')
+        return get404()
+
+    if user is None:
+        # 用户不存在 （sessionCode有误） 直接404
+        print('sessioncode校验失败')
+        return get404()
+
+    try:
+        user = User.objects.get(openid=openid)
+        userinfo = user.info
+        if userinfo is None:
+            return JsonResponse({'error': 'no such user'})
+    except:
+        res = {'error': 'no such user'}
+        response = HttpResponse(json.dumps(res), content_type="application/json")
+        return response
+
+    studentArr = []
+    advisorArr = []
+    nums = userinfo.number_of_entry.split(',')
+    if nums[0] != '-1':
+        studentArr.append(nums[0])
+    nums = nums[1:]
+    for i in nums:
+        if i != '-1':
+            advisorArr.append(i)
+
+    resArr = []
+    res_arr = Resource.objects.filter(openid=openid)
+    for res in res_arr:
+        resArr.append(int(res.res_id))
+
+    res = {
+        'name': userinfo.real_name,
+        'studentArr': studentArr,
+        'advisorArr': advisorArr,
+        'identity': user.logon_status,
+        'city': userinfo.city,
+        'field': userinfo.field,
+        'department': userinfo.department,
+        'wechatID': userinfo.wechatid,
+        'tel': userinfo.tel,
+        'email': userinfo.email,
+        'selfDiscription': userinfo.self_discription,
+        'company': userinfo.company,
+        'hobby': userinfo.hobby,
+        'avatar_url': userinfo.avatar_url,
+        'resArr': resArr,
+    }
+    response = HttpResponse(json.dumps(res), content_type="application/json")
+    response.status_code = 200
+    return response
 
 
 def upload_user_avatar(request):

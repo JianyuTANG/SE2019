@@ -42,12 +42,12 @@ class User(models.Model):
 
 class Group_num(models.Model):
     num = models.IntegerField(unique=True, null=True)
-    student_list_id = models.TextField(default='')
-    advisor_list_id = models.TextField(default='')
-    student_list_name = models.TextField(default='')
-    advisor_list_name = models.TextField(default='')
-    title = models.TextField(default='')
-    description = models.TextField(default='')
+    student_list_id = models.TextField(default='', blank=True)
+    advisor_list_id = models.TextField(default='', blank=True)
+    student_list_name = models.TextField(default='', blank=True)
+    advisor_list_name = models.TextField(default='', blank=True)
+    title = models.TextField(default='', blank=True)
+    description = models.TextField(default='', blank=True)
 
     def __str__(self):
         return str(self.num)

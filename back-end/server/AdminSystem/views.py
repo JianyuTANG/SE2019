@@ -4,17 +4,49 @@ from django.shortcuts import redirect  # 重新定向模块
 from .userform import UserForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User as Superuser
 from django.contrib.sessions.models import Session
 from .models import myrecord
 import os
 import json
 import datetime
-from myrecord import models
 import string
 import random
 
-from .DL_service import *
+
+def login_page(request):
+    print('superuser login')
+    hint_message = '登录故障'
+    if request.method == 'POST':
+        print('POST')
+        username = request.POST.get('username', '')
+        password = request.POST.get('password', '')
+        if not username or username.isspace():
+            hint_message = '用户名不能为空'
+        elif not password or password.isspace():
+            hint_message = '密码不能为空'
+        else:
+            user = authenticate(username=username, password=password)
+            if not Superuser.objects.filter(username=username):
+                hint_message = "用户名不存在"
+            elif Superuser.objects.filter(username=username) and user is None:
+                hint_message = "密码错误"
+            else:
+                if login_check(request):
+                    if request.user.username == username:
+                        # 同一个用户
+                        hint_message = "已登录"
+                        # return render(request, 'login&logon.html', {"hintmessage": hint_message})
+                        return redirect("homepage")
+                        # 已登录情况下，该浏览器不会再出现homepage页面
+                    else:
+                        logout(request)
+                        # 强制前一用户下线
+                # 建立session记录
+                login(request, user)
+                response = HttpResponseRedirect("homepage")
+                return response
+    return render(request, 'login&logon.html', {"hintmessage": hint_message})
 
 
 # Create your views here.
@@ -36,9 +68,9 @@ def register_request(request):
             if "login" in request.POST:
                 print("to login")
                 user = authenticate(username=username, password=password)
-                if not User.objects.filter(username=username):
+                if not Superuser.objects.filter(username=username):
                     hint_message = "用户名不存在"
-                elif User.objects.filter(username=username) and user is None:
+                elif Superuser.objects.filter(username=username) and user is None:
                     hint_message = "密码错误"
                 else:
                     if login_check(request):
@@ -58,14 +90,14 @@ def register_request(request):
                     return response
                     # 重定向跳转
 
-            elif "register" in request.POST:
-                print("to register")
-                if User.objects.filter(username=username):
-                    hint_message = '用户名已注册'
-                else:
-                    new_user = User.objects.create_user(username=username, password=password)
-                    new_user.save()
-                    hint_message = "注册成功,请登录"
+            # elif "register" in request.POST:
+            #     print("to register")
+            #     if User.objects.filter(username=username):
+            #         hint_message = '用户名已注册'
+            #     else:
+            #         new_user = User.objects.create_user(username=username, password=password)
+            #         new_user.save()
+            #         hint_message = "注册成功,请登录"
 
     print(hint_message)
     return render(request, 'login&logon.html', {"hintmessage": hint_message})
