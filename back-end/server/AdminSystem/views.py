@@ -59,15 +59,18 @@ def homepage_request(request):
         old_password = request.POST.get('old_password', '')
         new_password = request.POST.get('password', '')
         confirm_password = request.POST.get('confirm_password', '')
-        user = authenticate(username=username, password=old_password)
+        user = authenticate(username=request.user.username, password=old_password)
         if user is not None and user.is_active:
             if not new_password.isspace() and new_password == confirm_password:
                 user.set_password(new_password)
+                hint_message = '修改密码成功'
+                print('666')
                 user.save()
             else:
                 hint_message = '新密码为空或与确认不一致'
         else:
-            hint_message = '未登录'
+            print('999')
+            hint_message = '原密码错误'
     return render(request, 'homepage.html', {"username": username, "hintmessage": hint_message})
 
 
