@@ -723,7 +723,40 @@ def query_all_num(request):
         print('sessionCode有误')
         return get404()
 
-    groups = Group_num.objects.all()
+    groups = Group_num.objects.filter(num__lte=1000)
+    arr = []
+    for group in groups:
+        item = {}
+        item['num'] = group.num
+        item['title'] = group.title
+        item['description'] = group.description
+        studentlist = group.student_list_name.split(',')
+        item['length'] = len(studentlist)
+        advisorlist = group.advisor_list_name.split(',')
+        item['advisorArr'] = advisorlist
+        arr.append(item)
+    arr.sort(key=lambda x: x['num'])
+    return JsonResponse({
+        'arr': arr,
+    })
+
+
+def query_all_fields(request):
+    print('/query_all_fields')
+    post_body = request.body
+    try:
+        json_request = json.loads(post_body)
+        user = get_user(json_request['sessionCode'])
+    except:
+        print('json请求解析错误')
+        return get404()
+
+    if user is None:
+        # 用户不存在 （sessionCode有误） 直接404
+        print('sessionCode有误')
+        return get404()
+
+    groups = Group_num.objects.filter(num__gt=1000)
     arr = []
     for group in groups:
         item = {}
