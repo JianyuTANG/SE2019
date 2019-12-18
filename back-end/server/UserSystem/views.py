@@ -641,12 +641,13 @@ def query_user_by_num(request):
         return get404()
 
     user_arr = []
-    group = Group_num.objects.filter(num=num)
+    group = Group_num.objects.get(num=num)
     student_list_id = group.student_list_id.split(',')[:-1]
     user_avatar = []
     for studentid in student_list_id:
-        studentid = int(studentid)
+
         try:
+            studentid = int(studentid)
             userinfo = UserInfo.objects.get(id=studentid)
             user_avatar.append(userinfo.avatar_url)
         except:
@@ -664,8 +665,9 @@ def query_user_by_num(request):
     advisor_list_id = group.advisor_list_id.split(',')[:-1]
     user_avatar = []
     for studentid in student_list_id:
-        studentid = int(studentid)
+
         try:
+            studentid = int(studentid)
             userinfo = UserInfo.objects.get(id=studentid)
             user_avatar.append(userinfo.avatar_url)
         except:
