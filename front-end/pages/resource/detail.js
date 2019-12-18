@@ -22,6 +22,7 @@ Page({
     resID:'x',
     interested:'',
     currentIndex: 0,
+    openid: '',
 
     indicatorDots: true,
     vertical: false,
@@ -197,6 +198,7 @@ Page({
   get_other_avatar: function (openid, resolve, reject) {
     var sessionCode
     sessionCode = wx.getStorageSync('sessionCode')
+    console.log('函数中的', openid)
     wx.request({
       url: 'http://154.8.172.132/get_other_avatar',
       method: 'POST',

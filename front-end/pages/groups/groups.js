@@ -111,6 +111,7 @@ Page({
         console.log(promise)
         promise.then(function() {
             console.log('promise success')
+            that.loadCurList()
             return promiseAllNum
         }).then(function() {
             that.loadCurList()

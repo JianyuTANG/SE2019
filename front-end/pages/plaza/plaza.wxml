@@ -1,23 +1,26 @@
-<mp-searchbar placeholder="请输入关键字搜索" 
-    bindselectresult="selectResult" 
-    bindinput="search">
-</mp-searchbar>
+<van-search
+  value="{{ searchValue }}"
+  placeholder="请输入搜索关键词"
+  use-action-slot
+  bind:change="onSearchChange"
+  bind:search="onSearch"
+>
+  <view slot="action" bind:tap="onSearch">搜索</view>
+</van-search>
 
-<view class="container">
-  <view class="page-body">
-    <view class="page-section page-section-spacing swiper">
-      <swiper indicator-dots="{{indicatorDots}}"
-        autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-        <block wx:for="{{background}}" wx:key="*this">
-          <swiper-item>
-            <!-- <view class="swiper-item {{item}}"></view> -->
-            <image class="swiper_image" src="{{imgArr}}" lazy-load="true" />
-          </swiper-item>
-        </block>
-      </swiper>
-    </view>x
+<mp-cell show-error title="" ext-class="">
+  <view wx:if="{{imgArr[0]!=='http://154.8.172.132'}}" class="swipers-container">
+    <swiper previous-margin="{{leftMargin}}" next-margin="{{rightMargin}}" indicator-dots="{{indicatorDots}}"
+      autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" current="{{current}}"bindchange="handleChange">
+      <block wx:for="{{res.data.res_list}}" wx:key="*this">
+        <swiper-item>
+          <!-- <text>{{item}}</text> -->
+          <image class="slide-image {{currentIndex == index ? 'active': ''}}" src="{{item.coverImg}}" mode='scaleToFill' lazy-load="true" />
+        </swiper-item>
+      </block>
+    </swiper>
   </view>
-</view>
+</mp-cell>
 
 <mp-tabbar ext-class="tabbar-item" style="" list="{{list}}" bindchange="tabChange"></mp-tabbar>
 
