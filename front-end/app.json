@@ -35,7 +35,7 @@
         "list": [
             {
                 "pagePath": "pages/plaza/plaza",
-                "text": "广场",
+                "text": "官方推荐",
                 "iconPath": "assets/activity.png",
                 "selectedIconPath": "assets/activity-active.png"
             },

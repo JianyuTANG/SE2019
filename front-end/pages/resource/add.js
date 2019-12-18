@@ -77,21 +77,19 @@ Page({
         let category = match[0].value
         console.log(category)
         let imgArr = data.imgArr.filter(d => d).map(x => {
-          return function () {
-            if (x) {
-              return { url: that.data.baseUrlPrefix + x, isImage: true, suffix: data.coverImg }
-            } else {
-              return null
-            }
+          if (x) {
+            return { url: that.data.baseUrlPrefix + x, isImage: true, suffix: x }
+          } else {
+            return null
           }
         })
-        console.log(imgArr)
+        console.log('imgArr' + imgArr)
         that.setData({
           'formData.title': data.title,
           'formData.content': data.content,
           'formData.contact': data.contact,
           'formData.endDate': data.due,
-          'formData.tags': data.tagArr,
+          'formData.tags': data.tagArr.filter(p => p),
           'formData.coverFile': [{
             url: that.data.baseUrlPrefix + data.coverImg,
             isImage: true,

@@ -11,6 +11,7 @@ Page({
     searchCategoryUrl: baseUrl + 'query_res_by_category',
     searchTagsUrl: baseUrl + 'query_res_by_tags',
     queryAllUrl: baseUrl + 'query_res_all',
+    recommendUrl: baseUrl + 'recommend_res',
     searchUrl: baseUrl + 'search_res',
     nameList: [{
       text: '全部资源'
@@ -82,6 +83,10 @@ Page({
     let promiseInterest = new Promise((resolve, reject) => {
       this.query_res_interested(resolve, reject)
     })
+    let promiseRecommend = new Promise((resolve, reject) => {
+      this.query_res_recommend(resolve, reject)
+    })
+
     let promise = new Promise((resolve, reject) => {
       that.query_res_all(resolve, reject)
       // that.searchType(that.data.activityType, resolve, reject)
@@ -93,11 +98,12 @@ Page({
     }).then(function () {
       return promiseInterest
     }).then(function () {
-      that.loadCurList()
-    }).catch((reason) => {
-      console.log('promise fail')
-      console.log(reason)
-    })
+      return promiseRecommend
+    }).then(() => { that.loadCurList() })
+      .catch((reason) => {
+        console.log('promise fail')
+        console.log(reason)
+      })
 
     console.log('当前类别为', app.globalData.curResourceType)
     if (that.data.listIndex === 0 && app.globalData.curResourceType !== -1) {
@@ -280,6 +286,44 @@ Page({
           'likeList': res.data.res_list
         })
         if (resolve) { resolve() }
+      },
+      fail (res) {
+        if (reject) { reject('query fail interested') }
+      }
+    })
+  },
+
+  query_res_recommend: function (resolve, reject) {
+    let that = this
+    let sessionCode = wx.getStorageSync('sessionCode')
+    let openid = wx.getStorageSync('openid')
+    wx.request({
+      url: that.data.recommendUrl,
+      method: 'POST',
+
+      data: {
+        sessionCode: sessionCode,
+        openid: openid
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success (res) {
+        if (res.statusCode === 200) {
+          console.log('query_res_recommend返回值', res)
+          for (let i in res.data.res_list) {
+          // 从这里继续
+            if (res.data.res_list[i].coverImg === '') {
+              res.data.res_list[i].coverImg = '/assets/bluelogo.png'
+            } else { res.data.res_list[i].coverImg = that.data.baseUrlwithoutTailLine + res.data.res_list[i].coverImg }
+          }
+          that.setData({
+            'recommendList': res.data.res_list
+          })
+          if (resolve) { resolve() }
+        } else {
+          if (reject) { reject(Error('query fail interested')) }
+        }
       },
       fail (res) {
         if (reject) { reject('query fail interested') }
