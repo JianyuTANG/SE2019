@@ -727,7 +727,7 @@ def query_all_num(request):
         advisorlist = group.advisor_list_name.split(',')
         item['advisorArr'] = advisorlist
         arr.append(item)
-    arr.sort()
+    arr.sort(key=lambda x: x['num'])
     return JsonResponse({
         'arr': arr,
     })
