@@ -89,7 +89,7 @@
     $(document).ready(function () {
         $("#logout").click(function () {
             $.get("/admin_logout", function () {
-                window.location.href = "http://127.0.0.1:8000/admin_login"
+                window.location.href = "/admin_login"
             })
         }),
         $("#checkAll").change(function () {
