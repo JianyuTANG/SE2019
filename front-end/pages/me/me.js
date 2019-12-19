@@ -29,6 +29,15 @@ Page({
     t: 0 // 用于更新图片的一种办法,每次更新图片时,t++
   },
   onLoad: function () {
+
+  },
+
+  onShow: function () {
+    // this.setData({ // TODO 从服务器得到头像
+    //   // avatar: wx.getStorageSync('avatar') || 'https://yunlaiwu0.cn-bj.ufileos.com/teacher_avatar.png',
+    //   name: wx.getStorageSync('name') || ''
+    // })
+    // // this.testActivities()
     let that = this
     let sessionCode = wx.getStorageSync('sessionCode')
     let openid = wx.getStorageSync('openid')
@@ -73,14 +82,6 @@ Page({
         console.log('冲压', that.data.selfDiscription)
       }
     })
-  },
-
-  onShow: function () {
-    // this.setData({ // TODO 从服务器得到头像
-    //   // avatar: wx.getStorageSync('avatar') || 'https://yunlaiwu0.cn-bj.ufileos.com/teacher_avatar.png',
-    //   name: wx.getStorageSync('name') || ''
-    // })
-    // // this.testActivities()
   },
 
   // 用于处理点击头像事件
