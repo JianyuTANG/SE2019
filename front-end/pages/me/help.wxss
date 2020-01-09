@@ -1,0 +1,19 @@
+
+/* @import '/miniprogram_npm/weui-miniprogram/weui-wxss/dist/style/weui.wxss'; */
+.container{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #eef1f9;
+}
+
+/* .debug-bg{
+    background-color: #eef1f9;
+    background-size:100% 100%; 
+}
+
+.debug-bg view{
+    background-color:white;
+} */
+

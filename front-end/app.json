@@ -11,6 +11,7 @@
         "pages/cover/cover",
         "pages/login/login",
         "pages/me/me",
+        "pages/me/help",
         "pages/me/personal",
         "pages/user/index",
         "pages/resource/resource",

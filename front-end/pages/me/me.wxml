@@ -24,7 +24,7 @@
     <mp-cells>
     
     <!-- 个性化签名丰富 -->
-    <mp-cell  bindtap="navToDetailPage"  value="{{selfDiscription}}" data-field="personal">
+    <mp-cell  value="{{selfDiscription}}" data-field="personal">
 
       <!-- <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>
@@ -46,7 +46,7 @@
       </view>
     </mp-cell> -->
 
-    <mp-cell  value="使用指南">
+    <mp-cell  value="使用指南" bindtap="navToHelpPage">
       <view slot="icon">
       <image class="icon" src= "/assets/activity.png"/>
       </view>

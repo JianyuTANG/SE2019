@@ -1,0 +1,5 @@
+<!--pages/me/help.wxml-->
+<view  class="container" style="width:100%; height:auto;">
+    <image src="/assets/help.jpg"  style="width:100%;" mode="widthFix" />
+
+</view>

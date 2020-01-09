@@ -185,6 +185,12 @@ Page({
       default:
         console.log(name)
     }
+  },
+
+  navToHelpPage: function (e) {
+    wx.navigateTo({
+      url: '/pages/me/help'
+    })
   }
 
 })
